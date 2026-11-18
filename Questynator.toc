@@ -1,0 +1,20 @@
+## Interface: 16001
+## Title: Questynator
+## Notes: Find a group for any quest. Adds an LFG button to your quests and matches you with other Questynator players on the same quest.
+## Author: Ashot
+## Version: 1.3.1
+## IconTexture: Interface\AddOns\Questynator\Media\Icon
+## X-License: GPL-3.0-or-later
+## SavedVariables: QuestynatorDB
+## AddonCompartmentFunc: Questynator_OnCompartmentClick
+## AddonCompartmentFuncOnEnter: Questynator_OnCompartmentEnter
+## AddonCompartmentFuncOnLeave: Questynator_OnCompartmentLeave
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\lib.xml
+
+Data\QuestData.lua
+Data\JournalPickups.lua
+Questynator.lua

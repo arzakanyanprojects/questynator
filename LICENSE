@@ -1,0 +1,16 @@
+Questynator - find a group for any quest in WoW: Forever
+Copyright (C) 2026 Ashot
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details. The full text is in gpl-3.0.md.
+
+Data/QuestData.lua is derived from QuestieDB, part of the Questie project
+(https://github.com/Questie/Questie), licensed under the GNU GPL v3.
+
+The libraries in Libs/ (LibStub, CallbackHandler-1.0, LibDataBroker-1.1, LibDBIcon-1.0) are
+distributed under their own licenses.
