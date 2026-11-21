@@ -8230,7 +8230,7 @@ ns.CHANGELOG = {
         "Every tab has a new two-column layout: summary and controls on the left, the list on the right. The Quests tab shows your route beside your quests, with ready turn-ins first.",
         "A new in-world waypoint marks your next route stop with a beam, rings on the spot, the distance and time. It fades as you get close and turns green when you arrive.",
         "Routes always go to the nearest stop, skip dungeon and battleground quests, and suggest the best next zone when yours runs out.",
-        "Quest data rebuilt from QuestieDB Forever: about 440 more pickups, more exact locations, and player tips for Mulgore starter quests.",
+        "Quest data rebuilt for WoW Forever: about 440 more pickups, more exact locations, and player tips for Mulgore starter quests.",
     } },
     { v = "1.6.3", lines = {
         "The Route Planner opens compact with your next action. Click More for up to three actions, Snooze stop, and Undo. Its main button pauses and resumes the route.",

@@ -18,7 +18,7 @@
 - Each planner action shows the quest's level, XP and tags, and for pickups what the quest asks for and where. Later stops show their distance.
 
 ## Quest data
-- Rebuilt from the latest QuestieDB Forever: 5,982 quests, about 440 more pickups (including quests that start from an item on the ground, like **Attack on Camp Narache**), XP for 950 more quests, Horde-specific quest givers, and more exact coordinates.
+- Quest data rebuilt for WoW Forever: 5,982 quests, about 440 more pickups (including quests that start from an item on the ground, like **Attack on Camp Narache**), XP for 950 more quests, Horde-specific quest givers, and more exact coordinates.
 - **Quest tips:** short player tips for 20 Mulgore starter quests, in quest tooltips and "how to complete".
 
 ## Fixes and polish
