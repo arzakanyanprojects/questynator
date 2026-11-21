@@ -8,13 +8,14 @@ Copy the `Questynator` folder into your WoW Forever `Interface/AddOns/` folder, 
 
 ## The window
 Open it with `/qn`, the minimap button, or `/lfg` when that command is available.
-- **Quests:** quest cards with a level badge, objective progress bar and group badges. Quests you're searching for glow green and sit at the top.
+- **Quests:** your route on the left, your quest log on the right. The route column shows the current stop as a card (what to do, where, level, XP and **Pin on map**), the next stops with their distance, and your quest log rewards with the XP bar at the bottom. Quest cards show a level badge, the next objective with its count and a progress bar, and the search or party status. Ready-to-turn-in quests come first with **Pin turn-in**, then the quests closest to done. The **All**, **Group** and **Ready** chips filter the list. Quests you're searching for get a teal outline.
 - **Nearby:** everyone found for your quests, through Questynator or in chat, with class icon, class-colored name and level, plus **Whisper** and **Invite**.
 - **Groups:** every group created with Questynator on your realm and faction, even for quests you don't have. Shows the host, quest, level range, zone and size. **Join** asks the host for an invite and accepts it automatically.
 - **Dungeons:** find a party by dungeon and role.
 - **Zones:** see which quests you can pick up and where to find their givers.
 - **Treasures:** track bag quests and the Cozy Sleeping Bag for your character.
-- **Rewards header:** XP, money and reputation for finishing every quest in your log, with a small XP bar showing where that gets you.
+- **Rewards:** quest rewards worth chasing for your class and level (see Reward Hunting).
+- **Quest log rewards:** XP, money and reputation for finishing every quest in your log, with a small XP bar showing where that gets you, at the bottom of the Quests tab's route column.
 - **Stats:** users online, quests done with Questynator groups, groups formed, active searches.
 
 ## Use
@@ -26,7 +27,7 @@ Open it with `/qn`, the minimap button, or `/lfg` when that command is available
 
 ## Reward Hunting
 
-Open the **Reward Hunting** tab after **Treasures**, or type `/qn rewards`. It shows weapons, armor, and jewelry that fit your class, learned proficiencies, and level. Search by item, slot, type, or final quest. Bag quests are in **Treasures**.
+Open the **Rewards** tab after **Treasures**, or type `/qn rewards`. It shows weapons, armor, and jewelry that fit your class, learned proficiencies, and level. Search by item, slot, type, or final quest. Bag quests are in **Treasures**.
 
 **Current zone** starts enabled. A reward appears when its next pickup, unfinished objective, or turn-in has a known location in your zone. Turn the filter off to browse all zones. A pursuit follows the chain when it takes you into another zone.
 
@@ -46,6 +47,7 @@ Open a reward to see the remaining quests in order. The current step has a **Pin
 
 Questynator automatically plans your route after you log in or run `/reload`.
 **Questynator : Route Planner** shows the current destination and your next action. Click **More** to see up to three actions, **Snooze stop**, and **Undo**; **Less** collapses it again.
+A grey line under each action shows the quest's level, XP and Elite or group tag. For a quest you haven't picked up yet, it also says what the quest asks for and where, for example "Get Tear of the Moons from General Twinbraid's Strongbox (49, 84)". Later stops show how far away they are, and the stop counter shows the distance to the current stop.
 Click the pin beside an action to mark its pickup, objective, or turn-in. The Quests tab can also pin a whole stop when several tasks share it.
 
 **Snooze stop** hides the current stop for this visit to the zone, including after a replan or reload. **Undo snooze** restores the most recently snoozed stop. Both actions are also available through `/qn snooze` and `/qn undo`. Snoozing a reward stop keeps the pursuit saved while the planner looks for other work.
@@ -54,14 +56,21 @@ Questynator remembers its position and visibility across sessions.
 
 Questynator uses known
 locations in your current zone to plan up to ten stops from your active
-objectives, ready turn-ins, "speak to" quests, and eligible quest pickups within 300 yards of you. When nothing else is in reach, it points to the nearest pickup in the zone. Nearby tasks can share a stop. The compass
+objectives, ready turn-ins, "speak to" quests, and eligible quest pickups within 300 yards of you. Dungeon and battleground quest givers are left out; use a prep route for dungeon quests. When nothing else is in reach, it points to the nearest pickup in the zone. Nearby tasks can share a stop. The compass
 advances after all tasks at the current stop are done. When you select a quest in the objective tracker, the compass shows **Selected quest** and the floating planner previews your next route stop under **Up next when you resume**. Click **Resume route** to return to that stop or reward pursuit.
+
+When the zone has nothing left for your level, the planner shows **Best next**: the zone with the most pickups and quests from your log, with a zone on another continent counting half. **Route there** guides you to that zone and hands back to normal planning when you arrive. The trip isn't saved, so it ends when you log out. **Show zones** opens the Zones tab.
+
+A dungeon prep route, a reward pursuit and a zone trip are named at the top of the planner, with a **Stop** button beside the name.
 
 The route replans when quests enter or leave your log, when you finish an objective or turn in a quest, when you enter a new zone, and when you level up.
 If the route is paused, it replans when you resume.
 
-The planner's main button pauses route guidance and the compass; click **Resume route** to continue. In the Quests tab, use **Pause**, **Snooze stop** to skip the current stop, or
-**Replan** to build a fresh route from your current location and quest progress. A replan keeps the task you are working on first.
+The planner's main button pauses route guidance and the compass; click **Resume route** to continue. In the Quests tab's route column, use **Pause**, **Snooze** to skip the current stop, or
+**Replan** to build a fresh route from your current location and quest progress.
+
+### In-world waypoint
+Your next route stop gets a marker in the world: a beam and an icon (**!** pickup, **?** turn-in, a dot for an objective) with a label showing the quest, who or where, the distance and the time to get there. Behind you, it waits at the screen edge as the icon and the distance. Questynator puts the stop on the map as your waypoint, but never replaces a pin you placed yourself. While you follow a quest you picked in the objective tracker, the marker steps aside. Turn it off with **In-world waypoint over the next route stop** under Options.
 
 ## Dungeon finder
 The **Dungeons** tab lists the dungeons around your level. Pick your roles (Tank, Healer, DPS), then:

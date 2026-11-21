@@ -28,6 +28,48 @@ end
 ---------------------------------------------------------------------------
 ns.LOCALES = {
 deDE = {
+    ["You're here"] = "Du bist da",
+    ["Most XP for you"] = "Meiste EP für dich",
+    ["%d quests to pick up in %d zones"] = "%d annehmbare Quests in %d Gebieten",
+    ["Your searches · %d"] = "Deine Suchen · %d",
+    ["You're not searching yet. Use Find group on a quest card."] = "Du suchst noch nicht. Nutze „Gruppe suchen“ auf einer Questkarte.",
+    ["Players within 6 levels of you, found through Questynator or chat."] = "Spieler bis 6 Stufen von dir, gefunden über Questynator oder den Chat.",
+    ["You're not hosting. List a quest from your log: players who click Join, or whisper you +, are invited."] = "Du leitest keine Gruppe. Biete eine Quest aus deinem Log an: Wer „Beitreten“ klickt oder dir + flüstert, wird eingeladen.",
+    ["Groups made with Questynator on your realm and faction."] = "Mit Questynator erstellte Gruppen auf deinem Realm und deiner Fraktion.",
+    ["You get a reminder near a bag quest giver, even with this window closed."] = "Du wirst in der Nähe eines Taschen-Questgebers erinnert, auch bei geschlossenem Fenster.",
+    ["Nothing yet."] = "Noch nichts.",
+    ["Pursue a reward and the Route Planner walks you through its quests, even across zones."] = "Verfolge eine Belohnung und der Routenplaner führt dich durch ihre Quests, auch über Gebiete hinweg.",
+    ["Pickup"] = "Annahme",
+    ["Objective"] = "Ziel",
+    ["In-world waypoint over the next route stop"] = "Wegpunkt in der Welt über dem nächsten Routenstopp",
+    ["No other stops in this zone yet. New ones appear as you pick up quests."] = "Noch keine weiteren Stopps in diesem Gebiet. Neue erscheinen, wenn du Quests annimmst.",
+    ["All %d"] = "Alle %d",
+    ["Group %d"] = "Gruppe %d",
+    ["No quests match this filter."] = "Keine Quests passen zu diesem Filter.",
+    ["Now"] = "Jetzt",
+    ["Pin on map"] = "Auf Karte",
+    ["Quest log rewards"] = "Belohnungen im Questlog",
+    ["Ready %d"] = "Fertig %d",
+    ["Route"] = "Route",
+    ["Route · %d stop"] = "Route · %d Stopp",
+    ["Route · %d stops"] = "Route · %d Stopps",
+    ["Snooze"] = "Später",
+    ["Then"] = "Danach",
+    ["+%d more"] = "+%d weitere",
+    ["Get %s"] = "%s besorgen",
+    ["Get %s from %s"] = "%s aus %s besorgen",
+    ["%d in progress"] = "%d in Arbeit",
+    ["%d pickup"] = "%d annehmbar",
+    ["%d pickups"] = "%d annehmbar",
+    ["%d turn-in"] = "%d Abgabe",
+    ["%d turn-ins"] = "%d Abgaben",
+    ["Best next: %s"] = "Als Nächstes: %s",
+    ["Dungeon prep: %s"] = "Dungeonvorbereitung: %s",
+    ["Nothing left here for level %d"] = "Hier gibt es nichts mehr für Stufe %d",
+    ["Reward: %s"] = "Belohnung: %s",
+    ["Route there"] = "Dorthin leiten",
+    ["Show zones"] = "Gebiete zeigen",
+    ["Traveling to %s"] = "Unterwegs nach %s",
     ["%d dungeon quest pickups are available."] = "%d Dungeonquests können angenommen werden.",
     ["%d in log · %d ready to pick up"] = "%d im Questlog · %d annehmbar",
     ["%d of %d quests complete"] = "%d von %d Quests erledigt",
@@ -434,6 +476,48 @@ deDE = {
     ["to"] = "bis",
 },
 frFR = {
+    ["You're here"] = "Vous y êtes",
+    ["Most XP for you"] = "Le plus d’XP pour vous",
+    ["%d quests to pick up in %d zones"] = "%d quêtes à prendre dans %d zones",
+    ["Your searches · %d"] = "Vos recherches · %d",
+    ["You're not searching yet. Use Find group on a quest card."] = "Aucune recherche en cours. Utilisez Chercher un groupe sur une carte de quête.",
+    ["Players within 6 levels of you, found through Questynator or chat."] = "Joueurs à 6 niveaux de vous, trouvés via Questynator ou le chat.",
+    ["You're not hosting. List a quest from your log: players who click Join, or whisper you +, are invited."] = "Vous ne menez pas de groupe. Proposez une quête de votre journal : ceux qui cliquent Rejoindre ou vous chuchotent + sont invités.",
+    ["Groups made with Questynator on your realm and faction."] = "Groupes créés avec Questynator sur votre royaume et votre faction.",
+    ["You get a reminder near a bag quest giver, even with this window closed."] = "Un rappel s’affiche près d’un donneur de quête de sac, même fenêtre fermée.",
+    ["Nothing yet."] = "Rien pour l’instant.",
+    ["Pursue a reward and the Route Planner walks you through its quests, even across zones."] = "Visez une récompense : le planificateur vous guide dans ses quêtes, même entre zones.",
+    ["Pickup"] = "Départ",
+    ["Objective"] = "Objectif",
+    ["In-world waypoint over the next route stop"] = "Repère dans le monde sur la prochaine étape",
+    ["No other stops in this zone yet. New ones appear as you pick up quests."] = "Pas d’autre étape dans cette zone pour l’instant. Elles apparaissent quand vous prenez des quêtes.",
+    ["All %d"] = "Toutes %d",
+    ["Group %d"] = "Groupe %d",
+    ["No quests match this filter."] = "Aucune quête ne correspond à ce filtre.",
+    ["Now"] = "Maintenant",
+    ["Pin on map"] = "Épingler",
+    ["Quest log rewards"] = "Récompenses du journal",
+    ["Ready %d"] = "Prêtes %d",
+    ["Route"] = "Parcours",
+    ["Route · %d stop"] = "Parcours · %d étape",
+    ["Route · %d stops"] = "Parcours · %d étapes",
+    ["Snooze"] = "Plus tard",
+    ["Then"] = "Ensuite",
+    ["+%d more"] = "+%d autres",
+    ["Get %s"] = "Obtenir %s",
+    ["Get %s from %s"] = "Obtenir %s sur %s",
+    ["%d in progress"] = "%d en cours",
+    ["%d pickup"] = "%d à prendre",
+    ["%d pickups"] = "%d à prendre",
+    ["%d turn-in"] = "%d à rendre",
+    ["%d turn-ins"] = "%d à rendre",
+    ["Best next: %s"] = "Ensuite, le mieux : %s",
+    ["Dungeon prep: %s"] = "Préparation de donjon : %s",
+    ["Nothing left here for level %d"] = "Plus rien ici pour le niveau %d",
+    ["Reward: %s"] = "Récompense : %s",
+    ["Route there"] = "Y aller",
+    ["Show zones"] = "Voir les zones",
+    ["Traveling to %s"] = "En route vers %s",
     ["%d dungeon quest pickups are available."] = "%d quêtes de donjon sont disponibles.",
     ["%d in log · %d ready to pick up"] = "%d dans le journal · %d à prendre",
     ["%d of %d quests complete"] = "%d quêtes terminées sur %d",
@@ -840,6 +924,48 @@ frFR = {
     ["to"] = "à",
 },
 esES = {
+    ["You're here"] = "Has llegado",
+    ["Most XP for you"] = "Más PX para ti",
+    ["%d quests to pick up in %d zones"] = "%d misiones por recoger en %d zonas",
+    ["Your searches · %d"] = "Tus búsquedas · %d",
+    ["You're not searching yet. Use Find group on a quest card."] = "Aún no buscas. Usa Buscar grupo en una tarjeta de misión.",
+    ["Players within 6 levels of you, found through Questynator or chat."] = "Jugadores a 6 niveles de ti, encontrados con Questynator o en el chat.",
+    ["You're not hosting. List a quest from your log: players who click Join, or whisper you +, are invited."] = "No diriges ningún grupo. Ofrece una misión de tu registro: quien pulse Unirse o te susurre + recibe invitación.",
+    ["Groups made with Questynator on your realm and faction."] = "Grupos creados con Questynator en tu reino y facción.",
+    ["You get a reminder near a bag quest giver, even with this window closed."] = "Recibes un aviso cerca de quien da misiones de bolsa, aunque la ventana esté cerrada.",
+    ["Nothing yet."] = "Nada todavía.",
+    ["Pursue a reward and the Route Planner walks you through its quests, even across zones."] = "Persigue una recompensa y el planificador te guía por sus misiones, incluso entre zonas.",
+    ["Pickup"] = "Recoger",
+    ["Objective"] = "Objetivo",
+    ["In-world waypoint over the next route stop"] = "Marcador en el mundo sobre la próxima parada",
+    ["No other stops in this zone yet. New ones appear as you pick up quests."] = "Aún no hay más paradas en esta zona. Aparecen al recoger misiones.",
+    ["All %d"] = "Todas %d",
+    ["Group %d"] = "Grupo %d",
+    ["No quests match this filter."] = "Ninguna misión coincide con este filtro.",
+    ["Now"] = "Ahora",
+    ["Pin on map"] = "Marcar",
+    ["Quest log rewards"] = "Recompensas del registro",
+    ["Ready %d"] = "Listas %d",
+    ["Route"] = "Ruta",
+    ["Route · %d stop"] = "Ruta · %d parada",
+    ["Route · %d stops"] = "Ruta · %d paradas",
+    ["Snooze"] = "Posponer",
+    ["Then"] = "Después",
+    ["+%d more"] = "+%d más",
+    ["Get %s"] = "Conseguir %s",
+    ["Get %s from %s"] = "Conseguir %s de %s",
+    ["%d in progress"] = "%d en curso",
+    ["%d pickup"] = "%d por recoger",
+    ["%d pickups"] = "%d por recoger",
+    ["%d turn-in"] = "%d por entregar",
+    ["%d turn-ins"] = "%d por entregar",
+    ["Best next: %s"] = "Mejor después: %s",
+    ["Dungeon prep: %s"] = "Preparación de mazmorra: %s",
+    ["Nothing left here for level %d"] = "No queda nada aquí para el nivel %d",
+    ["Reward: %s"] = "Recompensa: %s",
+    ["Route there"] = "Ir allí",
+    ["Show zones"] = "Ver zonas",
+    ["Traveling to %s"] = "De camino a %s",
     ["%d dungeon quest pickups are available."] = "Hay %d misiones de mazmorra disponibles.",
     ["%d in log · %d ready to pick up"] = "%d en el registro · %d por recoger",
     ["%d of %d quests complete"] = "%d de %d misiones completadas",
@@ -1246,6 +1372,48 @@ esES = {
     ["to"] = "a",
 },
 ruRU = {
+    ["You're here"] = "Вы на месте",
+    ["Most XP for you"] = "Больше всего опыта",
+    ["%d quests to pick up in %d zones"] = "Заданий: %d в зонах: %d",
+    ["Your searches · %d"] = "Ваши поиски · %d",
+    ["You're not searching yet. Use Find group on a quest card."] = "Поиск не запущен. Нажмите «Найти группу» на карточке задания.",
+    ["Players within 6 levels of you, found through Questynator or chat."] = "Игроки в пределах 6 уровней, найденные через Questynator или чат.",
+    ["You're not hosting. List a quest from your log: players who click Join, or whisper you +, are invited."] = "Вы не собираете группу. Выставьте задание из журнала: кто нажмёт «Вступить» или шепнёт вам +, будет приглашён.",
+    ["Groups made with Questynator on your realm and faction."] = "Группы Questynator вашего мира и фракции.",
+    ["You get a reminder near a bag quest giver, even with this window closed."] = "Напоминание появится рядом с выдающим задание на сумку, даже при закрытом окне.",
+    ["Nothing yet."] = "Пока ничего.",
+    ["Pursue a reward and the Route Planner walks you through its quests, even across zones."] = "Выберите награду, и планировщик проведёт вас по её заданиям, даже между зонами.",
+    ["Pickup"] = "Взять",
+    ["Objective"] = "Цель",
+    ["In-world waypoint over the next route stop"] = "Метка в мире над следующей точкой маршрута",
+    ["No other stops in this zone yet. New ones appear as you pick up quests."] = "Других точек в этой зоне пока нет. Они появятся, когда вы возьмёте задания.",
+    ["All %d"] = "Все %d",
+    ["Group %d"] = "Группа %d",
+    ["No quests match this filter."] = "Нет заданий для этого фильтра.",
+    ["Now"] = "Сейчас",
+    ["Pin on map"] = "На карту",
+    ["Quest log rewards"] = "Награды журнала",
+    ["Ready %d"] = "Готово %d",
+    ["Route"] = "Маршрут",
+    ["Route · %d stop"] = "Маршрут · %d точка",
+    ["Route · %d stops"] = "Маршрут · точек: %d",
+    ["Snooze"] = "Отложить",
+    ["Then"] = "Затем",
+    ["+%d more"] = "ещё +%d",
+    ["Get %s"] = "Добыть: %s",
+    ["Get %s from %s"] = "Добыть: %s — %s",
+    ["%d in progress"] = "в процессе: %d",
+    ["%d pickup"] = "можно взять: %d",
+    ["%d pickups"] = "можно взять: %d",
+    ["%d turn-in"] = "сдать: %d",
+    ["%d turn-ins"] = "сдать: %d",
+    ["Best next: %s"] = "Лучше дальше: %s",
+    ["Dungeon prep: %s"] = "Подготовка к подземелью: %s",
+    ["Nothing left here for level %d"] = "Здесь больше нечего делать на %d уровне",
+    ["Reward: %s"] = "Награда: %s",
+    ["Route there"] = "Проложить туда",
+    ["Show zones"] = "Показать зоны",
+    ["Traveling to %s"] = "В пути: %s",
     ["%d dungeon quest pickups are available."] = "Доступно заданий подземелья: %d.",
     ["%d in log · %d ready to pick up"] = "В журнале: %d · можно взять: %d",
     ["%d of %d quests complete"] = "Выполнено заданий: %d из %d",
@@ -1783,7 +1951,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.3" end
+    if type(v) ~= "string" or v == "" then v = "1.6.5" end
     return v
 end
 
@@ -2656,13 +2824,13 @@ do
         panel2 = { 0.12, 0.135, 0.165, 1 },
         line   = { 0.15, 0.165, 0.2, 1 },
         text   = { 0.91, 0.90, 0.89 },
-        muted  = { 0.545, 0.56, 0.6 },
-        dim    = { 0.36, 0.38, 0.42 },
+        muted  = { 0.64, 0.67, 0.71 },   -- brightened in 1.7 so small grey text stays readable
+        dim    = { 0.5, 0.52, 0.56 },
         dark   = { 0.043, 0.05, 0.063 },
         red    = { 0.94, 0.42, 0.42 },
         gold   = { 1, 0.82, 0.3 },
     }
-    UI.HEX = { accent = "4fd1c5", text = "e8e6e3", muted = "8b8f98", dim = "5b606b", red = "f06b6b", gold = "ffd14d", green = "5fd38a" }
+    UI.HEX = { accent = "4fd1c5", text = "e8e6e3", muted = "a3abb5", dim = "7f858f", red = "f06b6b", gold = "ffd14d", green = "5fd38a" }
     local C = UI.C
 
     function UI.Font(fs, size, flags, weight)
@@ -2816,6 +2984,39 @@ do
             else self.btn:Hide() end
         end
         return e
+    end
+
+    -- F layout: a tab's left column (summary and controls). The tab's own view moves right of it;
+    -- the column is a child of the view, so it shows and hides with the tab.
+    function UI.Side(view, inset)
+        view:ClearAllPoints()
+        view:SetPoint("TOPLEFT", inset, "TOPLEFT", 220, 0)
+        view:SetPoint("BOTTOMRIGHT", inset, "BOTTOMRIGHT", 0, 0)
+        local side = CreateFrame("Frame", nil, view)
+        side:SetPoint("TOPLEFT", inset, "TOPLEFT", 6, -6)
+        side:SetPoint("BOTTOMLEFT", inset, "BOTTOMLEFT", 6, 4)
+        side:SetWidth(210)
+        UI.Flat(side, { 0.078, 0.094, 0.118, 1 }, C.line)
+        side.title = UI.Text(side, 9, "accent", nil, "bold")
+        side.title:SetPoint("TOPLEFT", 12, -14)
+        side.title:SetWidth(186)
+        side.title:SetJustifyH("LEFT")
+        side.body = UI.Text(side, 11, "text")
+        side.body:SetPoint("TOPLEFT", side.title, "BOTTOMLEFT", 0, -8)
+        side.body:SetWidth(186)
+        side.body:SetJustifyH("LEFT")
+        side.body:SetSpacing(3)
+        side.note = UI.Text(side, 10, "muted")
+        side.note:SetPoint("BOTTOMLEFT", side, "BOTTOMLEFT", 12, 12)
+        side.note:SetWidth(186)
+        side.note:SetJustifyH("LEFT")
+        side.note:SetSpacing(2)
+        function side:Set(title, body, note)
+            self.title:SetText(((title or ""):gsub("[^·]+", function(part) return UI.Caps(part) end)))
+            self.body:SetText(body or "")
+            self.note:SetText(note or "")
+        end
+        return side
     end
 
     -- difficulty colour for level badges (Blizzard's own table when present)
@@ -3226,70 +3427,52 @@ end
 ---------------------------------------------------------------------------
 local panel, content, footer, stopAll, emptyText
 local panelRows = {}
-local ROW_W, QUEST_H, HEADER_H = 508, 48, 30
+-- ROW_W: list width on the other tabs, right of their 210px left column. QUEST_W: the Quests tab's cards.
+local ROW_W, QUEST_H, QUEST_W = 370, 88, 372
 local KEEP_SEARCHING_FOR = 30   -- "Keep Searching" hides the prompt for this long
 
--- Active searches first, then the quest log grouped by zone (zones can be collapsed)
+-- The quest log as cards, closest to done first: ready to turn in, then by objective progress,
+-- then quest log order. The chips above the list pick all, group quests or ready ones.
 local questFilter = ""
 function ns.SetQuestFilter(text)
     questFilter = ((text or ""):lower()):gsub("^%s+", ""):gsub("%s+$", "")
 end
 function ns.QuestFilter() return questFilter end
 
+-- returns the cards for the selected chip and the count for each chip
 local function BuildEntries()
-    local zones, order, active = {}, {}, {}
-    local filter = questFilter
-    local cur = nil
-    local function zone(name)
-        name = name or "Other"
-        if not zones[name] then zones[name] = {}; order[#order + 1] = name end
-        return name
-    end
+    local all, counts, filter, chip = {}, { all = 0, group = 0, ready = 0 }, questFilter, ns.questChip or "all"
     for i = 1, C_QuestLog.GetNumQuestLogEntries() do
         local info = C_QuestLog.GetInfo(i)
-        if info then
-            if info.isHeader then
-                cur = zone(info.title)
-            elseif not info.isHidden and info.questID
-                and not (C_QuestLog.IsComplete and C_QuestLog.IsComplete(info.questID))   -- hide completed quests
-                and (filter == "" or (info.title or ""):lower():find(filter, 1, true)) then
-                local e = {
-                    questID  = info.questID,
-                    title    = info.title or ("quest " .. info.questID),
-                    level    = info.level,
-                    group    = ns.GroupInfo(info.questID, info.suggestedGroup),
-                    order    = i,
-                    complete = C_QuestLog.IsComplete and C_QuestLog.IsComplete(info.questID) or false,
-                }
-                if seeking[info.questID] then
-                    active[#active + 1] = e
-                else
-                    local z = cur or zone(nil)
-                    table.insert(zones[z], e)
-                end
+        if info and not info.isHeader and not info.isHidden and info.questID
+            and (filter == "" or (info.title or ""):lower():find(filter, 1, true)) then
+            local objs = C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(info.questID)
+            local done, total = 0, type(objs) == "table" and #objs or 0
+            for k = 1, total do if objs[k].finished then done = done + 1 end end
+            local e = {
+                questID  = info.questID,
+                title    = info.title or ("quest " .. info.questID),
+                level    = info.level,
+                group    = ns.GroupInfo(info.questID, info.suggestedGroup),
+                order    = i,
+                complete = ns.IsReadyToTurnIn(info.questID) and true or false,
+                progress = total > 0 and done / total or 0,
+            }
+            counts.all = counts.all + 1
+            if e.group then counts.group = counts.group + 1 end
+            if e.complete then counts.ready = counts.ready + 1 end
+            if chip == "all" or (chip == "group" and e.group) or (chip == "ready" and e.complete) then
+                all[#all + 1] = e
             end
         end
     end
-    local out = {}
-    if #active > 0 then
-        out[#out + 1] = { header = L["Searching now"], active = true, count = #active }
-        for _, e in ipairs(active) do out[#out + 1] = e end
-    end
-    for _, z in ipairs(order) do
-        local list = zones[z]
-        table.sort(list, function(a, b)          -- group/elite quests first, otherwise quest log order
-            if (a.group ~= nil) ~= (b.group ~= nil) then return a.group ~= nil end
-            return a.order < b.order
-        end)
-        if #list > 0 then
-            local collapsed = DB.collapsed[z] and true or false
-            out[#out + 1] = { header = z, zone = z, count = #list, collapsed = collapsed }
-            if not collapsed then
-                for _, e in ipairs(list) do out[#out + 1] = e end
-            end
-        end
-    end
-    return out
+    table.sort(all, function(a, b)
+        if a.complete ~= b.complete then return a.complete end
+        if a.progress ~= b.progress then return a.progress > b.progress end
+        if (seeking[a.questID] ~= nil) ~= (seeking[b.questID] ~= nil) then return seeking[a.questID] ~= nil end
+        return a.order < b.order
+    end)
+    return all, counts
 end
 ns.BuildEntries = BuildEntries
 
@@ -3343,6 +3526,10 @@ local function OnRowAction(r, action)
         ns.PostListing(questID)
     elseif action == "chat" then
         ns.ShowLatestChat(questID)
+    elseif action == "turnin" then
+        local q = ns.BundledQuest(questID)
+        local place = q and ns.RefPlace(q.finish)
+        if place then ns.Waypoint(place.area, place.x, place.y, QuestTitle(questID)) end
     end
     ns.RequestRefresh()
 end
@@ -3373,7 +3560,8 @@ local function MakeRowButton(r, width)
     return b
 end
 
-local BUTTON_KIND = { find = "primary", create = "primary", stop = "outline" }
+-- one filled button per screen: on the Quests tab that is the route's Pin, so card buttons stay plain
+local BUTTON_KIND = { create = "primary" }
 local function SetButton(b, text, action, enabled)
     if not text then b:Hide() return end
     b:SetText(text)
@@ -3395,6 +3583,8 @@ local function ShowQuestTooltip(r)
     end
     local grp = ns.GroupInfo(r.questID)
     if grp then GameTooltip:AddLine(string.format(L["Group quest: %s"], grp), 1, 0.6, 0.2) end
+    local tip = ns.QuestTips and ns.QuestTips[r.questID]
+    if tip then GameTooltip:AddLine(L["Tip:"] .. " " .. tip, 0.62, 0.94, 0.9, true) end
     local chat = ns.ChatHits(r.questID)
     if #chat > 0 then
         GameTooltip:AddLine(" ")
@@ -3600,7 +3790,7 @@ end
 
 function ns.NextQuests(questID, limit)
     local D = ns.QDATA
-    local raw = D and D.q and D.q[questID]
+    local raw = ns.QuestRow(questID)
     if not raw or not D.t then return {} end
     local f = Split(raw, "/")
     local _, _, raceID = UnitRace("player")
@@ -3637,9 +3827,18 @@ local function DataInfo(ref)
              level = level ~= "" and level or nil, maxLevel = tonumber(level:match("(%d+)$")) }
 end
 
+-- A quest's bundled row. A few quests have their own giver or ender for the Horde (h section).
+function ns.QuestRow(questID)
+    local D = ns.QDATA
+    if not (D and D.q) then return nil end
+    local horde = D.h and D.h[questID]
+    if horde and ns.PlayerFaction and ns.PlayerFaction() == "H" then return horde end
+    return D.q[questID]
+end
+
 function ns.BundledQuest(questID)
     local D = ns.QDATA
-    local raw = D and D.q and D.q[questID]
+    local raw = ns.QuestRow(questID)
     if not raw then return nil end
     local f = Split(raw, "/")
     local q = { start = f[1] ~= "" and f[1] or nil, finish = f[2] ~= "" and f[2] or nil,
@@ -3774,6 +3973,8 @@ function ns.QuestDetails(questID)
     end
     local party = ns.PartyLine and ns.PartyLine(questID)
     if party then lines[#lines + 1] = party end
+    local tip = ns.QuestTips and ns.QuestTips[questID]
+    if tip then lines[#lines + 1] = GOLD .. L["Tip:"] .. "|r " .. tip end
     local complete = C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID)
     local steps, tips = ns.QuestGuide(questID)
     if steps then
@@ -4047,104 +4248,77 @@ end
 local function GetPanelRow(i)
     local r = panelRows[i]
     if r then return r end
+    local UI = ns.UI
     r = CreateFrame("Frame", nil, content)
-    r:SetWidth(ROW_W)
+    r:SetWidth(QUEST_W)
     r:EnableMouse(true)
 
-    -- card background, hover highlight, left accent bar
-    r.bg = r:CreateTexture(nil, "BACKGROUND")
-    r.bg:SetPoint("TOPLEFT", 0, -2)
-    r.bg:SetPoint("BOTTOMRIGHT", 0, 2)
-    r.glow = r:CreateTexture(nil, "BACKGROUND", nil, 1)
-    r.glow:SetAllPoints(r.bg)
-    r.glow:SetColorTexture(0.31, 0.82, 0.77, 0.12)
-    r.glow:Hide()
-    r.hl = r:CreateTexture(nil, "BORDER")
-    r.hl:SetAllPoints(r.bg)
-    r.hl:SetColorTexture(1, 1, 1, 0.035)
-    -- 1px card outline (teal while searching)
-    -- rounded card drawn on a frame just below the row, so the row's text stays on top
+    -- rounded card drawn on a frame just below the row, so the row's text stays on top (teal while searching)
     r.edge = CreateFrame("Frame", nil, r)
-    r.edge:SetAllPoints(r.bg)
+    r.edge:SetAllPoints(r)
     r.edge:SetFrameLevel(math.max(0, (tonumber(r:GetFrameLevel()) or 1) - 1))
-    ns.UI.Flat(r.edge, ns.UI.C.panel, ns.UI.C.line)
-    r.bg:SetAlpha(0)
-    r.glow:SetAlpha(0)
-    r.hl:SetAlpha(0)
+    UI.Flat(r.edge, UI.C.panel, UI.C.line)
+    r.hl = r:CreateTexture(nil, "BORDER")
+    r.hl:SetPoint("TOPLEFT", 1, -1)
+    r.hl:SetPoint("BOTTOMRIGHT", -1, 1)
+    r.hl:SetColorTexture(1, 1, 1, 0.035)
     r.hl:Hide()
-    r.accent = r:CreateTexture(nil, "BORDER", nil, 1)
-    r.accent:SetWidth(3)
-    r.accent:SetPoint("TOPLEFT", r.bg, "TOPLEFT")
-    r.accent:SetPoint("BOTTOMLEFT", r.bg, "BOTTOMLEFT")
-    r.line = r:CreateTexture(nil, "BORDER")
-    r.line:SetHeight(1)
-    r.line:SetPoint("BOTTOMLEFT", 4, 2)
-    r.line:SetPoint("BOTTOMRIGHT", -4, 2)
-    r.line:SetColorTexture(0.15, 0.165, 0.2, 1)
 
-    -- level badge
+    -- line 1: level badge, title, group pill
     r.lvlBg = r:CreateTexture(nil, "ARTWORK")
-    r.lvlBg:SetSize(28, 20)
-    r.lvlBg:SetPoint("TOPLEFT", r.bg, "TOPLEFT", 10, -11)
-    r.lvlBg:SetColorTexture(0.043, 0.05, 0.063, 1)
+    r.lvlBg:SetSize(26, 18)
+    r.lvlBg:SetPoint("TOPLEFT", r, "TOPLEFT", 10, -9)
     r.lvl = r:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    ns.UI.Font(r.lvl, 11, "", "bold")
-    r.count = ns.UI.Text(r, 10, "dim", nil, "medium")
-    r.count:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -8, 8)
-    r.count:Hide()
+    UI.Font(r.lvl, 11, "", "bold")
     r.lvl:SetPoint("CENTER", r.lvlBg, "CENTER", 0, 0)
-
-    r.label = ns.UI.Text(r, 13, "text")
+    r.label = UI.Text(r, 12, "text", nil, "medium")
+    r.label:SetPoint("LEFT", r.lvlBg, "RIGHT", 8, 0)
     r.label:SetJustifyH("LEFT")
     r.label:SetWordWrap(false)
-    r.status = ns.UI.Text(r, 12, "muted")
-    ns.UI.Font(r.status, 11, "")
-    r.status:SetJustifyH("LEFT")
-    r.status:SetWordWrap(false)
-
-    -- group pill (Group 3+, Elite, Dungeon)
     r.pillBg = r:CreateTexture(nil, "ARTWORK")
     r.pillBg:SetColorTexture(1, 1, 1, 0.08)
     r.pill = r:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    ns.UI.Font(r.pill, 9, "", "medium")
-    r.pill:SetTextColor(0.62, 0.64, 0.68)
+    UI.Font(r.pill, 9, "", "medium")
+    r.pill:SetTextColor(0.72, 0.74, 0.78)
     r.pillBg:SetPoint("TOPLEFT", r.pill, "TOPLEFT", -4, 2)
     r.pillBg:SetPoint("BOTTOMRIGHT", r.pill, "BOTTOMRIGHT", 4, -2)
 
-    -- objective progress bar along the bottom of the card
+    -- line 2: the next unfinished objective (or where to turn in) with its count, and a progress bar
+    r.objCount = UI.Text(r, 11, "muted", nil, "medium")
+    r.objCount:SetPoint("TOPRIGHT", r, "TOPRIGHT", -10, -34)
+    r.obj = UI.Text(r, 11, "muted")
+    r.obj:SetPoint("TOPLEFT", r, "TOPLEFT", 10, -34)
+    r.obj:SetPoint("RIGHT", r.objCount, "LEFT", -8, 0)
+    r.obj:SetJustifyH("LEFT")
+    r.obj:SetWordWrap(false)
     r.bar = CreateFrame("StatusBar", nil, r)
     r.bar:SetHeight(3)
+    r.bar:SetPoint("TOPLEFT", r, "TOPLEFT", 10, -50)
+    r.bar:SetPoint("TOPRIGHT", r, "TOPRIGHT", -10, -50)
     r.bar:SetStatusBarTexture("Interface\\Buttons\\WHITE8X8")
     r.bar:SetMinMaxValues(0, 1)
     r.barBg = r.bar:CreateTexture(nil, "BACKGROUND")
     r.barBg:SetAllPoints()
     r.barBg:SetColorTexture(0.043, 0.05, 0.063, 1)
 
+    -- line 3: search / party status and the buttons
     r.btnA = MakeRowButton(r, 88)                       -- right-most button
-    r.btnA:SetPoint("TOPRIGHT", r, "TOPRIGHT", -10, -13)
+    r.btnA:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -10, 8)
     r.btnB = MakeRowButton(r, 100)                      -- second button, left of A
     r.btnB:SetPoint("RIGHT", r.btnA, "LEFT", -6, 0)
+    r.status = UI.Text(r, 11, "muted")
+    r.status:SetJustifyH("LEFT")
+    r.status:SetWordWrap(false)
 
-    -- +/- for collapsible zone headers (Blizzard's quest log buttons)
-    r.toggle = r:CreateTexture(nil, "ARTWORK")
-    r.toggle:SetSize(14, 14)
-    r.toggle:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 6, 6)
-    r.toggle:Hide()
-
-    r:SetScript("OnEnter", function(self)
-        if self.questID then self.hl:Show(); ShowQuestTooltip(self)
-        elseif self.zone then self.hl:Show() end
-    end)
+    r:SetScript("OnEnter", function(self) if self.questID then self.hl:Show(); ShowQuestTooltip(self) end end)
     r:SetScript("OnMouseUp", function(self)
-        if self.zone then ns.ToggleZone(self.zone)
-        elseif self.questID then
-            -- wait a moment: a click on a map link inside the card must not close it
-            local qid = self.questID
-            C_Timer.After(0.05, function()
-                if ns.linkClickedAt and GetTime() - ns.linkClickedAt < 0.3 then return end
-                ns.ToggleDetails(qid)                                     -- open/close "how to complete"
-            end)
-        end
+        if not self.questID then return end
+        -- wait a moment: a click on a map link inside the card must not close it
+        local qid = self.questID
+        C_Timer.After(0.05, function()
+            if ns.linkClickedAt and GetTime() - ns.linkClickedAt < 0.3 then return end
+            ns.ToggleDetails(qid)                                     -- open/close "how to complete"
+        end)
     end)
     if r.SetHyperlinksEnabled then r:SetHyperlinksEnabled(true) end
     r:SetScript("OnHyperlinkClick", function(_, link) ns.OnHyperlink(link) end)
@@ -4158,65 +4332,46 @@ local function GetPanelRow(i)
     r:SetScript("OnHyperlinkLeave", function() GameTooltip:Hide() end)
     r:SetScript("OnLeave", function(self) self.hl:Hide(); GameTooltip:Hide() end)
 
-    -- "how to complete" text, shown when the card is opened
-    r.details = ns.UI.Text(r, 12, "muted")
-    ns.UI.Font(r.details, 11, "")
+    -- "how to complete" text, shown when the card is opened (between the bar and the buttons)
+    r.details = UI.Text(r, 11, "text")
     r.details:SetTextColor(0.8, 0.8, 0.8)
-    r.details:SetPoint("TOPLEFT", r, "TOPLEFT", 14, -48)
-    r.details:SetWidth(ROW_W - 28)
+    r.details:SetPoint("TOPLEFT", r, "TOPLEFT", 12, -60)
+    r.details:SetWidth(QUEST_W - 24)
     r.details:SetJustifyH("LEFT")
     r.details:SetJustifyV("TOP")
     r.details:SetWordWrap(true)
     if r.details.SetSpacing then r.details:SetSpacing(2) end
     r.details:Hide()
-    r.chev = r:CreateTexture(nil, "ARTWORK")
-    r.chev:SetSize(12, 12)
-    r.chev:SetPoint("BOTTOMRIGHT", r.lvlBg, "TOPLEFT", 4, -4)
-    r.chev:Hide()
 
     panelRows[i] = r
     return r
 end
 
-local function HideCardParts(r)
-    r.edge:Hide(); r.bg:Hide(); r.glow:Hide(); r.accent:Hide(); r.lvlBg:Hide(); r.lvl:Hide()
-    r.pill:Hide(); r.pillBg:Hide(); r.bar:Hide(); r.details:Hide(); r.chev:Hide(); r.toggle:Hide(); r.line:Hide()
+-- The next unfinished objective as text and count ("Rockjaw Trogg slain", "2/6"), or where to turn in.
+local function CardObjective(e)
+    if e.complete then
+        local q = ns.BundledQuest(e.questID)
+        local place = q and ns.RefPlace(q.finish)
+        if not place then return L["Ready to turn in"], "" end
+        local zone = ZoneName(place.area)
+        return string.format(L["Turn in to %s"], place.name) .. (zone and (" · " .. zone) or ""), ""
+    end
+    local objs = (C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(e.questID)) or {}
+    for _, o in ipairs(objs) do
+        if not o.finished then
+            local text = o.text or ""
+            local label, count = text:match("^(.-):%s*(%d+%s*/%s*%d+)$")        -- "Kobold slain: 2/6"
+            if not label then count, label = text:match("^(%d+%s*/%s*%d+)%s+(.+)$") end   -- "0/6 Scavenger Paw"
+            if label then return label, count end
+            local have, need = tonumber(o.numFulfilled), tonumber(o.numRequired)
+            return text, (have and need and need > 1) and (have .. "/" .. need) or ""
+        end
+    end
+    return "", ""
 end
 
-local function LayoutHeader(r, e)
-    r.questID = nil
-    r.zone = e.zone
-    r:SetHeight(HEADER_H)
-    HideCardParts(r)
-    r.btnA:Hide()
-    r.btnB:Hide()
-    r.status:Hide()
-    r.label:ClearAllPoints()
-    r.label:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 4, 8)
-    r.label:SetPoint("RIGHT", r.count, "LEFT", -8, 0)
-    ns.UI.Font(r.label, 10, "", "bold")
-    local upper = e.header or ""
-    if not upper:find("[\128-\255]") then upper = upper:upper() end   -- small caps only for plain ASCII names
-    if e.active then r.label:SetTextColor(0.31, 0.82, 0.77)
-    elseif e.collapsed then r.label:SetTextColor(0.36, 0.38, 0.42)
-    else r.label:SetTextColor(0.545, 0.56, 0.6) end
-    r.label:SetText(upper)
-    r.count:SetText(tostring(e.count or ""))
-    r.count:Show()
-end
-
-local function LayoutQuest(r, e, stripe)
+local function LayoutQuest(r, e)
     r.questID = e.questID
-    r.zone = nil
-    r.toggle:Hide()
-    r.line:Hide()
-    r.count:Hide()
-    r:SetHeight(QUEST_H)
-    r.bg:Show()
-    r.bg:SetColorTexture(0.094, 0.106, 0.133, 1)
-    r.edge:Show()
-    r.status:Show()
-
     local state = RowState(e.questID, e.complete)
     local statusText = ""
     local s = seeking[e.questID]
@@ -4225,28 +4380,28 @@ local function LayoutQuest(r, e, stripe)
     if state == "idle" then
         SetButton(r.btnA, L["Find group"], "find")
         SetButton(r.btnB, nil)
-        statusText = ("|cff808080" .. L["Not searching"] .. "|r")
+        statusText = ns.PartyLine(e.questID) or ""
     elseif state == "complete" then
-        SetButton(r.btnA, L["Find group"], "find", false)
+        SetButton(r.btnA, L["Pin turn-in"], "turnin")
         SetButton(r.btnB, nil)
-        statusText = ("|cff808080" .. L["Complete - ready to turn in"] .. "|r")
+        statusText = "|cff5fd38a" .. L["Ready to turn in"] .. "|r"
     elseif state == "searching" then
         SetButton(r.btnA, L["Stop"], "stop")
         SetButton(r.btnB, nil)
-        statusText = ("|cff4fd1c5" .. L["Searching..."] .. "|r  |cff5b606b" .. Elapsed(s) .. "|r")
+        statusText = ("|cff4fd1c5" .. L["Searching..."] .. "|r  |cff7d828c" .. Elapsed(s) .. "|r")
     elseif state == "found" then
         SetButton(r.btnA, L["Stop"], "stop")
         SetButton(r.btnB, nil)
-        statusText = ("|cff5fd38a" .. string.format(L["Players found: %d"], n) .. "|r  |cff5b606b" .. Elapsed(s) .. "|r")
+        statusText = ("|cff5fd38a" .. string.format(L["Players found: %d"], n) .. "|r  |cff7d828c" .. Elapsed(s) .. "|r")
     elseif state == "prompt" then
         SetButton(r.btnA, L["Create Group"], "create")
         SetButton(r.btnB, L["Keep Searching"], "keep")
-        statusText = ("|cffff9933" .. L["No one found yet"] .. "|r  |cff808080" .. Elapsed(s) .. "|r")
+        statusText = ("|cffff9933" .. L["No one found yet"] .. "|r")
     elseif state == "listed" then
         SetButton(r.btnA, L["Stop"], "stop")
         SetButton(r.btnB, L["Repost"], "repost")
         local LST = s.listing
-        statusText = (string.format("|cff33ccff%s|r  |cff808080Lv%d-%d|r%s", L["Group listed"], LST.min, LST.max,
+        statusText = (string.format("|cff33ccff%s|r  |cff9da3ad%d-%d|r%s", L["Group listed"], LST.min, LST.max,
             n > 0 and ("  |cff5fd38a" .. string.format(L["Players found: %d"], n) .. "|r") or ""))
     end
 
@@ -4257,36 +4412,29 @@ local function LayoutQuest(r, e, stripe)
         if not r.btnB:IsShown() then SetButton(r.btnB, string.format(L["Chat (%d)"], nChat), "chat") end
     end
     r.status:SetText(statusText)
+    r.status:ClearAllPoints()
+    r.status:SetPoint("LEFT", r, "BOTTOMLEFT", 10, 19)
+    r.status:SetPoint("RIGHT", r.btnB:IsShown() and r.btnB or r.btnA, "LEFT", -8, 0)
 
-    -- difficulty color drives the level badge and the accent bar (green while searching)
+    -- difficulty colour on the level badge; teal card while searching, green when ready to turn in
     local lvl = e.level or 0
     local hex = ns.UI.LevelColor(lvl)
     local cr, cg, cb = tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255
-    if e.complete then cr, cg, cb = 0.5, 0.5, 0.5 end
-    r.lvlBg:Show()
-    r.lvl:Show()
     r.lvl:SetText(lvl > 0 and tostring(lvl) or "?")
     r.lvl:SetTextColor(cr, cg, cb)
     r.lvlBg:SetColorTexture(cr, cg, cb, 0.16)
-    r.accent:Hide()
     if s then ns.UI.Flat(r.edge, { 0.11, 0.2, 0.21, 1 }, ns.UI.C.accent)
+    elseif e.complete then ns.UI.Flat(r.edge, ns.UI.C.panel, { 0.24, 0.45, 0.3, 1 })
     else ns.UI.Flat(r.edge, ns.UI.C.panel, ns.UI.C.line) end
 
-    local rightOf = r.btnB:IsShown() and r.btnB or r.btnA
-    local btnW = (r.btnA:IsShown() and 88 or 0) + (r.btnB:IsShown() and 106 or 0)
-    r.label:ClearAllPoints()
-    r.label:SetPoint("TOPLEFT", r.lvlBg, "TOPRIGHT", 10, 3)
-    ns.UI.Font(r.label, 12, "", "medium")
+    -- title gets the card's width minus the badge and the group pill
     r.label:SetText(e.title)
-    r.label:SetTextColor(e.complete and 0.6 or 0.91, e.complete and 0.6 or 0.9, e.complete and 0.6 or 0.89)
-
-    -- title gets the room left of the buttons, minus the group pill
     local pillW = 0
     if e.group then
         r.pill:SetText(e.group)
         pillW = (tonumber(r.pill:GetStringWidth()) or 30) + 16
     end
-    local room = ROW_W - 48 - btnW - 18 - pillW
+    local room = QUEST_W - 54 - pillW - 10
     local tw = tonumber(r.label:GetStringWidth()) or room
     r.label:SetWidth(math.max(40, math.min(tw + 2, room)))
     if e.group then
@@ -4297,18 +4445,13 @@ local function LayoutQuest(r, e, stripe)
         r.pill:Hide(); r.pillBg:Hide()
     end
 
-    r.status:ClearAllPoints()
-    r.status:SetPoint("TOPLEFT", r.label, "BOTTOMLEFT", 0, -2)
-    r.status:SetPoint("RIGHT", rightOf, "LEFT", -8, 0)
-
+    local objText, objCount = CardObjective(e)
+    r.obj:SetText(objText)
+    r.objCount:SetText(objCount)
     local done, total = ObjectiveProgress(e.questID)
-    if total > 0 then
-        r.bar:ClearAllPoints()
-        r.bar:SetHeight(2)
-        r.bar:SetPoint("BOTTOMLEFT", r.bg, "BOTTOMLEFT", 1, 1)
-        r.bar:SetPoint("RIGHT", r.bg, "RIGHT", -1, 0)
-        r.bar:SetValue(done / total)
-        if done == total then r.bar:SetStatusBarColor(0.37, 0.83, 0.54) else r.bar:SetStatusBarColor(0.31, 0.82, 0.77) end
+    if e.complete or total > 0 then
+        r.bar:SetValue(e.complete and 1 or done / total)
+        if e.complete then r.bar:SetStatusBarColor(0.37, 0.83, 0.54) else r.bar:SetStatusBarColor(0.31, 0.82, 0.77) end
         r.bar:Show()
     else
         r.bar:Hide()
@@ -4316,12 +4459,10 @@ local function LayoutQuest(r, e, stripe)
 
     -- opened card: show "how to complete" and grow to fit it
     local height = QUEST_H
-    r.chev:Hide()
     if expanded[e.questID] then
         r.details:SetText(ns.QuestDetails(e.questID))
         r.details:Show()
-        local h = tonumber(r.details:GetStringHeight()) or 0
-        height = QUEST_H + math.max(h, 14) + 10
+        height = QUEST_H + math.max(tonumber(r.details:GetStringHeight()) or 0, 14) + 8
     else
         r.details:Hide()
     end
@@ -4590,10 +4731,11 @@ function ns.BuildDungeonsView(p, inset)
     local v = CreateFrame("Frame", nil, inset)
     v:SetAllPoints(inset)
     p.dungeonsView = v
+    local side = UI.Side(v, inset)
 
-    -- roles card: your roles on the left, what you're doing on the right
-    local top = UI.Card(v, ROW_W, 64)
-    top:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -6)
+    -- roles card in the left column: your roles, then what you're doing
+    local top = UI.Card(side, 186, 128)
+    top:SetPoint("TOPLEFT", side, "TOPLEFT", 12, -12)
     top.label = UI.Text(top, 9, "muted", nil, "bold")
     top.label:SetPoint("TOPLEFT", 12, -10)
     local rl = L["Your roles"]
@@ -4622,19 +4764,20 @@ function ns.BuildDungeonsView(p, inset)
         prev = b
     end
     top.mode = UI.Text(top, 9, "dim", nil, "medium")
-    top.mode:SetPoint("TOPRIGHT", -12, -10)
+    top.mode:SetPoint("TOPLEFT", 12, -66)
     top.name = UI.Text(top, 11, "accent", nil, "medium")
-    top.name:SetPoint("TOPRIGHT", -12, -24)
+    top.name:SetPoint("TOPLEFT", 12, -80)
     top.need = UI.Text(top, 9, "muted")
-    top.need:SetPoint("TOPRIGHT", -12, -40)
-    top.need:SetJustifyH("RIGHT")
+    top.need:SetPoint("TOPLEFT", 12, -96)
+    top.need:SetWidth(162)
+    top.need:SetJustifyH("LEFT")
     dview.top = top
 
-    top.post = UI.Button(v, 120, 22, "primary")
+    top.post = UI.Button(side, 120, 22, "primary")
     top.post:SetText(L["Post to General"])
     top.post:SetScript("OnClick", function() ns.PostDungeon() end)
     top.post:SetPoint("TOPLEFT", top, "BOTTOMLEFT", 0, -8)
-    top.stop = UI.Button(v, 60, 22, "ghost")
+    top.stop = UI.Button(side, 60, 22, "ghost")
     top.stop:SetText(L["Stop"])
     top.stop:SetScript("OnClick", function() ns.StopDungeon(false) end)
 
@@ -4743,11 +4886,11 @@ function ns.RefreshDungeons()
         top.mode:SetText("")
         top.name:SetText("")
         top.need:SetText(L["Pick your roles, then Look for a group or Host one."])
-        top.need:SetWidth(200)
+        top.need:SetWidth(162)
         top.stop:Hide()
         top.post:Hide()
     end
-    local listTop = mine and 108 or 78
+    local listTop = 6                     -- the roles card lives in the left column now
     dview.scroll:ClearAllPoints()
     dview.scroll:SetPoint("TOPLEFT", dview.scroll:GetParent(), "TOPLEFT", 6, -listTop)
     dview.scroll:SetPoint("BOTTOMRIGHT", dview.scroll:GetParent(), "BOTTOMRIGHT", -28, 6)
@@ -5083,7 +5226,7 @@ end
 -- the giver: name, zone and coordinates from the bundled data
 local function Giver(qid)
     local D = ns.QDATA
-    local q = D and D.q and D.q[qid]
+    local q = ns.QuestRow(qid)
     local kind, id
     if q then kind, id = q:match("^([no])(%d+)") end
     local raw = kind and D[kind] and D[kind][tonumber(id)]
@@ -5233,19 +5376,36 @@ end
 -- the tab
 ---------------------------------------------------------------------------
 local zv = { heads = {}, rows = {}, open = {} }
-local Z_HEAD_H, Z_ROW_H, GAP = 34, 46, 6
+local Z_HEAD_H, Z_ROW_H, GAP = 34, 62, 6
 
 function ns.BuildZonesView(p, inset)
     local UI = ns.UI
     local v = CreateFrame("Frame", nil, inset)
     v:SetAllPoints(inset)
     p.zonesView = v
-    zv.top = UI.Text(v, 11, "muted")
-    zv.top:SetPoint("TOPLEFT", v, "TOPLEFT", 8, -8)
-    zv.top:SetWidth(ROW_W)
-    zv.top:SetJustifyH("LEFT")
+    -- left column: your level and count, and the zone with the most XP for you (Route there)
+    local side = UI.Side(v, inset)
+    zv.side = side
+    zv.top = side.body
+    local best = UI.Card(side, 186, 92)
+    best:SetPoint("TOPLEFT", side.body, "BOTTOMLEFT", 0, -14)
+    UI.Flat(best, { 0.086, 0.137, 0.165, 1 }, { 0.17, 0.29, 0.3, 1 })
+    best.label = UI.Text(best, 9, "accent", nil, "bold")
+    best.label:SetPoint("TOPLEFT", 10, -10)
+    best.label:SetText(UI.Caps(L["Most XP for you"]))
+    best.name = UI.Text(best, 13, "text", nil, "bold")
+    best.name:SetPoint("TOPLEFT", best.label, "BOTTOMLEFT", 0, -5)
+    best.name:SetWidth(166)
+    best.name:SetJustifyH("LEFT")
+    best.info = UI.Text(best, 10, "muted")
+    best.info:SetPoint("TOPLEFT", best.name, "BOTTOMLEFT", 0, -3)
+    best.btn = UI.Button(best, 90, 20, "primary")
+    best.btn:SetText(L["Route there"])
+    best.btn:SetPoint("BOTTOMLEFT", 10, 9)
+    best.btn:SetScript("OnClick", function(self) if self.area then ns.TravelToZone(self.area) end end)
+    zv.best = best
     local scroll = CreateFrame("ScrollFrame", nil, v, "UIPanelScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -30)
+    scroll:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -6)
     scroll:SetPoint("BOTTOMRIGHT", v, "BOTTOMRIGHT", -28, 6)
     UI.SkinScroll(scroll)
     local child = CreateFrame("Frame", nil, scroll)
@@ -5299,11 +5459,12 @@ local function Row(i)
     r.name:SetPoint("TOPLEFT", r.lvlBg, "TOPRIGHT", 10, 3)
     r.name:SetJustifyH("LEFT")
     r.name:SetWordWrap(false)
+    -- three lines: name, then XP / chain / elite, then the giver and where
     r.pills = UI.Text(r, 9, "accent", nil, "medium")
-    r.pills:SetPoint("LEFT", r.name, "RIGHT", 8, 0)
+    r.pills:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -3)
     r.where = CreateFrame("Button", nil, r)
     r.where:SetHeight(14)
-    r.where:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -3)
+    r.where:SetPoint("TOPLEFT", r.pills, "BOTTOMLEFT", 0, -2)
     r.where.text = UI.Text(r.where, 10, "muted")
     r.where.text:SetPoint("LEFT")
     r.where.text:SetJustifyH("LEFT")
@@ -5341,7 +5502,7 @@ local function Row(i)
     r.btn:ClearAllPoints()
     r.btn:SetPoint("RIGHT", r.nav, "LEFT", -6, 0)
     r.details = UI.Text(r, 11, "text")
-    r.details:SetPoint("TOPLEFT", r, "TOPLEFT", 14, -46)
+    r.details:SetPoint("TOPLEFT", r, "TOPLEFT", 14, -62)
     r.details:SetWidth(ROW_W - 40)
     r.details:SetJustifyH("LEFT")
     r.details:SetJustifyV("TOP")
@@ -5362,9 +5523,22 @@ function ns.RefreshZones()
     local level = UnitLevel("player") or 1
     local total = 0
     for _, z in ipairs(zones) do total = total + #z.quests end
-    zv.top:SetText(string.format(L["Level %d  ·  %d quests to pick up in %d zones"], level, total, #zones))
+    zv.side.title:SetText(string.format(L["Level %d"], level))
+    zv.top:SetText(string.format(L["%d quests to pick up in %d zones"], total, #zones))
     zv.empty:SetShown(#zones == 0)
-    zv.top:SetShown(#zones > 0)
+    -- the zone that gives the most XP, other than the one you're in
+    local hereMap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+    local best
+    for _, z in ipairs(zones) do
+        if ns.UiMapForArea(z.area) ~= hereMap and (not best or (z.xp or 0) > (best.xp or 0)) then best = z end
+    end
+    zv.best:SetShown(best ~= nil)
+    if best then
+        zv.best.name:SetText(best.name)
+        zv.best.info:SetText(string.format(L["%d to pick up"], #best.quests) .. "  ·  |cffb48ef9"
+            .. ns.FormatNumber(best.xp or 0) .. " " .. L["XP"] .. "|r")
+        zv.best.btn.area = best.area
+    end
     if zv.firstOpen == nil and zones[1] then zv.open[zones[1].area] = true; zv.firstOpen = true end
     local y, nh, nr = 0, 0, 0
     for _, z in ipairs(zones) do
@@ -5375,7 +5549,12 @@ function ns.RefreshZones()
         h:SetPoint("TOPLEFT", zv.content, "TOPLEFT", 0, -y)
         h:Show()
         h.name:SetText(z.name)
-        h.range:SetText((z.lo and z.hi) and (z.lo == z.hi and tostring(z.lo) or (z.lo .. "-" .. z.hi)) or "")
+        -- quests listed at level 0 or below (any level) don't count toward the range
+        local lo, hi
+        for _, e in ipairs(z.quests) do
+            if (e.level or 0) > 0 then lo, hi = math.min(lo or e.level, e.level), math.max(hi or e.level, e.level) end
+        end
+        h.range:SetText(lo and (lo == hi and tostring(lo) or (lo .. "-" .. hi)) or "")
         local zxp = (z.xp or 0) > 0 and ("  |cff5b606b·|r  |cffb48ef9" .. ns.FormatNumber(z.xp) .. " " .. L["XP"] .. "|r") or ""
         h.count:SetText(string.format(L["%d to pick up"], #z.quests) .. zxp .. (zv.open[z.area] and "" or "  +"))
         y = y + Z_HEAD_H
@@ -5398,9 +5577,9 @@ function ns.RefreshZones()
                 r.pills:SetText(table.concat(pills, "   "))
                 r.where.text:SetText(e.giver .. "  |cff5b606b·|r  |cff7fe3d8" .. z.name
                     .. string.format(" (%d, %d)", math.floor(e.x + 0.5), math.floor(e.y + 0.5)) .. "|r")
-                r.where:SetWidth(math.min(300, (tonumber(r.where.text:GetStringWidth()) or 200) + 4))
                 local btnW = e.elite and 98 or 0
-                local room = ROW_W - 12 - 48 - btnW - 64 - 20 - ((tonumber(r.pills:GetStringWidth()) or 0) + 8)
+                r.where:SetWidth(math.min(ROW_W - 12 - 48 - 64 - 20, (tonumber(r.where.text:GetStringWidth()) or 200) + 4))
+                local room = ROW_W - 12 - 48 - btnW - 64 - 20
                 r.name:SetWidth(math.max(60, math.min((tonumber(r.name:GetStringWidth()) or room) + 2, room)))
                 if e.elite then
                     local on = ns.IsSearching and ns.IsSearching(e.questID)
@@ -5584,22 +5763,22 @@ function ns.BuildTreasuresView(p, inset)
     local v = CreateFrame("Frame", nil, inset)
     v:SetAllPoints(inset)
     p.treasuresView = v
-    tv.title = UI.Text(v, 9, "muted", nil, "bold")
-    tv.title:SetPoint("TOPLEFT", v, "TOPLEFT", 8, -10)
-    tv.title:SetText(ns.UI.Caps(L["Treasures"]))
-    tv.count = UI.Text(v, 10, "accent", nil, "medium")
-    tv.count:SetPoint("TOPRIGHT", v, "TOPRIGHT", -12, -9)
-    tv.barBg = v:CreateTexture(nil, "ARTWORK")
+    -- left column: how many bags you have, with a progress bar
+    local side = UI.Side(v, inset)
+    side:Set(L["Treasures"], "", L["You get a reminder near a bag quest giver, even with this window closed."])
+    tv.title = side.title
+    tv.count = side.body
+    tv.barBg = side:CreateTexture(nil, "ARTWORK")
     tv.barBg:SetHeight(4)
-    tv.barBg:SetPoint("TOPLEFT", v, "TOPLEFT", 8, -28)
-    tv.barBg:SetPoint("TOPRIGHT", v, "TOPRIGHT", -12, -28)
+    tv.barBg:SetPoint("TOPLEFT", side.body, "BOTTOMLEFT", 0, -8)
+    tv.barBg:SetWidth(186)
     tv.barBg:SetColorTexture(C.panel2[1], C.panel2[2], C.panel2[3], 1)
-    tv.bar = v:CreateTexture(nil, "OVERLAY")
+    tv.bar = side:CreateTexture(nil, "OVERLAY")
     tv.bar:SetHeight(4)
     tv.bar:SetPoint("TOPLEFT", tv.barBg, "TOPLEFT")
     tv.bar:SetColorTexture(C.accent[1], C.accent[2], C.accent[3], 1)
     local scroll = CreateFrame("ScrollFrame", nil, v, "UIPanelScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -40)
+    scroll:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -6)
     scroll:SetPoint("BOTTOMRIGHT", v, "BOTTOMRIGHT", -28, 6)
     UI.SkinScroll(scroll)
     local child = CreateFrame("Frame", nil, scroll)
@@ -5725,25 +5904,26 @@ end
 -- refresh + window
 ---------------------------------------------------------------------------
 local function RefreshQuests()
-    local y = ns.RefreshRouteView(panel)
-    local list = BuildEntries()
-    local stripe = false
+    ns.RefreshRouteView(panel)
+    local list, counts = BuildEntries()
+    local chip = ns.questChip or "all"
+    local labels = { all = L["All %d"], group = L["Group %d"], ready = L["Ready %d"] }
+    for _, c in ipairs(panel.questChips or {}) do
+        c:SetText(string.format(labels[c.key], counts[c.key]))
+        c:SetWidth((tonumber(c.label:GetStringWidth()) or 40) + 20)
+        c:SetKind(c.key == chip and "outline" or "ghost")
+    end
+    local y = 0
     for i, e in ipairs(list) do
         local r = GetPanelRow(i)
         r:ClearAllPoints()
         r:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -y)
         r:Show()
-        if e.header then
-            LayoutHeader(r, e)
-            stripe = false
-            y = y + HEADER_H
-        else
-            stripe = not stripe
-            y = y + (LayoutQuest(r, e, stripe) or QUEST_H)
-        end
+        y = y + LayoutQuest(r, e) + 6
     end
     for i = #list + 1, #panelRows do panelRows[i]:Hide() end
     content:SetHeight(math.max(y, 1))
+    emptyText:SetText(counts.all == 0 and L["Your quest log is empty."] or L["No quests match this filter."])
     if #list == 0 then emptyText:Show() else emptyText:Hide() end
 end
 
@@ -5753,6 +5933,27 @@ end
 -- tick = tabs that show times or expiring entries, rebuilt by the once-a-second tick while visible
 local Tabs = { n = 8, dirty = {}, counts = {}, tick = { [1] = true, [2] = true, [3] = true, [7] = true } }
 for i = 1, Tabs.n do Tabs.dirty[i] = true end
+
+-- the left columns of Nearby and Groups (Zones, Dungeons, Treasures and Rewards fill their own)
+function Tabs.Sides(tab)
+    if tab == 2 and panel.nearbySide then
+        local lines = {}
+        for qid, s in pairs(seeking) do
+            local n = CountPeers(s)
+            lines[#lines + 1] = QuestTitle(qid) .. "\n|cff4fd1c5"
+                .. (n > 0 and string.format(L["Players found: %d"], n) or L["Searching..."]) .. "|r"
+        end
+        panel.nearbySide:Set(string.format(L["Your searches · %d"], #lines),
+            #lines > 0 and table.concat(lines, "\n\n") or L["You're not searching yet. Use Find group on a quest card."],
+            L["Players within 6 levels of you, found through Questynator or chat."])
+    elseif tab == 3 and panel.groupsSide then
+        local hosted = ns.HostedQuest and ns.HostedQuest()
+        ns.PaintHostButton(panel.groupsSide.host)
+        panel.groupsSide:Set(L["Your group"], hosted and string.format(L["Hosting: %s"], QuestTitle(hosted))
+            or L["You're not hosting. List a quest from your log: players who click Join, or whisper you +, are invited."],
+            L["Groups made with Questynator on your realm and faction."])
+    end
+end
 
 function Tabs.Render(tab)
     Tabs.dirty[tab] = false
@@ -5787,6 +5988,7 @@ local function RefreshPanel(tick)
     if tick == true and Tabs.tick[tab] then Tabs.dirty[tab] = true end
     local rendered = Tabs.dirty[tab] and tab or nil
     if rendered then Tabs.Render(tab) end
+    Tabs.Sides(tab)
 
     -- badge counts without building the hidden tabs
     if rendered ~= 2 then Tabs.counts[2] = #ns.NearbyEntries() end
@@ -5822,15 +6024,15 @@ local function RefreshPanel(tick)
     if found > 0 then status = status .. "  |cff5b606b·|r  |cff4fd1c5" .. string.format(L["Players found: %d"], found) .. "|r" end
     if online > 0 then status = status .. "  |cff5b606b·|r  " .. string.format(L["%d users online"], online) end
     footer:SetText(status)
-    if active == 0 then stopAll:Disable() else stopAll:Enable() end
+    stopAll:SetShown(active > 0)
 end
 
-local function MakeScroll(parent)
+local function MakeScroll(parent, width)
     local scroll = CreateFrame("ScrollFrame", nil, parent, "UIPanelScrollFrameTemplate")
     scroll:SetPoint("TOPLEFT", parent, "TOPLEFT", 6, -6)
     scroll:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -28, 6)
     local child = CreateFrame("Frame", nil, scroll)
-    child:SetSize(ROW_W, 1)
+    child:SetSize(width or ROW_W, 1)
     scroll:SetScrollChild(child)
     ns.UI.SkinScroll(scroll)
     return scroll, child
@@ -5839,7 +6041,7 @@ end
 local function CreatePanel()
     local UI, C = ns.UI, ns.UI.C
     local p = CreateFrame("Frame", "QuestynatorPanel", UIParent)
-    p:SetSize(560, 580)
+    p:SetSize(640, 580)
     UI.Flat(p, C.bg, C.line)
     -- highest window layer (only tooltips draw above it)
     p:SetFrameStrata("FULLSCREEN_DIALOG")
@@ -5908,33 +6110,39 @@ local function CreatePanel()
     p.host = ns.MakeHostButton(p)
     p.host:SetPoint("RIGHT", sb, "LEFT", -10, 0)
 
-    -- rewards line (hover for the full breakdown) + thin XP bar
-    -- reward chips: XP, money, rep
+    -- Quest log rewards (hover for the full breakdown) + thin XP bar. They sit at the bottom of the
+    -- Quests tab's route column, built after it (BuildRewards is called from the Quests tab below).
+    local function BuildRewards(box)
+    box.title = UI.Text(box, 9, "muted", nil, "bold")
+    box.title:SetPoint("TOPLEFT", box, "TOPLEFT", 0, 0)
+    box.title:SetText(ns.UI.Caps(L["Quest log rewards"]))
+    -- reward chips: XP and money on one line, rep under them
     p.chips = {}
     for i = 1, 3 do
-        local c = CreateFrame("Frame", nil, p)
-        c:SetHeight(20)
+        local c = CreateFrame("Frame", nil, box)
+        c:SetHeight(18)
         UI.Flat(c, { 0.13, 0.145, 0.18, 1 }, false)
         c.text = UI.Text(c, 10, "text", nil, "medium")
         c.text:SetPoint("CENTER", 0, 0)
-        if i == 1 then c:SetPoint("TOPLEFT", p, "TOPLEFT", 14, -42)
-        else c:SetPoint("LEFT", p.chips[i - 1], "RIGHT", 6, 0) end
+        if i == 1 then c:SetPoint("TOPLEFT", box.title, "BOTTOMLEFT", 0, -6)
+        elseif i == 2 then c:SetPoint("LEFT", p.chips[1], "RIGHT", 6, 0)
+        else c:SetPoint("TOPLEFT", p.chips[1], "BOTTOMLEFT", 0, -4) end
         p.chips[i] = c
     end
-    local sub = p.chips[1]
     p.sub = { SetText = function() end }
-    local subHover = CreateFrame("Frame", nil, p)
+    local subHover = CreateFrame("Frame", nil, box)
     subHover:SetPoint("TOPLEFT", p.chips[1], "TOPLEFT", 0, 0)
-    subHover:SetPoint("BOTTOMRIGHT", p.chips[3], "BOTTOMRIGHT", 0, 0)
-    subHover:SetFrameLevel((tonumber(p:GetFrameLevel()) or 1) + 5)
+    subHover:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", 0, 14)
+    subHover:SetFrameLevel((tonumber(box:GetFrameLevel()) or 1) + 5)
     subHover:EnableMouse(true)
     subHover:SetScript("OnEnter", function(self) ns.ShowRewardsTooltip(self) end)
     subHover:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     -- XP bar: teal = now, light teal = what your quests add
-    local bar = CreateFrame("Frame", nil, p)
-    bar:SetSize(150, 8)
-    bar:SetPoint("RIGHT", p, "TOPRIGHT", -16, -54)
+    local bar = CreateFrame("Frame", nil, box)
+    bar:SetHeight(6)
+    bar:SetPoint("BOTTOMLEFT", box, "BOTTOMLEFT", 0, 0)
+    bar:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", 0, 0)
     bar:EnableMouse(true)
     bar.bg = bar:CreateTexture(nil, "BACKGROUND")
     bar.bg:SetAllPoints()
@@ -5950,11 +6158,12 @@ local function CreatePanel()
     bar.border:SetColorTexture(C.line[1], C.line[2], C.line[3], 1)
     bar.border:SetDrawLayer("BACKGROUND", -1)
     bar.text = UI.Text(bar, 10, "accent", nil, "medium")
-    bar.text:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", 0, 3)
+    bar.text:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 4)
     bar:SetScript("OnEnter", function(self) ns.ShowXPTooltip(self) end)
     bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
     bar:SetScript("OnSizeChanged", function(self) ns.UpdateXPBar(self) end)
     p.xpBar = bar
+    end
 
     -- top tabs with a teal underline and count badges
     p.Tabs = {}
@@ -5962,7 +6171,7 @@ local function CreatePanel()
         { id = 1, name = "Quests" }, { id = 5, name = "Zones" },
         { id = 2, name = "Nearby", groupStart = true, badge = true },
         { id = 3, name = "Groups", badge = true }, { id = 4, name = "Dungeons", badge = true },
-        { id = 6, name = "Treasures", groupStart = true, badge = true }, { id = 8, name = "Reward Hunting" },
+        { id = 6, name = "Treasures", groupStart = true, badge = true }, { id = 8, name = "Rewards" },
     }
     for i, def in ipairs(tabDefs) do
         local tab = UI.Tab(p, L[def.name])
@@ -5981,22 +6190,17 @@ local function CreatePanel()
     inset:SetPoint("TOPLEFT", rule, "BOTTOMLEFT", -8, -3)
     inset:SetPoint("BOTTOMRIGHT", p, "BOTTOMRIGHT", -6, 36)
     p.Inset = inset
+    -- tabs spread evenly across the window, right under the title
     function p:LayoutTabs()
-        local x, y = 16, -68
-        for i, tab in ipairs(self.Tabs) do
-            local width = tab:GetWidth()
-            if tab.groupStart then
-                local groupWidth = width
-                for j = i + 1, #self.Tabs do
-                    if self.Tabs[j].groupStart then break end
-                    groupWidth = groupWidth + 6 + self.Tabs[j]:GetWidth()
-                end
-                x = x + 10
-                if x + groupWidth > self:GetWidth() - 14 then x, y = 16, y - 28 end
-            end
-            if x + width > self:GetWidth() - 14 then x, y = 16, y - 28 end
+        local width, total = tonumber(self:GetWidth()) or 640, 0
+        for _, tab in ipairs(self.Tabs) do total = total + (tonumber(tab:GetWidth()) or 60) end
+        local gap = #self.Tabs > 1 and math.max(6, (width - 32 - total) / (#self.Tabs - 1)) or 0
+        local x, y = 16, -42
+        for _, tab in ipairs(self.Tabs) do
+            local w = tonumber(tab:GetWidth()) or 60
+            if x + w > width - 14 then x, y = 16, y - 28 end
             tab:SetPoint("TOPLEFT", self, "TOPLEFT", x, y)
-            x = x + width + 6
+            x = x + w + gap
         end
         rule:SetPoint("TOPLEFT", self, "TOPLEFT", 14, y - 28)
         rule:SetPoint("TOPRIGHT", self, "TOPRIGHT", -14, y - 28)
@@ -6004,20 +6208,38 @@ local function CreatePanel()
     p:LayoutTabs()
 
     -- Quests tab
+    -- Quests tab: the route column on the left, search + filter chips + quest cards on the right
     p.questView = CreateFrame("Frame", nil, inset)
     p.questView:SetAllPoints(inset)
-    p.search = UI.SearchBox(p.questView, 200, L["Search quests"], function(text)
+    ns.BuildRouteView(p)
+    BuildRewards(p.routeView.rewards)
+    p.questBody = CreateFrame("Frame", nil, p.questView)
+    p.questBody:SetPoint("TOPLEFT", p.routeView, "TOPRIGHT", 4, 6)
+    p.questBody:SetPoint("BOTTOMRIGHT", p.questView, "BOTTOMRIGHT", 0, 0)
+    p.search = UI.SearchBox(p.questBody, 200, L["Search quests"], function(text)
         ns.SetQuestFilter(text)
         RefreshPanel()
     end)
-    p.search:SetPoint("TOPLEFT", p.questView, "TOPLEFT", 10, -6)
-    p.search:SetPoint("TOPRIGHT", p.questView, "TOPRIGHT", -10, -6)
-    ns.BuildRouteView(p)
-    p.questBody = CreateFrame("Frame", nil, p.questView)
-    p.questBody:SetPoint("TOPLEFT", p.routeView, "BOTTOMLEFT")
-    p.questBody:SetPoint("BOTTOMRIGHT", p.questView, "BOTTOMRIGHT", 0, 0)
+    p.search:SetPoint("TOPLEFT", p.questBody, "TOPLEFT", 6, -6)
+    p.search:SetPoint("TOPRIGHT", p.questBody, "TOPRIGHT", -28, -6)
+    p.questChips = {}
+    for i, key in ipairs({ "all", "group", "ready" }) do
+        local chip = UI.Button(p.questBody, 60, 20, "ghost")
+        chip.key = key
+        chip:SetScript("OnClick", function(self)
+            ns.questChip = self.key
+            p.questScroll:SetVerticalScroll(0)
+            RefreshPanel()
+        end)
+        if i == 1 then chip:SetPoint("TOPLEFT", p.search, "BOTTOMLEFT", 0, -8)
+        else chip:SetPoint("LEFT", p.questChips[i - 1], "RIGHT", 6, 0) end
+        p.questChips[i] = chip
+    end
+    local listArea = CreateFrame("Frame", nil, p.questBody)
+    listArea:SetPoint("TOPLEFT", p.questBody, "TOPLEFT", 0, -58)
+    listArea:SetPoint("BOTTOMRIGHT", p.questBody, "BOTTOMRIGHT", 0, 0)
     local scroll
-    scroll, content = MakeScroll(p.questBody)
+    scroll, content = MakeScroll(listArea, QUEST_W)
     p.questScroll = scroll
     emptyText = ns.UI.Text(p.questView, 13, "dim")
     emptyText:SetPoint("CENTER", scroll, "CENTER")
@@ -6028,6 +6250,7 @@ local function CreatePanel()
     local toQuests = function() ns.SelectTab(1) end
     p.nearbyView = CreateFrame("Frame", nil, inset)
     p.nearbyView:SetAllPoints(inset)
+    p.nearbySide = UI.Side(p.nearbyView, inset)       -- your searches (filled by Tabs.Sides)
     local nscroll
     nscroll, nearbyContent = MakeScroll(p.nearbyView)
     nearbyEmpty = UI.Empty(p.nearbyView, toQuests)
@@ -6037,6 +6260,9 @@ local function CreatePanel()
     -- Groups tab
     p.groupsView = CreateFrame("Frame", nil, inset)
     p.groupsView:SetAllPoints(inset)
+    p.groupsSide = UI.Side(p.groupsView, inset)       -- your group and Host LFG
+    p.groupsSide.host = ns.MakeHostButton(p.groupsSide)
+    p.groupsSide.host:SetPoint("TOPLEFT", p.groupsSide.body, "BOTTOMLEFT", 0, -12)
     local gscroll
     gscroll, groupsContent = MakeScroll(p.groupsView)
     groupsEmpty = UI.Empty(p.groupsView, toQuests)
@@ -6098,16 +6324,18 @@ function ns.TabState()
     return st
 end
 
+-- Opening the window always lands on the Quests tab (callers that want another tab select it after).
+-- SelectTab also draws the tab's underline, which a fresh window doesn't have yet.
 function ns.ShowPanel()
     if not panel then panel = CreatePanel() end
     panel:Show()
     panel:Raise()
-    RefreshPanel()
+    ns.SelectTab(1)
 end
 
 function ns.TogglePanel()
     if not panel then panel = CreatePanel() end
-    if panel:IsShown() then panel:Hide() else panel:Show() end
+    if panel:IsShown() then panel:Hide() else ns.ShowPanel() end
 end
 
 ---------------------------------------------------------------------------
@@ -7170,6 +7398,7 @@ end
 function ns.ArrowRefresh()
     ns.UpdateRoute()
     ns.RefreshPlanner()
+    if ns.WorldMarkerRefresh then pcall(ns.WorldMarkerRefresh) end
     if DB.arrow == false then
         current = nil
         if arrow then arrow:Hide() end
@@ -7826,7 +8055,8 @@ end
 ---------------------------------------------------------------------------
 -- minimap button (LibDBIcon) + Blizzard's addon compartment
 ---------------------------------------------------------------------------
-local ICON_PATH = "Interface\\AddOns\\Questynator\\Media\\Icon"
+-- The minimap draws its own round gold border, so this icon is the inner disc without the painted ring.
+local ICON_PATH = "Interface\\AddOns\\Questynator\\Media\\MinimapIcon"
 
 local function StopAll()
     for questID in pairs(seeking) do ns.Stop(questID, "search cancelled") end
@@ -7894,6 +8124,7 @@ ns.OPTIONS = {
     { key = "autoAccept", section = "Features",  label = "Auto-accept invites from matched players" },
     { key = "chatScan",   section = "Features",  label = "Chat scanner (find players looking for groups in chat)" },
     { key = "reminders",  section = "Features",  label = "Smart reminders for quests, rewards, groups, and treasures" },
+    { key = "worldMarker", section = "Features", label = "In-world waypoint over the next route stop" },
     { key = "minimap",    section = "Interface", label = "Minimap button" },
     { key = "planner",    section = "Interface", label = "Show Route Planner" },
     { key = "sound",      section = "Interface", label = "Sound alerts" },
@@ -7904,6 +8135,7 @@ function ns.GetOption(key)
     if key == "planner" then return not DB.plannerHidden end
     if key == "minimap" then return not (DB.minimap and DB.minimap.hide) end
     if key == "arrow" then return DB.arrow ~= false end
+    if key == "worldMarker" then return DB.worldMarker ~= false end
     return DB[key] and true or false
 end
 
@@ -7926,6 +8158,7 @@ function ns.SetOption(key, on)
         pcall(ns.ArrowRefresh)
     end
     if key == "reminders" then ns.StartSmartReminders() end
+    if key == "worldMarker" and ns.WorldMarkerToggle then pcall(ns.WorldMarkerToggle) end
     if ns.RefreshOptionViews then pcall(ns.RefreshOptionViews) end
 end
 
@@ -7994,6 +8227,12 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Every tab has a new two-column layout: summary and controls on the left, the list on the right. The Quests tab shows your route beside your quests, with ready turn-ins first.",
+        "A new in-world waypoint marks your next route stop with a beam, rings on the spot, the distance and time. It fades as you get close and turns green when you arrive.",
+        "Routes always go to the nearest stop, skip dungeon and battleground quests, and suggest the best next zone when yours runs out.",
+        "Quest data rebuilt from QuestieDB Forever: about 440 more pickups, more exact locations, and player tips for Mulgore starter quests.",
+    } },
+    { v = "1.6.3", lines = {
         "The Route Planner opens compact with your next action. Click More for up to three actions, Snooze stop, and Undo. Its main button pauses and resumes the route.",
         "Speak-to quests become route stops at their NPC, a replan keeps your current task first, and the Quests tab's Skip button is now Snooze stop.",
         "Stop hosting keeps a quest search you started before hosting. Translated clients keep compass guidance after you finish one objective.",

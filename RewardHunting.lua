@@ -289,7 +289,7 @@ local function LayoutWeaponTypes(types)
         table.sort(kinds)
         count = #kinds + 1
     end
-    local columns = math.min(3, count)
+    local columns = math.min(2, count)           -- two columns fit the narrower list
     for i = 1, count do
         local b = view.typeButtons[i]
         if not b then
@@ -298,7 +298,7 @@ local function LayoutWeaponTypes(types)
             b.label:SetWordWrap(false)
             view.typeButtons[i] = b
         end
-        local column, row = (i - 1) % 3, math.floor((i - 1) / 3)
+        local column, row = (i - 1) % 2, math.floor((i - 1) / 2)
         b:SetPoint("TOPRIGHT", view.weaponType, "BOTTOMRIGHT", (column + 1 - columns) * 169, -4 - row * 26)
         b.weaponType = kinds[i - 1]
         b:SetText(b.weaponType or L["All weapon types"])
@@ -306,13 +306,19 @@ local function LayoutWeaponTypes(types)
         b:Show()
     end
     for i = count + 1, #view.typeButtons do view.typeButtons[i]:Hide() end
-    view.scroll:SetPoint("TOPLEFT", 8, -92 - math.ceil(count / 3) * 26)
+    view.scroll:SetPoint("TOPLEFT", 8, -92 - math.ceil(count / 2) * 26)
 end
 
 function ns.BuildRewardHunting(p, inset)
     local UI = ns.UI
     view = CreateFrame("Frame", nil, inset)
     view:SetAllPoints(inset)
+    -- left column: the reward you're pursuing, with Stop
+    view.side = UI.Side(view, inset)
+    view.sideStop = UI.Button(view.side, 60, 20, "ghost")
+    view.sideStop:SetText(L["Stop"])
+    view.sideStop:SetPoint("TOPLEFT", view.side.body, "BOTTOMLEFT", 0, -38)
+    view.sideStop:SetScript("OnClick", function() ns.SetRewardPursuit(nil) end)
     view:SetScript("OnHide", function()
         if view.choosingWeaponType then
             view.choosingWeaponType = false
@@ -371,7 +377,9 @@ function ns.BuildRewardHunting(p, inset)
         currentZoneOnly = not currentZoneOnly
         ShowItem(nil)
     end)
-    view.zone:SetPoint("LEFT", previous, "RIGHT", 5, 0)
+    -- the zone toggle lives in the left column, under what you're pursuing
+    view.zone:SetParent(view.side)
+    view.zone:SetPoint("TOPLEFT", view.side.body, "BOTTOMLEFT", 0, -10)
     view.typeButtons = {}
     view.weaponType = Button(view, 180, "All weapon types", function()
         view.choosingWeaponType = not view.choosingWeaponType
@@ -392,7 +400,7 @@ function ns.BuildRewardHunting(p, inset)
     view.scroll:SetPoint("BOTTOMRIGHT", -28, 8)
     UI.SkinScroll(view.scroll)
     view.child = CreateFrame("Frame", nil, view.scroll)
-    view.child:SetSize(502, 1)
+    view.child:SetSize((ns.ROW_W or 370), 1)
     view.scroll:SetScrollChild(view.child)
     view.zoneEmpty = UI.Empty(view.child, function()
         currentZoneOnly = false
@@ -407,7 +415,7 @@ local function Row(i, title, subtitle, reward, destination, pinLabel, remaining)
     local row = view.rows[i]
     if not row then
         row = CreateFrame("Button", nil, view.child)
-        row:SetSize(502, 42)
+        row:SetSize((ns.ROW_W or 370), 42)
         if i == 1 then row:SetPoint("TOPLEFT")
         else row:SetPoint("TOPLEFT", view.rows[i - 1], "BOTTOMLEFT", 0, -4) end
         ns.UI.Flat(row, ns.UI.C.panel)
@@ -445,7 +453,7 @@ local function Row(i, title, subtitle, reward, destination, pinLabel, remaining)
     end
     local left = reward and 48 or 10
     row.title:SetPoint("TOPLEFT", left, -5)
-    row.title:SetWidth(502 - left - (destination and row.pin:GetWidth() + 18 or 8))
+    row.title:SetWidth((ns.ROW_W or 370) - left - (destination and row.pin:GetWidth() + 18 or 8))
     row.title:SetJustifyH("LEFT")
     row.title:SetWordWrap(false)
     row.sub:SetPoint("TOPLEFT", left, -23)
@@ -459,6 +467,10 @@ end
 
 function ns.RefreshRewardHunting()
     if not view then return end
+    local goal = QuestynatorRewardGoal and ns.RewardCatalog[QuestynatorRewardGoal]
+    view.side:Set(L["Pursuing"], goal and goal.name or L["Nothing yet."],
+        L["Pursue a reward and the Route Planner walks you through its quests, even across zones."])
+    view.sideStop:SetShown(goal ~= nil)
     local reward = selected and ns.RewardCatalog[selected]
     local entry = reward and ns.RewardProgress(reward)
     if entry then

@@ -2,7 +2,18 @@
 ## Title: Questynator
 ## Notes: Plan quest routes, follow objectives, and find other players for quests and dungeons.
 ## Author: Ashot
-## Version: 1.6.3
+## Version: 1.6.5
+## Category: Quests
+## Category-deDE: Quests
+## Category-esES: Misiones
+## Category-esMX: Misiones
+## Category-frFR: Quêtes
+## Category-itIT: Missioni
+## Category-koKR: 퀘스트
+## Category-ptBR: Missões
+## Category-ruRU: Задания
+## Category-zhCN: 任务
+## Category-zhTW: 任務
 ## IconTexture: Interface\AddOns\Questynator\Media\Icon
 ## X-License: GPL-3.0-or-later
 ## SavedVariables: QuestynatorDB
@@ -18,9 +29,11 @@ Libs\LibDBIcon-1.0\lib.xml
 
 Data\QuestData.lua
 Data\JournalPickups.lua
+Data\QuestTips.lua
 Data\RewardCatalog.lua
 Questynator.lua
 Routes.lua
+WorldMarker.lua
 RewardHunting.lua
 DungeonPrep.lua
 SmartReminders.lua

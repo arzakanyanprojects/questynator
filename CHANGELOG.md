@@ -1,3 +1,31 @@
+# Questynator 1.6.5
+
+## New look
+- **Every tab has a two-column layout.** The left column holds the tab's summary and controls; the list sits on the right. The window is wider (640 px), the tabs are spread evenly, and small grey text is brighter.
+- **Quests tab:** your route runs down the left, with the current stop as a card (what to do, where, level, XP, **Pin on map**), the next stops with their distance, and your quest log rewards and XP bar. Your quests are on the right as cards with the next objective, its count and a progress bar. Ready-to-turn-in quests come first with **Pin turn-in**, then the quests closest to done. **All**, **Group** and **Ready** filter the list.
+- **Other tabs:** Zones shows your level and the zone with the most XP for you (**Route there**). Nearby shows your searches. Groups shows your group and **Host LFG**. Dungeons holds your roles. Treasures shows your bag progress. Rewards shows what you're pursuing, with **Stop**. **Reward Hunting** is now **Rewards** on the tab row.
+
+## In-world waypoint
+- A marker over your next route stop: a soft beam, pulsing rings on the exact spot, a badge (**!** pickup, **?** turn-in, a dot for an objective), the distance and time under it, and a label with the quest.
+- It fades as you get close so it never hides the NPC, turns green with "You're here" on arrival, and shows an arrow at the screen edge when the spot is behind you.
+- It steps aside while you follow a quest you picked in the tracker and never replaces a map pin you placed yourself. Turn it off under **Options → AddOns → Questynator**.
+
+## Smarter routes
+- Routes always go to the nearest stop next, and re-order as you move when another stop gets clearly closer.
+- Leveling routes leave out dungeon and battleground quest givers. Dungeon prep and reward pursuit still include them when you start them yourself.
+- When your zone has nothing left for your level, the planner suggests the **best next zone**. **Route there** guides you to it.
+- Dungeon prep, reward pursuit and zone trips are named in the planner with a **Stop** button.
+- Each planner action shows the quest's level, XP and tags, and for pickups what the quest asks for and where. Later stops show their distance.
+
+## Quest data
+- Rebuilt from the latest QuestieDB Forever: 5,982 quests, about 440 more pickups (including quests that start from an item on the ground, like **Attack on Camp Narache**), XP for 950 more quests, Horde-specific quest givers, and more exact coordinates.
+- **Quest tips:** short player tips for 20 Mulgore starter quests, in quest tooltips and "how to complete".
+
+## Fixes and polish
+- `/qn` and the minimap button always open the Quests tab.
+- Questynator is listed under **Quests** in the AddOns list, and the minimap icon fits its round border.
+- Objectives written as "0/6 Item" show the count on the right, like the others. Zone level ranges ignore quests listed at level 0.
+
 # Questynator 1.6.3
 
 - The Route Planner opens compact with your next action. Click **More** for up to three actions, **Snooze stop**, and **Undo**. Its main button pauses and resumes the route, and a paused route also pauses the compass.
