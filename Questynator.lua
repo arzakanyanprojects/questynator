@@ -1,4 +1,4 @@
--- Questynator 1.3.1
+-- Questynator
 -- Copyright (C) 2026 Ashot. Licensed under the GNU GPL v3 or later (see LICENSE).
 -- Adds an "LFG" button to each quest in the objective tracker. Clicking it
 -- broadcasts "I'm on quest X" over a hidden addon channel, listens for other
@@ -8,7 +8,7 @@
 --   * Beacons: "S|questID|level|state"   state 0 = solo, 1 = in group, 2 = group leader
 --   * If a group leader is seeking the same quest, they invite solo seekers.
 --   * Otherwise the solo seeker with the lowest Name-Realm hosts and invites the rest.
---   * Invites from a peer we matched with are auto-accepted (toggle: /qm auto).
+--   * Invites from a peer we matched with are auto-accepted (toggle: /qn auto).
 
 local ADDON_NAME, ns = ...
 
@@ -28,6 +28,25 @@ end
 ---------------------------------------------------------------------------
 ns.LOCALES = {
 deDE = {
+    ["Pin pickup"] = "Annahme markieren",
+    ["Pin objective"] = "Ziel markieren",
+    ["Pin turn-in"] = "Abgabe markieren",
+    ["Pin stop"] = "Stopp markieren",
+    ["Snooze stop"] = "Stopp auslassen",
+    ["Undo snooze"] = "Zurücknehmen",
+    ["Hide this stop until you leave the zone."] = "Diesen Stopp bis zum Verlassen des Gebiets ausblenden.",
+    ["Quests remaining: %d"] = "Verbleibende Quests: %d",
+    ["Selected quest"] = "Ausgewählte Quest",
+    ["Up next when you resume"] = "Danach auf deiner Route",
+    ["Resume route"] = "Route fortsetzen",
+    ["No matching weapons in this zone"] = "Keine passenden Waffen in diesem Gebiet",
+    ["Search all zones"] = "Alle Gebiete durchsuchen",
+    ["Search all zones (%d)"] = "Alle Gebiete durchsuchen (%d)",
+    ["Show 1 weapon in other zones"] = "1 Waffe in anderen Gebieten anzeigen",
+    ["Show %d weapons in other zones"] = "%d Waffen in anderen Gebieten anzeigen",
+    ["Show 1 reward in other zones"] = "1 Belohnung in anderen Gebieten anzeigen",
+    ["Show %d rewards in other zones"] = "%d Belohnungen in anderen Gebieten anzeigen",
+    ["Show Route Planner"] = "Routenplaner anzeigen",
     ["Treasures"] = "Schätze",
     ["%d-slot bag"] = "Tasche mit %d Plätzen",
     ["%d / %d collected"] = "%d / %d gesammelt",
@@ -317,6 +336,25 @@ deDE = {
     ["to"] = "bis",
 },
 frFR = {
+    ["Pin pickup"] = "Épingler le départ",
+    ["Pin objective"] = "Épingler l’objectif",
+    ["Pin turn-in"] = "Épingler le rendu",
+    ["Pin stop"] = "Épingler l’étape",
+    ["Snooze stop"] = "Reporter l’étape",
+    ["Undo snooze"] = "Annuler le report",
+    ["Hide this stop until you leave the zone."] = "Masque cette étape jusqu’à la sortie de la zone.",
+    ["Quests remaining: %d"] = "Quêtes restantes : %d",
+    ["Selected quest"] = "Quête sélectionnée",
+    ["Up next when you resume"] = "À la reprise du parcours",
+    ["Resume route"] = "Reprendre",
+    ["No matching weapons in this zone"] = "Aucune arme correspondante dans cette zone",
+    ["Search all zones"] = "Chercher dans toutes les zones",
+    ["Search all zones (%d)"] = "Chercher dans toutes les zones (%d)",
+    ["Show 1 weapon in other zones"] = "Voir 1 arme dans les autres zones",
+    ["Show %d weapons in other zones"] = "Voir %d armes dans les autres zones",
+    ["Show 1 reward in other zones"] = "Voir 1 récompense dans les autres zones",
+    ["Show %d rewards in other zones"] = "Voir %d récompenses dans les autres zones",
+    ["Show Route Planner"] = "Afficher le planificateur d’itinéraire",
     ["Treasures"] = "Trésors",
     ["%d-slot bag"] = "Sac de %d places",
     ["%d / %d collected"] = "%d / %d obtenus",
@@ -606,6 +644,25 @@ frFR = {
     ["to"] = "à",
 },
 esES = {
+    ["Pin pickup"] = "Marcar inicio",
+    ["Pin objective"] = "Marcar objetivo",
+    ["Pin turn-in"] = "Marcar entrega",
+    ["Pin stop"] = "Marcar parada",
+    ["Snooze stop"] = "Posponer parada",
+    ["Undo snooze"] = "Deshacer",
+    ["Hide this stop until you leave the zone."] = "Oculta esta parada hasta que salgas de la zona.",
+    ["Quests remaining: %d"] = "Misiones restantes: %d",
+    ["Selected quest"] = "Misión seleccionada",
+    ["Up next when you resume"] = "Al reanudar la ruta",
+    ["Resume route"] = "Reanudar ruta",
+    ["No matching weapons in this zone"] = "No hay armas que coincidan en esta zona",
+    ["Search all zones"] = "Buscar en todas las zonas",
+    ["Search all zones (%d)"] = "Buscar en todas las zonas (%d)",
+    ["Show 1 weapon in other zones"] = "Ver 1 arma en otras zonas",
+    ["Show %d weapons in other zones"] = "Ver %d armas en otras zonas",
+    ["Show 1 reward in other zones"] = "Ver 1 recompensa en otras zonas",
+    ["Show %d rewards in other zones"] = "Ver %d recompensas en otras zonas",
+    ["Show Route Planner"] = "Mostrar el planificador de rutas",
     ["Treasures"] = "Tesoros",
     ["%d-slot bag"] = "Bolsa de %d casillas",
     ["%d / %d collected"] = "%d / %d conseguidos",
@@ -895,6 +952,25 @@ esES = {
     ["to"] = "a",
 },
 ruRU = {
+    ["Pin pickup"] = "Где взять",
+    ["Pin objective"] = "Где выполнить",
+    ["Pin turn-in"] = "Где сдать",
+    ["Pin stop"] = "Отметить точку",
+    ["Snooze stop"] = "Отложить точку",
+    ["Undo snooze"] = "Вернуть точку",
+    ["Hide this stop until you leave the zone."] = "Скрыть эту точку до выхода из зоны.",
+    ["Quests remaining: %d"] = "Осталось заданий: %d",
+    ["Selected quest"] = "Выбранное задание",
+    ["Up next when you resume"] = "После возврата к маршруту",
+    ["Resume route"] = "К маршруту",
+    ["No matching weapons in this zone"] = "В этой зоне нет подходящего оружия",
+    ["Search all zones"] = "Искать во всех зонах",
+    ["Search all zones (%d)"] = "Искать во всех зонах (%d)",
+    ["Show 1 weapon in other zones"] = "Показать оружие в других зонах (1)",
+    ["Show %d weapons in other zones"] = "Показать оружие в других зонах (%d)",
+    ["Show 1 reward in other zones"] = "Показать награду в других зонах (1)",
+    ["Show %d rewards in other zones"] = "Показать награды в других зонах (%d)",
+    ["Show Route Planner"] = "Показывать планировщик маршрута",
     ["Treasures"] = "Сокровища",
     ["%d-slot bag"] = "Сумка на %d ячеек",
     ["%d / %d collected"] = "%d / %d получено",
@@ -1230,6 +1306,12 @@ local function Same(a, b)
     return Ambiguate(a, "none") == Ambiguate(b, "none")
 end
 
+-- An absent quest can have a nil or zero index depending on the client.
+function ns.QuestLogIndex(questID)
+    local index = C_QuestLog.GetLogIndexForQuestID and C_QuestLog.GetLogIndexForQuestID(questID)
+    return index and index > 0 and index or nil
+end
+
 local function QuestTitle(questID)
     local t = C_QuestLog.GetTitleForQuestID and C_QuestLog.GetTitleForQuestID(questID)
     if not t then                                   -- not in your log yet: the name from the bundled data
@@ -1309,7 +1391,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.3.1" end
+    if type(v) ~= "string" or v == "" then v = "1.6.2" end
     return v
 end
 
@@ -1492,7 +1574,7 @@ local TAG_LABEL = { [1] = "Group", [81] = "Dungeon", [62] = "Raid", [88] = "Raid
 function ns.GroupInfo(questID, suggested)
     local size = tonumber(suggested) or 0
     if size == 0 then
-        local idx = C_QuestLog.GetLogIndexForQuestID and C_QuestLog.GetLogIndexForQuestID(questID)
+        local idx = ns.QuestLogIndex(questID)
         local info = idx and C_QuestLog.GetInfo(idx)
         size = info and tonumber(info.suggestedGroup) or 0
     end
@@ -1541,7 +1623,7 @@ local function Beacon(questID, force, isReply)
     if LST then
         local function clean(v, n) return (tostring(v or ""):gsub("|", "")):sub(1, n) end
         msg = msg .. "|" .. clean(QuestTitle(questID), 60) .. "|" .. clean(GetRealZoneText and GetRealZoneText(), 40)
-            .. "|" .. (IsInGroup() and GetNumGroupMembers() or 1)
+            .. "|" .. (IsInGroup() and GetNumGroupMembers() or 1) .. "|" .. ns.PendingHostInvites()
     end
     if not Send(msg) then
         s.lastBeacon = previous
@@ -1581,12 +1663,52 @@ local function TestBlocked(what)
 end
 ns.TestBlocked = TestBlocked
 
-local function Invite(name)
-    if IsMe(name) then return end              -- never invite yourself
-    if TestBlocked("would invite " .. tostring(name)) then return end
-    if ns.MarkQInvite then ns.MarkQInvite() end
-    local inv = (C_PartyInfo and C_PartyInfo.InviteUnit) or InviteUnit
-    inv(name)
+local Invite
+do
+    local pending = {}
+    local function Key(name)
+        local realm = GetNormalizedRealmName and GetNormalizedRealmName()
+        if realm and realm ~= "" and not name:find("-", 1, true) then name = name .. "-" .. realm end
+        return name:lower()
+    end
+
+    function ns.PendingHostInvites(target)
+        local now, count, inParty = GetTime(), 0, false
+        local targetKey = target and Key(target)
+        for i = 1, 4 do
+            local unit = "party" .. i
+            if UnitExists(unit) then
+                local name = (GetUnitName and GetUnitName(unit, true)) or UnitName(unit)
+                if name and not (issecretvalue and issecretvalue(name)) then
+                    local key = Key(name)
+                    pending[key] = nil
+                    if targetKey == key then inParty = true end
+                end
+            end
+        end
+        for key, expires in pairs(pending) do
+            if now >= expires then pending[key] = nil else count = count + 1 end
+        end
+        return count, inParty or pending[targetKey] ~= nil
+    end
+
+    Invite = function(name, automatic)
+        if IsMe(name) or TestBlocked("would invite " .. tostring(name)) then return false end
+        if automatic then
+            if MyState() == 1 or (IsInRaid and IsInRaid()) then return false end
+            if ns.trustInviter and GetTime() - ns.trustInviter.t < 90 then return false end
+            local count, duplicate = ns.PendingHostInvites(name)
+            local members = IsInGroup() and GetNumGroupMembers() or 1
+            if duplicate or members + count >= MAX_PARTY then return false end
+        end
+        local inv = (C_PartyInfo and C_PartyInfo.InviteUnit) or InviteUnit
+        if not inv then return false end
+        local ok, sent = pcall(inv, name)
+        if not ok or sent == false then return false end
+        pending[Key(name)] = GetTime() + 60
+        if ns.MarkQInvite then ns.MarkQInvite() end
+        return true
+    end
 end
 
 -- matching helpers (one table, not separate locals: the main chunk is close to Lua 5.1's 200-local limit)
@@ -1694,10 +1816,9 @@ local function Evaluate(questID)
     for _, name in ipairs(candidates) do
         if slots <= 0 then break end
         local count = s.inviteCount[name] or 0
-        if count < MAX_INVITES and (not invitedAt[name] or now - invitedAt[name] > 30) then
+        if count < MAX_INVITES and (not invitedAt[name] or now - invitedAt[name] > 30) and Invite(name, true) then
             invitedAt[name] = now
             s.inviteCount[name] = count + 1
-            Invite(name)
             slots = slots - 1
         end
     end
@@ -1728,7 +1849,7 @@ function ns.IsSearching(questID) return seeking[questID] ~= nil end
 
 function ns.Start(questID)
     -- quests from the Zones tab can be searched before you pick them up
-    if not C_QuestLog.GetLogIndexForQuestID(questID) and not (ns.ZoneQuest and ns.ZoneQuest(questID)) then
+    if not ns.QuestLogIndex(questID) and not (ns.ZoneQuest and ns.ZoneQuest(questID)) then
         Print(L["That quest isn't in your log."])
         return
     end
@@ -1802,14 +1923,21 @@ function ns.RecordGroup(sender, questID, g)
     local e = groups[key] or {}
     e.host, e.questID, e.t = sender, questID, GetTime()
     e.level, e.class, e.min, e.max = g.level, g.class, g.min, g.max
+    e.want = g.want or 0
     if g.title and g.title ~= "" then e.title = g.title end
     if g.zone and g.zone ~= "" then e.zone = g.zone end
     e.members = g.members or e.members or 1
+    e.pending = g.pending or 0
     groups[key] = e
 end
 
 function ns.RemoveGroup(sender, questID)
     groups[sender .. "#" .. tostring(questID)] = nil
+end
+
+function ns.GroupNeedsMatch(entry)
+    return not entry.wantedObjectives or entry.wantedObjectives == 0
+        or Overlap(ns.NeedMask(entry.questID), entry.wantedObjectives)
 end
 
 function ns.GroupEntries()
@@ -1820,10 +1948,11 @@ function ns.GroupEntries()
         else
             list[#list + 1] = {
                 host = e.host, questID = e.questID, level = e.level, class = e.class,
-                min = e.min, max = e.max, zone = e.zone, members = e.members, t = e.t,
+                min = e.min, max = e.max, zone = e.zone, members = e.members, pending = e.pending, t = e.t,
                 title = e.title or QuestTitle(e.questID),
-                haveQuest = C_QuestLog.GetLogIndexForQuestID(e.questID) ~= nil,
+                haveQuest = ns.QuestLogIndex(e.questID) ~= nil,
                 fits = myLevel >= (e.min or 0) and myLevel <= ((e.max and e.max > 0) and e.max or 999),
+                wantedObjectives = e.want,
             }
         end
     end
@@ -1835,7 +1964,7 @@ function ns.GroupEntries()
                 host = MyFullName(), questID = questID, level = myLevel,
                 class = UnitClass and select(2, UnitClass("player")) or nil,
                 min = LST.min, max = LST.max, zone = GetRealZoneText and GetRealZoneText() or nil,
-                members = IsInGroup() and GetNumGroupMembers() or 1, t = now, mine = true,
+                members = IsInGroup() and GetNumGroupMembers() or 1, pending = ns.PendingHostInvites(), t = now, mine = true,
                 title = QuestTitle(questID), haveQuest = true, fits = true,
             }
         end
@@ -1887,18 +2016,19 @@ local function OnAddonMessage(prefix, text, channel, sender)
         return
     end
     if kind == "A" then ns.OnAnnounce(sender, text); return end
-    if kind == "D" then ns.OnDungeonBeacon(sender, qid, lvl, st, reply, host, minL, maxL); return end
+    if kind == "D" then ns.OnDungeonBeacon(sender, qid, lvl, st, reply, host, minL, maxL, need); return end
     if kind == "DC" then ns.OnDungeonCancel(sender, qid); return end
     if sid == SID then return end            -- our own beacon echoed back
     ns.SeenOnline(sid)
     qid = tonumber(qid)
     if qid and kind == "S" then ns.NotePopular(qid, sender, lvl, (select(13, strsplit("|", text)))) end
     if qid and kind == "S" and host == "1" then
-        local _, _, _, _, _, _, _, _, _, _, _, _, gTitle, gZone, gMembers = strsplit("|", text)
+        local gTitle, gZone, gMembers, gPending = select(13, strsplit("|", text))
         ns.RecordGroup(sender, qid, {
             level = tonumber(lvl), class = (type(cls) == "string" and cls ~= "") and cls or nil,
             min = tonumber(minL) or 0, max = tonumber(maxL) or 0,
-            title = gTitle, zone = gZone, members = tonumber(gMembers),
+            title = gTitle, zone = gZone, members = tonumber(gMembers), want = tonumber(want),
+            pending = math.max(0, math.min(MAX_PARTY - 1, tonumber(gPending) or 0)),
         })
         ns.RequestRefresh()
     elseif qid and (kind == "C" or (kind == "S" and host ~= "1")) then
@@ -1972,11 +2102,9 @@ local function OnWhisper(text, sender)
     for questID, s in pairs(seeking) do
         local LST = s.listing
         if LST and LST.autoInvite then
-            local slots = MAX_PARTY - (IsInGroup() and GetNumGroupMembers() or 1)
             local count = s.inviteCount[sender] or 0
-            if slots > 0 and MyState() ~= 1 and count < MAX_INVITES then
+            if count < MAX_INVITES and Invite(sender, true) then
                 s.inviteCount[sender] = count + 1
-                Invite(sender)
                 ns.Alert()
                 Print(string.format(L["Invited %s (whispered +) for: %s"], Ambiguate(sender, "none"), QuestTitle(questID)))
             end
@@ -1986,6 +2114,7 @@ local function OnWhisper(text, sender)
 end
 
 local function OnGroupUpdate()
+    ns.PendingHostInvites()
     ns.OnRosterForStats()
     pcall(ns.OnPartyRoster)
     pcall(ns.CheckDungeonLeader)
@@ -1996,7 +2125,12 @@ local function OnGroupUpdate()
     if grouped and GetNumGroupMembers() >= MAX_PARTY then
         for questID in pairs(seeking) do ns.Stop(questID, "party is full") end
     else
-        for questID in pairs(seeking) do Beacon(questID) end
+        local member = grouped and not UnitIsGroupLeader("player")
+        for questID, search in pairs(seeking) do
+            local withdraw = member and search.listing ~= nil
+            if withdraw then search.listing = nil end
+            Beacon(questID, withdraw)
+        end
     end
     ns.RequestRefresh()
 end
@@ -2023,7 +2157,7 @@ local function HasLFGWord(lower)
 end
 
 local function QuestOpen(questID)
-    if not C_QuestLog.GetLogIndexForQuestID(questID) then return false end
+    if not ns.QuestLogIndex(questID) then return false end
     return not (C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID))
 end
 
@@ -2655,7 +2789,7 @@ local function RefreshTracker()
         if not IsFrame(block) then return end
         local questID = block.id or key
         if type(questID) ~= "number" then return end
-        if not C_QuestLog.GetLogIndexForQuestID(questID) then return end
+        if not ns.QuestLogIndex(questID) then return end
         if not block:IsShown() then return end
         local btn = buttons[block]
         if not btn then
@@ -2786,6 +2920,17 @@ end
 local function Elapsed(s)
     local t = math.floor(GetTime() - s.started)
     return string.format("%d:%02d", math.floor(t / 60), t % 60)
+end
+
+function ns.UnmatchedQuestSearch()
+    local first, started
+    for id, s in pairs(seeking) do
+        if RowState(id) == "prompt" and not ns.IsReadyToTurnIn(id)
+            and (not started or s.started < started or (s.started == started and id < first)) then
+            first, started = id, s.started
+        end
+    end
+    return first
 end
 
 local function OnRowAction(r, action)
@@ -2963,6 +3108,7 @@ local function ZoneName(areaId)
     end
     return nil
 end
+ns.AreaName = ZoneName
 
 -- coordinates as " (x, y)"
 local function Coords(x, y)
@@ -3053,7 +3199,14 @@ local function HasBit(mask, bitIndex)
     return math.floor(mask / 2 ^ (bitIndex - 1)) % 2 == 1
 end
 
-function ns.NextQuests(questID)
+-- Forever stores Skyborne race IDs 95 and 96 in mask positions 33 and 34.
+function ns.RaceBit(raceID)
+    if raceID == 95 then return 33 end
+    if raceID == 96 then return 34 end
+    return raceID
+end
+
+function ns.NextQuests(questID, limit)
     local D = ns.QDATA
     local raw = D and D.q and D.q[questID]
     if not raw or not D.t then return {} end
@@ -3065,11 +3218,11 @@ function ns.NextQuests(questID)
         local t = D.t[tonumber(id)]
         if t then
             local lvl, races, classes, name = t:match("^([^;]*);([^;]*);([^;]*);(.*)$")
-            if name and HasBit(races, raceID) and HasBit(classes, classID) then
+            if name and HasBit(races, ns.RaceBit(raceID)) and HasBit(classes, classID) then
                 out[#out + 1] = { id = tonumber(id), name = name, level = tonumber(lvl) }
             end
         end
-        if #out >= 2 then break end
+        if #out >= (limit or 2) then break end
     end
     return out
 end
@@ -3210,7 +3363,7 @@ end
 -- full "how to complete" text for a quest card
 function ns.QuestDetails(questID)
     local lines = {}
-    local idx = C_QuestLog.GetLogIndexForQuestID(questID)
+    local idx = ns.QuestLogIndex(questID)
     local objectiveText
     if idx and GetQuestLogQuestText then
         local ok, _, o = pcall(GetQuestLogQuestText, idx)
@@ -3991,6 +4144,7 @@ local function RefreshGroups()
         if e.min and e.max and e.max > 0 then parts[#parts + 1] = string.format(L["Lvl %d-%d"], e.min, e.max) end
         if e.zone and e.zone ~= "" then parts[#parts + 1] = e.zone end
         parts[#parts + 1] = string.format(L["%d/5 players"], e.members or 1)
+        if (e.pending or 0) > 0 then parts[#parts + 1] = string.format(L["%d pending"], e.pending) end
         g.info:SetText(table.concat(parts, "  |cff5b606b·|r  "))
 
         g.join.reason = nil
@@ -4002,6 +4156,8 @@ local function RefreshGroups()
             local label = L["Join"]
             if (e.members or 1) >= MAX_PARTY then
                 g.join.reason = L["This group is full."]; label = L["Full"]
+            elseif (e.members or 1) + (e.pending or 0) >= MAX_PARTY then
+                g.join.reason = L["Waiting for invited players."]; label = L["Pending"]
             elseif not e.fits then
                 g.join.reason = L["Your level isn't in this group's level range."]
                 label = (e.min and myLevel < e.min) and L["Too low"] or L["Too high"]
@@ -4123,6 +4279,12 @@ local function DungeonHead(i)
     h.look = SmallButton(h, 44, L["Look"], function() ns.StartDungeon(h.id, "seek") end)
     h.look:SetPoint("RIGHT", h.host, "LEFT", -4, 0)
     h.look.tip = L["Look for a group for this dungeon with your roles."]
+    h.prep = SmallButton(h, 48, L["Prep"], function()
+        dview.selectedPrep = dview.selectedPrep ~= h.id and h.id or nil
+        ns.RefreshDungeons()
+    end)
+    h.prep:SetPoint("RIGHT", h.look, "LEFT", -4, 0)
+    h.prep.tip = L["Show or hide Dungeon Prep"]
     -- click the dungeon name for a waypoint to the entrance
     h:SetScript("OnMouseUp", function() if h.id then ns.DungeonWaypoint(h.id) end end)
     h:SetScript("OnEnter", function(self)
@@ -4202,6 +4364,7 @@ function ns.RefreshDungeons()
     local y, nh, ne, total = 0, 0, 0, 0
     local grouped = IsInGroup()
     local canInvite = not grouped or UnitIsGroupLeader("player")
+    if dview.prepCard then dview.prepCard:Hide() end
     for _, d in ipairs(list) do
         nh = nh + 1
         local h = DungeonHead(nh)
@@ -4217,6 +4380,11 @@ function ns.RefreshDungeons()
         if #d.hosts > 0 then counts[#counts + 1] = string.format(L["%d groups"], #d.hosts) end
         if #d.seekers > 0 then counts[#counts + 1] = string.format(L["%d looking"], #d.seekers) end
         h.count:SetText(table.concat(counts, "  "))
+        local hasPrep = ns.HasDungeonPrep(d.id)
+        h.prep:SetShown(hasPrep)
+        h.count:SetWidth(hasPrep and 112 or 160)
+        h.count:SetJustifyH("LEFT")
+        h.count:SetWordWrap(false)
         h.look:SetShown(not d.mine)
         h.host:SetShown(not d.mine)
         if canInvite then
@@ -4251,6 +4419,10 @@ function ns.RefreshDungeons()
                     if grouped then
                         e.btn.tip = L["Leave your current group first."]
                         e.btn:Disable()
+                    elseif (who.members or 1) + who.pending >= MAX_PARTY then
+                        e.btn:SetText(who.pending > 0 and L["Pending"] or L["Full"])
+                        e.btn.tip = who.pending > 0 and L["Waiting for invited players."] or L["This group is full."]
+                        e.btn:Disable()
                     else
                         e.btn:Enable()
                     end
@@ -4265,6 +4437,9 @@ function ns.RefreshDungeons()
             end
         end
         if had then y = y + VS.CARD_GAP end
+        if hasPrep and dview.selectedPrep == d.id then
+            y = ns.DrawDungeonPrep(dview, d.id, ROW_W, y) + VS.CARD_GAP
+        end
     end
     for i = nh + 1, #dview.heads do dview.heads[i]:Hide() end
     for i = ne + 1, #dview.entries do dview.entries[i]:Hide() end
@@ -4429,7 +4604,14 @@ end
 do
 local CLASS_ID = { WARRIOR = 1, PALADIN = 2, HUNTER = 3, ROGUE = 4, PRIEST = 5, DEATHKNIGHT = 6, SHAMAN = 7,
                    MAGE = 8, WARLOCK = 9, MONK = 10, DRUID = 11, DEMONHUNTER = 12 }
-local HORDE_RACE = { [2] = true, [5] = true, [6] = true, [8] = true, [9] = true, [10] = true }
+local HORDE_RACE = { [2] = true, [5] = true, [6] = true, [8] = true, [9] = true, [10] = true, [96] = true }
+function ns.PlayerFaction(raceID)
+    local faction = UnitFactionGroup and UnitFactionGroup("player")
+    if faction == "Horde" then return "H" end
+    if faction == "Alliance" then return "A" end
+    raceID = raceID or select(3, UnitRace("player"))
+    return raceID and (HORDE_RACE[raceID] and "H" or "A") or nil
+end
 -- capitals and home zones: a "friendly to both" giver standing here is only reachable by that faction
 -- (e.g. the Argent Dawn in Darnassus). Contested and neutral zones are left out on purpose.
 local FACTION_ZONE = {
@@ -4474,8 +4656,8 @@ function ns.QuestXP(qid, playerLevel)
     local base = D and D.x and tonumber(D.x[qid])
     if not base then return nil end
     local p = ns.ZoneQuest(qid)
-    local qlvl = p and p.level or playerLevel
     playerLevel = playerLevel or UnitLevel("player") or 1
+    local qlvl = p and p.level or playerLevel
     local maxLevel = GetMaxPlayerLevel and GetMaxPlayerLevel()
     if maxLevel and playerLevel >= maxLevel then return 0 end
     local diff = playerLevel - qlvl
@@ -4520,23 +4702,29 @@ local function Giver(qid)
     return { area = zone, x = x, y = y, name = name }
 end
 
+function ns.QuestGreenRange(level)
+    return (GetQuestGreenRange and GetQuestGreenRange()) or (level <= 5 and 5 or math.floor(level / 10) + 5)
+end
+
+function ns.QuestFitsLevel(quest, level, green)
+    return quest and quest.req <= level and quest.level >= level - green and quest.level <= level + 5
+end
+
 local function Me()
     local level = UnitLevel("player") or 1
     local _, _, raceID = UnitRace("player")
     local _, classToken, classID = UnitClass("player")
     classID = classID or CLASS_ID[classToken or ""]
-    local faction = UnitFactionGroup and UnitFactionGroup("player")
-    local f = faction == "Horde" and "H" or faction == "Alliance" and "A" or nil
-    if not f and raceID then f = HORDE_RACE[raceID] and "H" or "A" end
-    local green = (GetQuestGreenRange and GetQuestGreenRange()) or (level <= 5 and 5 or math.floor(level / 10) + 5)
-    return level, raceID, classID, f, green
+    local f = ns.PlayerFaction(raceID)
+    local green = ns.QuestGreenRange(level)
+    return level, ns.RaceBit(raceID), classID, f, green
 end
 
 -- every quest you could walk up to and take right now
 function ns.AvailableQuests()
     local D = ns.QDATA
     if not (D and D.a) then return {} end
-    local level, raceID, classID, faction, green = Me()
+    local level, raceBit, classID, faction, green = Me()
     local inLog = {}
     for i = 1, C_QuestLog.GetNumQuestLogEntries() do
         local info = C_QuestLog.GetInfo(i)
@@ -4546,8 +4734,8 @@ function ns.AvailableQuests()
     for qid in pairs(D.a) do
         if not completed[qid] and not inLog[qid] then
             local p = ns.ZoneQuest(qid)
-            local ok = p and p.req <= level and p.level >= level - green and p.level <= level + 5
-            if ok and p.races > 0 and raceID then ok = HasBit(p.races, raceID) end
+            local ok = ns.QuestFitsLevel(p, level, green)
+            if ok and p.races > 0 and raceBit then ok = HasBit(p.races, raceBit) end
             if ok and p.classes > 0 and classID then ok = HasBit(p.classes, classID) end
             if ok and p.faction and faction then ok = p.faction == faction end
             if ok then for _, id in ipairs(p.pre) do if not Completed(id) then ok = false; break end end end
@@ -4576,18 +4764,18 @@ end
 -- one quest's state for you: done / inlog / available / locked (+ the level it needs) / hidden (not for you)
 -- grey quests still count as available here (Treasures want them even when they give little XP)
 function ns.QuestState(qid)
-    local level, raceID, classID, faction = Me()
+    local level, raceBit, classID, faction = Me()
     if Completed(qid) then return "done" end
-    if (C_QuestLog.GetLogIndexForQuestID(qid) or 0) > 0 then return "inlog" end
+    if ns.QuestLogIndex(qid) then return "inlog" end
     local p = ns.ZoneQuest(qid)
     if not p then return "unknown" end
-    if p.races > 0 and raceID and not HasBit(p.races, raceID) then return "hidden" end
+    if p.races > 0 and raceBit and not HasBit(p.races, raceBit) then return "hidden" end
     if p.classes > 0 and classID and not HasBit(p.classes, classID) then return "hidden" end
     if p.faction and faction and p.faction ~= faction then return "hidden" end
     local g = Giver(qid)
     if g and not p.faction and faction and FACTION_ZONE[g.area] and FACTION_ZONE[g.area] ~= faction then return "hidden" end
     for _, id in ipairs(p.excl) do
-        if Completed(id) or (C_QuestLog.GetLogIndexForQuestID(id) or 0) > 0 then return "hidden" end
+        if Completed(id) or ns.QuestLogIndex(id) then return "hidden" end
     end
     if p.req > level then return "locked", p.req end
     for _, id in ipairs(p.pre) do if not Completed(id) then return "locked", p.req end end
@@ -4872,23 +5060,23 @@ do
 -- Sources: WoW Forever bag guides (leprestore, method.gg, Icy Veins) and the Cozy Sleeping Bag guides;
 -- quest ids and order from the bundled QuestieDB data.
 ns.TREASURES_DEFAULT = {
-    { steps = { 91775 }, reward = "Book Bag", slots = 6, races = { "Human" } },
-    { steps = { 97277 }, reward = "Canvas Latchbag", slots = 6, races = { "Dwarf", "Gnome" } },
-    { steps = { 87288 }, reward = "Soft Saber Sack", slots = 6, races = { "NightElf" } },
-    { steps = { 86784 }, reward = "Collecting Basket", slots = 6, races = { "Scourge", "Undead" } },
-    { steps = { 791 }, reward = "Handmade Leather Bag", slots = 6, races = { "Orc", "Troll" } },
-    { steps = { 95805 }, reward = "Scorched Leather Pouch", slots = 6, races = { "Tauren" } },
-    { steps = { 92515 }, reward = "Simple Leather Satchel", slots = 6, races = { "Skyborne" } },
-    { steps = { 97253 }, reward = "Scuffed Shipping Crate", slots = 8 },
-    { steps = { 151 }, reward = "Old Blanchy's Feed Pouch", slots = 8 },
-    { steps = { 1003 }, reward = "Wizbang's Gunnysack", slots = 8 },
-    { steps = { 271, 531 }, reward = "Hunting Satchel", slots = 10, choice = true },
-    { steps = { 1486 }, reward = "Deviate Hide Pack", slots = 10, choice = true },
-    { steps = { { 79007, 79008 }, 79192 }, reward = "Old Toolbox or Sturdy Lunchbox", slots = 12, choice = true },
-    { steps = { 96260 }, reward = "Spidersilk Pouch", slots = 12, choice = true },
-    { steps = { 56, 57, 58 }, slots = 10 },
-    { steps = { 470 }, slots = 10 },
-    { steps = { { 2440, 2439 } }, slots = 14 },
+    { steps = { 91775 }, reward = "Book Bag", item = 279936, slots = 6, races = { "Human" } },
+    { steps = { 97277 }, reward = "Canvas Latchbag", item = 277977, slots = 6, races = { "Dwarf", "Gnome" } },
+    { steps = { 87288 }, reward = "Soft Saber Sack", item = 280088, slots = 6, races = { "NightElf" } },
+    { steps = { 86784 }, reward = "Collecting Basket", item = 279939, slots = 6, races = { "Scourge", "Undead" } },
+    { steps = { 791 }, reward = "Handmade Leather Bag", item = 11845, slots = 6, races = { "Orc", "Troll" } },
+    { steps = { 95805 }, reward = "Scorched Leather Pouch", item = 277200, slots = 6, races = { "Tauren" } },
+    { steps = { 92515 }, reward = "Simple Leather Satchel", item = 256935, slots = 6, races = { "Skyborne" } },
+    { steps = { 97253 }, reward = "Scuffed Shipping Crate", item = 277332, slots = 8 },
+    { steps = { 151 }, reward = "Old Blanchy's Feed Pouch", item = 1537, slots = 8 },
+    { steps = { 1003 }, reward = "Wizbang's Gunnysack", item = 2082, slots = 8 },
+    { steps = { 271, 531 }, reward = "Hunting Satchel", item = 270017, slots = 10, choice = true },
+    { steps = { 1486 }, reward = "Deviate Hide Pack", item = 918, slots = 10, choice = true },
+    { steps = { { 79007, 79008 }, 79192 }, reward = "Old Toolbox or Sturdy Lunchbox", item = 221498, slots = 12, choice = true },
+    { steps = { 96260 }, reward = "Spidersilk Pouch", item = 276891, slots = 12, choice = true },
+    { steps = { 56, 57, 58 }, item = 1729, slots = 10 },
+    { steps = { 470 }, item = 3352, slots = 10 },
+    { steps = { { 2440, 2439 } }, item = 9587, slots = 14 },
     { steps = { { 79007, 79008 }, 79192, 79980, 79974, 79975, 79976 }, reward = "Cozy Sleeping Bag", item = 211527,
       note = "+3% XP while you rest" },
 }
@@ -4899,14 +5087,16 @@ ns.TREASURES = ns.TREASURES or ns.TREASURES_DEFAULT
 local ROLE_COORDS = { T = { 0, 19 / 64, 22 / 64, 41 / 64 }, H = { 20 / 64, 39 / 64, 1 / 64, 20 / 64 }, D = { 20 / 64, 39 / 64, 22 / 64, 41 / 64 } }
 function ns.RoleIconCoords(r) return ROLE_COORDS[r] or ROLE_COORDS.D end
 
-local ICON_BY_SLOTS = { [6] = 133639, [8] = 133640, [10] = 133634, [12] = 133636, [14] = 133637 }
 function ns.TreasureIcon(t)
-    if t.item then
-        local icon = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(t.item)) or (GetItemIcon and GetItemIcon(t.item))
-        if icon then return icon end
-        return "Interface\\Icons\\INV_Misc_Bag_EnchantedMageweave"
+    if not t.item then return end
+    local getIcon = C_Item and C_Item.GetItemIconByID or GetItemIcon
+    local icon = getIcon and getIcon(t.item)
+    if icon and icon ~= 0 then return icon end
+    local instant = C_Item and C_Item.GetItemInfoInstant or GetItemInfoInstant
+    if instant then
+        local _, _, _, _, texture = instant(t.item)
+        if texture and texture ~= 0 then return texture end
     end
-    return ICON_BY_SLOTS[t.slots or 0] or "Interface\\Icons\\INV_Misc_Bag_07"
 end
 
 function ns.TreasureLabel(t)
@@ -5094,7 +5284,17 @@ function ns.RefreshTreasures()
         r:ClearAllPoints()
         r:SetPoint("TOPLEFT", tv.content, "TOPLEFT", 0, -y)
         r:Show()
-        r.icon:SetTexture(e.icon)
+        r.icon:SetTexture(e.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+        local itemID = e.treasure.item
+        if not e.icon and itemID and r.requestedItem ~= itemID and Item and Item.CreateFromItemID then
+            r.requestedItem = itemID
+            Item:CreateFromItemID(itemID):ContinueOnItemLoad(function()
+                if r.e and r.e.treasure.item == itemID then
+                    local icon = ns.TreasureIcon(r.e.treasure)
+                    if icon then r.icon:SetTexture(icon) end
+                end
+            end)
+        end
         r.slots:SetText(e.slots and tostring(e.slots) or "")
         r.slotsBg:SetShown(e.slots ~= nil)
         r.name:SetText(e.reward)
@@ -5159,7 +5359,7 @@ end
 -- rebuilt when it's selected. Badges, rewards, the XP bar and the footer are cheap and always updated.
 -- (one table, not separate locals: the main chunk is close to Lua 5.1's 200-local limit)
 -- tick = tabs that show times or expiring entries, rebuilt by the once-a-second tick while visible
-local Tabs = { n = 7, dirty = {}, counts = {}, tick = { [1] = true, [2] = true, [3] = true, [7] = true } }
+local Tabs = { n = 8, dirty = {}, counts = {}, tick = { [1] = true, [2] = true, [3] = true, [7] = true } }
 for i = 1, Tabs.n do Tabs.dirty[i] = true end
 
 function Tabs.Render(tab)
@@ -5170,7 +5370,8 @@ function Tabs.Render(tab)
     elseif tab == 4 then Tabs.counts[4] = ns.RefreshDungeons()
     elseif tab == 5 then ns.RefreshZones()
     elseif tab == 6 then Tabs.counts[6] = ns.RefreshTreasures()
-    elseif tab == 7 then RefreshStats() end
+    elseif tab == 7 then RefreshStats()
+    elseif tab == 8 then ns.RefreshRewardHunting() end
 end
 
 -- tick = true: the panel's 1-second timer (nothing changed but time); otherwise data may have changed
@@ -5180,6 +5381,7 @@ local function RefreshPanel(tick)
     end
     if not panel or not panel:IsShown() then return end
     local tab = panel.selectedTab or 1
+    ns.PaintHostButton(panel.host)
     panel.questView:SetShown(tab == 1)
     panel.nearbyView:SetShown(tab == 2)
     panel.groupsView:SetShown(tab == 3)
@@ -5187,6 +5389,7 @@ local function RefreshPanel(tick)
     if panel.zonesView then panel.zonesView:SetShown(tab == 5) end
     if panel.treasuresView then panel.treasuresView:SetShown(tab == 6) end
     panel.statsView:SetShown(tab == 7)
+    panel.rewardView:SetShown(tab == 8)
     if panel.statsBtn then panel.statsBtn:SetActive(tab == 7) end
 
     if tick == true and Tabs.tick[tab] then Tabs.dirty[tab] = true end
@@ -5198,12 +5401,12 @@ local function RefreshPanel(tick)
     if rendered ~= 3 then Tabs.counts[3] = #ns.GroupEntries() end
     if rendered ~= 4 then Tabs.counts[4] = ns.DungeonActivity() end
     if rendered ~= 6 and (tick ~= true or Tabs.counts[6] == nil) then Tabs.counts[6] = ns.TreasureCount() end
-    if panel.Tabs and panel.Tabs[4] then
-        local counts = { [2] = Tabs.counts[2], [3] = Tabs.counts[3], [4] = Tabs.counts[4], [6] = Tabs.counts[6] }
-        for k, n in pairs(counts) do
-            local t = panel.Tabs[k]
-            t:SetLabel(t.baseName, (n or 0) > 0 and tostring(n) or nil)
+    if panel.Tabs then
+        for _, tab in ipairs(panel.Tabs) do
+            local n = Tabs.counts[tab:GetID()]
+            if tab.hasBadge then tab:SetLabel(tab.baseName, (n or 0) > 0 and tostring(n) or nil) end
         end
+        panel:LayoutTabs()
     end
 
     local parts = ns.RewardParts()
@@ -5267,12 +5470,9 @@ local function CreatePanel()
     local name = UI.Text(p, 15, "text", nil, "bold")
     name:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -16)
     name:SetText("QUESTYNATOR")
-    local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
-    local version = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(version) ~= "string" or version == "" then version = "1.3.1" end
     local ver = UI.Text(p, 11, "dim")
     ver:SetPoint("BOTTOMLEFT", name, "BOTTOMRIGHT", 6, 1)
-    ver:SetText("v" .. version)
+    ver:SetText("v" .. ns.Version())
     p.titleText = name
 
     local close = CreateFrame("Button", nil, p)
@@ -5313,6 +5513,8 @@ local function CreatePanel()
     sb:SetScript("OnClick", function() ns.SelectTab(7) end)
     sb:SetActive(false)
     p.statsBtn = sb
+    p.host = ns.MakeHostButton(p)
+    p.host:SetPoint("RIGHT", sb, "LEFT", -10, 0)
 
     -- rewards line (hover for the full breakdown) + thin XP bar
     -- reward chips: XP, money, rep
@@ -5364,28 +5566,50 @@ local function CreatePanel()
 
     -- top tabs with a teal underline and count badges
     p.Tabs = {}
-    local tabNames = { L["Quests"], L["Nearby"], L["Groups"], L["Dungeons"], L["Zones"], L["Treasures"] }
-    for i, tname in ipairs(tabNames) do
-        local tab = UI.Tab(p, tname)
-        tab:SetID(i)
-        tab.baseName = tname
-        if i == 1 then tab:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -68)
-        else tab:SetPoint("LEFT", p.Tabs[i - 1], "RIGHT", 15, 0) end
+    local tabDefs = {
+        { id = 1, name = "Quests" }, { id = 5, name = "Zones" },
+        { id = 2, name = "Nearby", groupStart = true, badge = true },
+        { id = 3, name = "Groups", badge = true }, { id = 4, name = "Dungeons", badge = true },
+        { id = 6, name = "Treasures", groupStart = true, badge = true }, { id = 8, name = "Reward Hunting" },
+    }
+    for i, def in ipairs(tabDefs) do
+        local tab = UI.Tab(p, L[def.name])
+        tab:SetID(def.id)
+        tab.baseName, tab.hasBadge, tab.groupStart = L[def.name], def.badge, def.groupStart
         tab:SetScript("OnClick", function(self) ns.SelectTab(self:GetID()) end)
         p.Tabs[i] = tab
     end
     local rule = p:CreateTexture(nil, "ARTWORK")
     rule:SetHeight(1)
-    rule:SetPoint("TOPLEFT", p, "TOPLEFT", 14, -96)
-    rule:SetPoint("TOPRIGHT", p, "TOPRIGHT", -14, -96)
     rule:SetColorTexture(C.line[1], C.line[2], C.line[3], 1)
     p.selectedTab = 1
 
     -- content area
     local inset = CreateFrame("Frame", nil, p)
-    inset:SetPoint("TOPLEFT", p, "TOPLEFT", 6, -100)
+    inset:SetPoint("TOPLEFT", rule, "BOTTOMLEFT", -8, -3)
     inset:SetPoint("BOTTOMRIGHT", p, "BOTTOMRIGHT", -6, 36)
     p.Inset = inset
+    function p:LayoutTabs()
+        local x, y = 16, -68
+        for i, tab in ipairs(self.Tabs) do
+            local width = tab:GetWidth()
+            if tab.groupStart then
+                local groupWidth = width
+                for j = i + 1, #self.Tabs do
+                    if self.Tabs[j].groupStart then break end
+                    groupWidth = groupWidth + 6 + self.Tabs[j]:GetWidth()
+                end
+                x = x + 10
+                if x + groupWidth > self:GetWidth() - 14 then x, y = 16, y - 28 end
+            end
+            if x + width > self:GetWidth() - 14 then x, y = 16, y - 28 end
+            tab:SetPoint("TOPLEFT", self, "TOPLEFT", x, y)
+            x = x + width + 6
+        end
+        rule:SetPoint("TOPLEFT", self, "TOPLEFT", 14, y - 28)
+        rule:SetPoint("TOPRIGHT", self, "TOPRIGHT", -14, y - 28)
+    end
+    p:LayoutTabs()
 
     -- Quests tab
     p.questView = CreateFrame("Frame", nil, inset)
@@ -5431,6 +5655,7 @@ local function CreatePanel()
     ns.BuildDungeonsView(p, inset)
     ns.BuildZonesView(p, inset)
     ns.BuildTreasuresView(p, inset)
+    ns.BuildRewardHunting(p, inset)
     ns.BuildStatsView(p, inset)
 
     -- footer: status + Stop all
@@ -5468,7 +5693,7 @@ end
 function ns.SelectTab(i)
     if not panel then return end
     panel.selectedTab = i
-    for k, tab in ipairs(panel.Tabs or {}) do tab:SetActive(k == i) end
+    for _, tab in ipairs(panel.Tabs or {}) do tab:SetActive(tab:GetID() == i) end
     if panel.statsBtn then panel.statsBtn:SetActive(i == 7) end
     Tabs.dirty[i] = true                         -- hidden tabs may be stale: build it now it's shown
     RefreshPanel(true)
@@ -5476,7 +5701,7 @@ end
 
 function ns.TabState()
     local st = { selected = panel and panel.selectedTab or 1, active = {} }
-    for k, tab in ipairs(panel and panel.Tabs or {}) do st.active[k] = tab.active end
+    for _, tab in ipairs(panel and panel.Tabs or {}) do st.active[tab:GetID()] = tab.active end
     if panel and panel.statsBtn then st.active[7] = panel.statsBtn.active end
     return st
 end
@@ -5684,7 +5909,8 @@ function ns.OpenCreateDialog(questID)
     if type(lvl) == "number" then d:SetFrameLevel(lvl + 20) end
 end
 
-do -- party progress, kudos, weekly helpers, XP rate, popular quests, dungeon finder
+-- Give these features their own Lua stack frame. The main addon chunk also builds the UI.
+local function InitializeQuestAndPartyFeatures()
 ---------------------------------------------------------------------------
 -- party quest progress, quest sharing and kudos (addon messages inside your party)
 ---------------------------------------------------------------------------
@@ -5715,7 +5941,8 @@ local function MyProgress()
                 need = need + (tonumber(o.numRequired) or 0)
             end
             local done = C_QuestLog.IsComplete and C_QuestLog.IsComplete(info.questID)
-            list[#list + 1] = string.format("%d:%d:%d:%d", info.questID, have, need, done and 1 or 0)
+            local share = C_QuestLog.IsPushableQuest and C_QuestLog.IsPushableQuest(info.questID)
+            list[#list + 1] = string.format("%d:%d:%d:%d%s", info.questID, have, need, done and 1 or 0, share and "s" or "")
         end
     end
     return list
@@ -5789,8 +6016,8 @@ function ns.OnGroupMessage(text, sender)
         for k = 1, n do if not d.parts[k] then return end end
         local quests = {}
         for k = 1, n do
-            for qid, have, need, done in d.parts[k]:gmatch("(%d+):(%d+):(%d+):(%d)") do
-                quests[tonumber(qid)] = { have = tonumber(have), need = tonumber(need), done = done == "1" }
+            for qid, have, need, done, share in d.parts[k]:gmatch("(%d+):(%d+):(%d+):(%d)(s?)") do
+                quests[tonumber(qid)] = { have = tonumber(have), need = tonumber(need), done = done == "1", share = share == "s" }
             end
         end
         d.quests, d.ready, d.t = quests, true, GetTime()
@@ -5805,6 +6032,19 @@ end
 function ns.PartyHasAddon()
     for _, d in pairs(partyData) do if d.ready then return true end end
     return false
+end
+
+function ns.PrepShareSource(id)
+    if not IsInGroup() or (IsInRaid and IsInRaid()) then return end
+    for i = 1, 4 do
+        local unit = "party" .. i
+        if UnitExists(unit) and (not UnitIsConnected or UnitIsConnected(unit)) then
+            local who = (GetUnitName and GetUnitName(unit, true)) or UnitName(unit)
+            local data = who and partyData[PartyKey(who)]
+            local quest = data and data.ready and data.quests[id]
+            if quest and quest.share then return who end
+        end
+    end
 end
 
 -- "Party: Lunaria 9/12, Grimbold done, Korgash doesn't have it [Share quest]"
@@ -5846,7 +6086,7 @@ function ns.PartyLine(questID)
 end
 
 function ns.ShareQuest(questID)
-    local idx = C_QuestLog.GetLogIndexForQuestID(questID)
+    local idx = ns.QuestLogIndex(questID)
     if not idx then return false end
     if C_QuestLog.SetSelectedQuest then pcall(C_QuestLog.SetSelectedQuest, questID) end
     if SelectQuestLogEntry then pcall(SelectQuestLogEntry, idx) end
@@ -5955,6 +6195,12 @@ function ns.CheckQuestDone()
     local previous = inLog
     inLog = present
     if scanned then
+        for qid in pairs(previous) do
+            if not present[qid] and not ns.QuestLogIndex(qid) then
+                ns.QueueRouteReplan()
+                break
+            end
+        end
         for qid, title in pairs(now) do
             if not doneState[qid] and previous[qid] then
                 ns.QueueRouteReplan()
@@ -6072,10 +6318,13 @@ end
 -- XP per hour over the last hour (or the session so far, after 5 minutes)
 function ns.XPRate()
     if not ns.xpStart then return nil end
-    local window = math.min(3600, GetTime() - ns.xpStart)
+    local now = GetTime()
+    local window = math.min(3600, now - ns.xpStart)
     if window < 300 then return nil end
     local total = 0
-    for _, e in ipairs(xpLog) do total = total + e.xp end
+    for _, e in ipairs(xpLog) do
+        if e.t > now - 3600 then total = total + e.xp end
+    end
     return total / window * 3600
 end
 
@@ -6115,20 +6364,24 @@ function ns.QuestZone(qid)
     end
 end
 
-local function PlayerMaps()
+local function PlayerMaps(zoneOnly)
     local set = {}
     local id = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
     for _ = 1, 6 do
         if not id or id == 0 then break end
-        set[id] = true
         local info = C_Map.GetMapInfo and C_Map.GetMapInfo(id)
+        if zoneOnly and info and info.mapType and info.mapType < 3 then break end
+        set[id] = true
+        if zoneOnly and info and (info.mapType == 3 or info.mapType == 4) then break end
         id = info and info.parentMapID
     end
     return set
 end
 
+function ns.CurrentZoneMaps() return PlayerMaps(true) end
+
 function ns.AnyQuestTitle(qid, fallback)
-    if C_QuestLog.GetLogIndexForQuestID(qid) then return QuestTitle(qid) end
+    if ns.QuestLogIndex(qid) then return QuestTitle(qid) end
     if C_QuestLog.GetTitleForQuestID then
         local t = C_QuestLog.GetTitleForQuestID(qid)
         if type(t) == "string" and t ~= "" then return t end
@@ -6159,7 +6412,7 @@ function ns.PopularNearYou(limit)
             local avg = levels / n
             if near and math.abs(avg - me) <= 8 then
                 list[#list + 1] = { questID = qid, count = n, title = ns.AnyQuestTitle(qid, title),
-                    inLog = C_QuestLog.GetLogIndexForQuestID(qid) ~= nil, seeking = seeking[qid] ~= nil }
+                    inLog = ns.QuestLogIndex(qid) ~= nil, seeking = seeking[qid] ~= nil }
             end
         else
             popular[qid] = nil
@@ -6206,16 +6459,16 @@ end
 
 -- UnitPosition returns world X (north) first, then world Y (west)
 local function PlayerWorld()
+    if not UnitPosition then return nil end
     local north, west, _, inst = UnitPosition("player")
     if not north or not west then return nil end
     return inst, north, west
 end
 
--- ready to turn in: objectives done, or a "talk to X" quest with no objectives at all
+-- Objective details can be empty while the client is loading them.
 local function IsReady(qid)
-    if C_QuestLog.IsComplete and C_QuestLog.IsComplete(qid) then return true end
-    local objs = C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(qid)
-    return type(objs) == "table" and #objs == 0
+    return not not ((C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(qid))
+        or (C_QuestLog.IsComplete and C_QuestLog.IsComplete(qid)))
 end
 ns.IsReadyToTurnIn = IsReady
 
@@ -6224,7 +6477,7 @@ local function TrackedQuest()
     local st = C_SuperTrack
     if not (st and st.GetSuperTrackedQuestID) then return nil end
     local ok, id = pcall(st.GetSuperTrackedQuestID)
-    return ok and id and id > 0 and id or nil
+    if ok and id and id > 0 then return id, ns.QuestLogIndex(id) end
 end
 
 -- distance from you to a place (and remember its world position)
@@ -6269,19 +6522,34 @@ function ns.ObjectiveSpots(qid, objectiveIndex)
         end
     end
     local refs = {}
-    for _, e in ipairs(entries) do
-        for _, text in ipairs(open) do
-            if e.name ~= "" and text:find(e.name, 1, true) then
-                for _, r in ipairs(e.refs) do refs[#refs + 1] = r end
-                break
+    for _, text in ipairs(open) do
+        local hits = {}
+        for _, e in ipairs(entries) do
+            local first, last
+            if e.name ~= "" then first, last = text:find(e.name, 1, true) end
+            if first then hits[#hits + 1] = { first = first, last = last, refs = e.refs } end
+        end
+        for _, hit in ipairs(hits) do
+            local contained = false
+            for _, other in ipairs(hits) do
+                if other.first <= hit.first and other.last >= hit.last
+                    and (other.first < hit.first or other.last > hit.last) then
+                    contained = true
+                    break
+                end
+            end
+            if not contained then
+                for _, r in ipairs(hit.refs) do refs[r] = true end
             end
         end
     end
-    if #refs == 0 and (not objectiveIndex or #objectives == 1) then
-        for _, e in ipairs(entries) do for _, r in ipairs(e.refs) do refs[#refs + 1] = r end end
+    -- With no finished objectives a quest-wide selection can still use every
+    -- known spot, even when the client's translated names don't match the data.
+    if not next(refs) and #open > 0 and #open == #objectives then
+        for _, e in ipairs(entries) do for _, r in ipairs(e.refs) do refs[r] = true end end
     end
     local out = {}
-    for _, r in ipairs(refs) do
+    for r in pairs(refs) do
         local p = RefPlace(r)
         if p then out[#out + 1] = p end
     end
@@ -6290,10 +6558,9 @@ end
 
 -- A selection in Blizzard's objective tracker takes precedence over route guidance.
 function ns.ArrowTarget()
-    local tracked = TrackedQuest()
-    local index = tracked and C_QuestLog.GetLogIndexForQuestID(tracked)
+    local tracked, index = TrackedQuest()
     local pinst, px, py = PlayerWorld()
-    if index and index > 0 then
+    if index then
         local best, bestD
         local ready = IsReady(tracked)
         if not ready then
@@ -6314,12 +6581,14 @@ function ns.ArrowTarget()
             local info = C_QuestLog.GetInfo(index)
             best.questID, best.title = tracked, (info and info.title) or QuestTitle(tracked)
             best.objective = not ready
+            best.selectedQuest = true
         end
         return best
     end
 
     local routeTarget = ns.RouteTarget()
     if routeTarget then return routeTarget end
+    if ns.RoutePaused() then return end
     local best, bestD
     for i = 1, C_QuestLog.GetNumQuestLogEntries() do
         local info = C_QuestLog.GetInfo(i)
@@ -6327,7 +6596,7 @@ function ns.ArrowTarget()
         if qid and not info.isHidden and IsReady(qid) then
             local q = ns.BundledQuest(qid)
             local place = q and RefPlace(q.finish)
-            if place then
+            if place and not ns.IsSnoozedPlace(place) then
                 place.questID, place.title = qid, info.title or QuestTitle(qid)
                 local d = PlaceDistance(place, pinst, px, py)
                 if not bestD or d < bestD then best, bestD = place, d end
@@ -6362,7 +6631,7 @@ function ns.ArrowGeometry(t)
     local dx, dy = tx - px, ty - py                     -- world x = north, y = west
     g.yards = math.sqrt(dx * dx + dy * dy)
     g.bearing = atan2(dy, dx)
-    g.angle = NormAngle(g.bearing - (GetPlayerFacing() or 0))
+    g.angle = NormAngle(g.bearing - (GetPlayerFacing and GetPlayerFacing() or 0))
     g.state = PlayerMaps()[t.uiMap] and "ok" or "far"
     return g
 end
@@ -6374,28 +6643,67 @@ local function InitializeRoutes()
     local ROUTE_LIMIT, ROUTE_RADIUS, PICKUP_RADIUS = 10, 60, 300
     local route
 
+    local function VisitZone()
+        local id = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+        for _ = 1, 6 do
+            if not id or id == 0 then return end
+            local info = C_Map.GetMapInfo and C_Map.GetMapInfo(id)
+            if not info or not info.mapType or info.mapType < 3 then return end
+            if info.mapType <= 4 then return id end
+            id = info.parentMapID
+        end
+    end
+
+    local function UpdateVisit()
+        local zone = VisitZone()
+        if zone and QuestynatorRouteSnoozes and QuestynatorRouteSnoozes.zone ~= zone then
+            QuestynatorRouteSnoozes = nil
+        end
+        return zone
+    end
+
+    function ns.IsSnoozedPlace(place)
+        local visit = QuestynatorRouteSnoozes
+        if not visit then return false end
+        for _, stop in ipairs(visit.stops) do
+            for _, spot in ipairs(stop) do
+                if spot.uiMap == place.uiMap and spot.x == place.x and spot.y == place.y then return true end
+            end
+        end
+        return false
+    end
+
     local function RouteDistance(a, b)
-        if a.wInst ~= b.wInst then return math.huge end
+        if a == b or (a.uiMap and a.uiMap == b.uiMap and a.x == b.x and a.y == b.y) then return 0 end
+        if not a.wx or not b.wx or not a.wInst or a.wInst ~= b.wInst then return math.huge end
         return math.sqrt((a.wx - b.wx) ^ 2 + (a.wy - b.wy) ^ 2)
     end
 
     local function RouteTasks(origin)
-        local tasks, maps = {}, PlayerMaps()
-        local function Add(info, index, places, pickup)
+        local tasks, maps = {}, ns.CurrentZoneMaps()
+        local fallback, fallbackDistance
+        local function Add(info, index, places, pickup, delivery)
             local localPlaces = {}
             for _, place in ipairs(places) do
-                if maps[place.uiMap] then
+                if maps[place.uiMap] and not ns.IsSnoozedPlace(place) then
                     local yards = PlaceDistance(place, origin.wInst, origin.wx, origin.wy)
-                    if place.wInst == origin.wInst and place.wx and place.wy and
-                        (not pickup or yards <= PICKUP_RADIUS) then
-                        localPlaces[#localPlaces + 1] = place
+                    if place.wInst == origin.wInst and place.wx and place.wy then
+                        if pickup and yards > PICKUP_RADIUS then
+                            if not fallback or yards < fallbackDistance or
+                                (yards == fallbackDistance and info.questID < fallback.questID) then
+                                fallback = { questID = info.questID, title = info.title, pickup = true, places = { place } }
+                                fallbackDistance = yards
+                            end
+                        else
+                            localPlaces[#localPlaces + 1] = place
+                        end
                     end
                 end
             end
             if #localPlaces > 0 then
                 tasks[#tasks + 1] = {
                     questID = info.questID, title = info.title or QuestTitle(info.questID),
-                    index = index, places = localPlaces, pickup = pickup,
+                    index = index, places = localPlaces, pickup = pickup, delivery = delivery,
                 }
             end
         end
@@ -6407,8 +6715,17 @@ local function InitializeRoutes()
                 local place = q and RefPlace(q.finish)
                 if place then Add(info, nil, { place }) end
             elseif id then
-                for index, objective in ipairs((C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(id)) or {}) do
-                    if not objective.finished then Add(info, index, ns.ObjectiveSpots(id, index)) end
+                local places, _, delivery = ns.RewardDestinations({ id = id, state = "inlog" })
+                if delivery then
+                    Add(info, nil, places, false, true)
+                else
+                    local byIndex = {}
+                    for _, place in ipairs(places) do
+                        local index = place.objectiveIndex
+                        byIndex[index] = byIndex[index] or {}
+                        table.insert(byIndex[index], place)
+                    end
+                    for index, candidates in pairs(byIndex) do Add(info, index, candidates) end
                 end
             end
         end
@@ -6421,22 +6738,94 @@ local function InitializeRoutes()
                 end
             end
         end
+        if #tasks == 0 and fallback then tasks[1] = fallback end
         return tasks
     end
 
-    function ns.PlanRoute()
+    -- Both the browser and the planner use the destinations for the current step.
+    function ns.RewardDestinations(entry)
+        local qid = entry.id
+        local quest = ns.BundledQuest(qid)
+        if entry.state == "locked" then
+            return {}, ns.RewardStepLabel(entry)
+        elseif entry.state == "available" then
+            if C_QuestLog.IsQuestLogFull and C_QuestLog.IsQuestLogFull() then
+                return {}, L["Quest log full"]
+            end
+            return { quest and RefPlace(quest.start) }
+        elseif entry.ready then
+            return { quest and RefPlace(quest.finish) }
+        end
+        local places = {}
+        for index, objective in ipairs((C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(qid)) or {}) do
+            if not objective.finished then
+                for _, candidate in ipairs(ns.ObjectiveSpots(qid, index)) do
+                    candidate.objectiveIndex = index
+                    places[#places + 1] = candidate
+                end
+            end
+        end
+        if #places == 0 and quest and #quest.mobs == 0 and #quest.objects == 0 and #quest.items == 0 then
+            return { RefPlace(quest.finish) }, nil, true
+        end
+        return places
+    end
+
+    function ns.RewardDestination(entry, omitSnoozed)
+        local places, message, delivery = ns.RewardDestinations(entry)
+        local maps = ns.CurrentZoneMaps()
         local inst, wx, wy = PlayerWorld()
-        if not inst or not next(PlayerMaps()) then return end
-        local origin = { wInst = inst, wx = wx, wy = wy }
+        local place, nearest, localStop
+        for _, candidate in ipairs(places) do
+            if not omitSnoozed or not ns.IsSnoozedPlace(candidate) then
+                local inZone = maps[candidate.uiMap] == true
+                local distance = PlaceDistance(candidate, inst, wx, wy)
+                if not place or (inZone and not localStop) or (inZone == localStop and distance < nearest) then
+                    place, nearest, localStop = candidate, distance, inZone
+                end
+            end
+        end
+        return place, message, delivery, not place and #places > 0
+    end
+
+    function ns.PinLabel(pickup, objective)
+        return pickup and L["Pin pickup"] or (objective and L["Pin objective"] or L["Pin turn-in"])
+    end
+
+    local function RewardPlan(entry)
+        local plan = { stops = {}, index = 1, reward = entry.reward.name }
+        local qid = entry.id
+        local task = { questID = qid, title = ns.ZoneQuest(qid).name, pickup = entry.state == "available" }
+        local place, message, delivery, snoozed = ns.RewardDestination(entry, true)
+        if snoozed then return nil end
+        plan.message, task.delivery = message, delivery
+        if place then
+            task.index = place.objectiveIndex
+            task.places, task.destination = { place }, place
+            place.questID, place.title, place.routeStop = qid, task.title, true
+            place.rewardItem = entry.reward.item
+            plan.stops[1] = { target = place, tasks = { task } }
+        else
+            plan.message = (plan.message or L["Location unknown"]) .. " · " .. task.title
+        end
+        return plan
+    end
+
+    local function BuildStops(tasks, origin, currentTask, ordinary)
         local plan = { stops = {}, index = 1 }
-        local tasks = RouteTasks(origin)
         while #tasks > 0 and #plan.stops < ROUTE_LIMIT do
-            local target, distance, targetQuest
+            local target, score, lead
             for _, task in ipairs(tasks) do
                 for _, place in ipairs(task.places) do
                     local yards = RouteDistance(origin, place)
-                    if not target or yards < distance or (yards == distance and task.questID < targetQuest) then
-                        target, distance, targetQuest = place, yards, task.questID
+                    -- Let an accepted task win over a pickup within a short detour.
+                    local cost = yards + (ordinary and task.pickup and 150 or 0)
+                    if currentTask and task.questID == currentTask.questID and task.index == currentTask.index
+                        and task.pickup == currentTask.pickup and task.delivery == currentTask.delivery
+                        and RouteDistance(currentTask.destination, place) == 0 then cost = -1 end
+                    if not target or cost < score or (cost == score and
+                        (task.questID < lead.questID or (task.questID == lead.questID and (task.index or 0) < (lead.index or 0)))) then
+                        target, score, lead = place, cost, task
                     end
                 end
             end
@@ -6453,13 +6842,53 @@ local function InitializeRoutes()
                 local list = nearest and stop.tasks or remaining
                 list[#list + 1] = task
             end
-            target.questID = stop.tasks[1].questID
+            table.sort(stop.tasks, function(a, b)
+                if a == b then return false end
+                if a == lead or b == lead then return a == lead end
+                if (not not a.pickup) ~= (not not b.pickup) then return not a.pickup end
+                if a.questID ~= b.questID then return a.questID < b.questID end
+                return (a.index or 0) < (b.index or 0)
+            end)
+            currentTask = nil
+            target.questID = lead.questID
             target.title = #stop.tasks == 1 and stop.tasks[1].title or string.format(L["Route stop %d"], #plan.stops + 1)
             target.routeStop = true
             plan.stops[#plan.stops + 1] = stop
             tasks, origin = remaining, target
         end
-        route = plan
+        return plan
+    end
+
+    function ns.PlanRoute(currentTask)
+        UpdateVisit()
+        local inst, wx, wy = PlayerWorld()
+        local origin = { wInst = inst, wx = wx, wy = wy }
+        if QuestynatorPrepDungeon then
+            local tasks, message = ns.PrepPickupTasks(QuestynatorPrepDungeon)
+            if #tasks > 0 or message then
+                for _, task in ipairs(tasks) do PlaceDistance(task.places[1], inst, wx, wy) end
+                route = BuildStops(tasks, origin)
+                route.prep, route.message = ns.DungeonName(QuestynatorPrepDungeon), message
+                return
+            end
+            QuestynatorPrepDungeon = nil
+        end
+        if QuestynatorRewardGoal then
+            local reward = ns.RewardCatalog[QuestynatorRewardGoal]
+            local entry = reward and ns.RewardProgress(reward)
+            if entry then
+                local plan = RewardPlan(entry)
+                if plan then route = plan; return end
+            else
+                QuestynatorRewardGoal = nil
+            end
+        end
+        if route and (route.reward or route.prep) then route = nil end
+        if not inst or not next(ns.CurrentZoneMaps()) then
+            route = nil
+            return
+        end
+        route = BuildStops(RouteTasks(origin), origin, currentTask, true)
     end
 
     local enteredWorld, startupQueued
@@ -6487,6 +6916,12 @@ local function InitializeRoutes()
     end
 
     function ns.QueueRouteReplan(turnedInID)
+        UpdateVisit()
+        local reward = turnedInID and ns.RewardCatalog[QuestynatorRewardGoal]
+        if reward and turnedInID == reward.steps[#reward.steps] then
+            QuestynatorRewardGoal = nil
+            if route then route.paused = false end
+        end
         if not route then return end
         if turnedInID then
             route.awaitingRemoval = route.awaitingRemoval or {}
@@ -6508,8 +6943,8 @@ local function InitializeRoutes()
         if task.pickup then
             return ns.QuestState(task.questID) ~= "available" or (C_QuestLog.IsQuestLogFull and C_QuestLog.IsQuestLogFull())
         end
-        local index = C_QuestLog.GetLogIndexForQuestID(task.questID)
-        if not index or index == 0 then return true end
+        local index = ns.QuestLogIndex(task.questID)
+        if not index then return true end
         if not task.index then return false end
         if IsReady(task.questID) then return true end
         local objectives = C_QuestLog.GetQuestObjectives(task.questID)
@@ -6523,11 +6958,20 @@ local function InitializeRoutes()
             -- Keep the request pending until a subsequent refresh sees the removal.
             if route.awaitingRemoval then
                 for id in pairs(route.awaitingRemoval) do
-                    if (C_QuestLog.GetLogIndexForQuestID(id) or 0) > 0 then return end
+                    if ns.QuestLogIndex(id) then return end
                 end
             end
-            ns.PlanRoute()
+            local stop = route.stops[route.index]
+            local keep
+            if stop and not route.reward and not route.prep then
+                for _, task in ipairs(stop.tasks) do
+                    if not RouteTaskDone(task) then keep = task; break end
+                end
+            end
+            ns.PlanRoute(keep)
+            if not route then ns.StartInitialRoute() end
         end
+        if not route then return end
         local stop = route.stops[route.index]
         while stop do
             for _, task in ipairs(stop.tasks) do
@@ -6544,10 +6988,61 @@ local function InitializeRoutes()
         return stop and stop.target
     end
 
+    function ns.RoutePaused() return route and route.paused end
+
+    function ns.SnoozeRouteStop(undo)
+        local zone = UpdateVisit()
+        local visit = QuestynatorRouteSnoozes
+        if undo then
+            if not visit then return end
+            table.remove(visit.stops)
+            if #visit.stops == 0 then QuestynatorRouteSnoozes = nil end
+        else
+            local stop = route and route.stops[route.index]
+            if not zone or not stop then return end
+            local spots = {}
+            for _, task in ipairs(stop.tasks) do
+                local p = task.destination
+                spots[#spots + 1] = { uiMap = p.uiMap, x = p.x, y = p.y }
+            end
+            visit = visit or { zone = zone, stops = {} }
+            visit.stops[#visit.stops + 1] = spots
+            QuestynatorRouteSnoozes = visit
+        end
+        local paused = route and route.paused
+        route = nil
+        ns.PlanRoute()
+        if route then route.paused = paused end
+        ns.ArrowUndismiss()
+        ns.ArrowRefresh()
+        ns.RequestRefresh()
+    end
+
     local function MarkPlace(place, title)
         if place then
             ns.Waypoint(place.area, place.x, place.y, title, TrackedQuest() ~= nil)
         end
+    end
+
+    function ns.SetRewardPursuit(item)
+        if item then QuestynatorPrepDungeon = nil end
+        QuestynatorRewardGoal = item
+        ns.PlanRoute()
+        ns.ArrowUndismiss()
+        ns.ArrowRefresh()
+        ns.RequestRefresh()
+        local target = item and ns.RouteTarget()
+        if target then MarkPlace(target, target.title) end
+    end
+
+    function ns.SetDungeonPrepRoute(id)
+        QuestynatorPrepDungeon = id
+        ns.PlanRoute()
+        ns.ArrowUndismiss()
+        ns.ArrowRefresh()
+        ns.RequestRefresh()
+        local target = QuestynatorPrepDungeon and ns.RouteTarget()
+        if target then MarkPlace(target, target.title) end
     end
 
     function ns.BuildRouteView(p)
@@ -6579,9 +7074,8 @@ local function InitializeRoutes()
             Changed()
         end)
         view.pause:SetPoint("LEFT", view.plan, "RIGHT", 6, 0)
-        view.skip = RouteButton(54, L["Skip"], function()
-            route.index = route.index + 1
-            Changed()
+        view.skip = RouteButton(88, L["Snooze stop"], function()
+            ns.SnoozeRouteStop(false)
         end)
         view.skip:SetPoint("LEFT", view.pause, "RIGHT", 6, 0)
         view.mark = RouteButton(104, L["Mark on map"], function()
@@ -6605,6 +7099,7 @@ local function InitializeRoutes()
         if task.pickup then
             return string.format(L["Pick up %s from %s"], task.title, task.places[1].name)
         end
+        if task.delivery then return string.format(L["Speak to %s"], task.destination.name) end
         if not task.index then return string.format(L["Turn in %s"], task.title) end
         local objectives = C_QuestLog.GetQuestObjectives(task.questID)
         local o = objectives and objectives[task.index]
@@ -6619,41 +7114,104 @@ local function InitializeRoutes()
 
     local planner
 
+    local function PlannerRow(i)
+        local row = planner.rows[i]
+        if row then return row end
+        row = CreateFrame("Frame", nil, planner)
+        row:SetWidth(planner:GetWidth() - 24)
+        row.pin = ns.UI.Button(row, 91, 20, "outline")
+        row.pin:SetPoint("RIGHT")
+        row.pin.tip = L["Mark on map"]
+        row.pin:SetScript("OnEnter", ns.UI.ShowTip)
+        row.pin:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        row.pin:SetScript("OnClick", function()
+            local task = row.task
+            if task and not RouteTaskDone(task) then MarkPlace(task.destination, task.title) end
+        end)
+        row.text = ns.UI.Text(row, i == 1 and 13 or 11, i == 1 and "text" or "muted")
+        row.text:SetPoint("LEFT")
+        row.text:SetWidth(row:GetWidth() - row.pin:GetWidth() - 8)
+        row.text:SetJustifyH("LEFT")
+        planner.rows[i] = row
+        return row
+    end
+
     function ns.RefreshPlanner()
         if not planner or not planner:IsShown() then return end
-        planner.plan:SetText(route and L["Replan"] or L["Plan My Route"])
         local stop = route and route.stops[route.index]
-        local heading = ""
+        local selected, selectedIndex = TrackedQuest()
+        planner.resume = stop and (selectedIndex or route.paused)
+        planner.plan:SetText(planner.resume and L["Resume route"] or (stop and L["Pause"] or L["Replan"]))
+        local heading = L["Waiting for quest and map data"]
+        local context = ""
         if stop then
-            heading = string.format(L["Stop %d of %d"], route.index, #route.stops) .. " \194\183 " .. StopDestination(stop)
-            if route.paused then heading = L["Route paused"] .. " \194\183 " .. heading end
+            context = route.prep or route.reward or string.format(L["Stop %d of %d"], route.index, #route.stops)
+            heading = StopDestination(stop)
+            if selectedIndex then
+                context = L["Selected quest"] .. " · " .. QuestTitle(selected)
+                heading = L["Up next when you resume"] .. " · " .. heading
+            elseif route.paused then
+                context = L["Route paused"] .. " · " .. context
+            end
         elseif route then
-            heading = #route.stops == 0 and L["No quest stops found in this zone"] or L["Route ended"]
+            heading = route.message or (QuestynatorRouteSnoozes and L["No other stops found. Undo snooze to restore a stop."]
+                or L["No eligible pickups or known quest stops in this zone."])
+        end
+        local top = 31
+        if context ~= "" then
+            planner.context:SetText(context)
+            planner.context:Show()
+            top = top + math.ceil(planner.context:GetStringHeight()) + 3
+        else
+            planner.context:Hide()
         end
         planner.heading:SetText(heading)
-        local top = 30 + (heading ~= "" and math.ceil(planner.heading:GetStringHeight()) + 3 or 0)
-        local used = 0
+        planner.heading:SetPoint("TOPLEFT", 12, -top)
+        top = top + math.ceil(planner.heading:GetStringHeight()) + 4
+        local used, total = 0, 0
+        local limit = DB.plannerExpanded and 3 or 1
         if stop then
             for i = route.index, #route.stops do
                 for _, task in ipairs(route.stops[i].tasks) do
                     if not RouteTaskDone(task) then
+                        total = total + 1
+                        if used < limit then
                         used = used + 1
-                        local row = planner.rows[used]
+                        local row = PlannerRow(used)
                         row.task = task
-                        row.text:SetText(string.format("|cffb4bec8%d. |r%s", i, RouteTaskText(task)))
+                        row.pin:SetText(ns.PinLabel(task.pickup, task.index or task.delivery))
+                        local label = RouteTaskText(task)
+                        if i > route.index then label = string.format(L["Up next: %s"], label) end
+                        row.text:SetText(label)
                         row:SetPoint("TOPLEFT", 12, -top)
-                        row:SetHeight(math.max(18, math.ceil(row.text:GetStringHeight())))
+                        row:SetHeight(math.max(20, math.ceil(row.text:GetStringHeight())))
                         row:Show()
                         top = top + row:GetHeight() + 2
-                        if used == #planner.rows then break end
+                        end
                     end
                 end
-                if used == #planner.rows then break end
+                if total > limit then break end
             end
         end
         for i = used + 1, #planner.rows do
             planner.rows[i].task = nil
             planner.rows[i]:Hide()
+        end
+        planner.expand:SetText(DB.plannerExpanded and L["Less"] or L["More"])
+        planner.expand:SetShown(total > 1 or stop ~= nil)
+        planner.expand:SetPoint("TOPLEFT", 12, -top)
+        planner.snooze:SetShown(stop ~= nil and DB.plannerExpanded == true)
+        planner.undo:SetShown(QuestynatorRouteSnoozes ~= nil)
+        planner.snooze:SetPoint("TOPLEFT", 72, -top)
+        planner.undo:SetPoint("TOPLEFT", stop and (DB.plannerExpanded and 175 or 72) or 12, -top)
+        local hosted, hostContext = ns.PaintHostButton(planner.host)
+        planner.host:SetPoint("TOPRIGHT", -12, -top)
+        top = top + 23
+        planner.hosting:SetShown(hosted ~= nil)
+        if hosted then
+            planner.hosting:SetPoint("TOPLEFT", 12, -top)
+            planner.hosting:SetText(string.format(L["Hosting: %s"], hostContext))
+            top = top + math.ceil(planner.hosting:GetStringHeight()) + 2
         end
         planner:SetHeight(top + 6)
     end
@@ -6680,39 +7238,53 @@ local function InitializeRoutes()
             local pos = DB.plannerPos
             if pos then planner:SetPoint(pos[1], UIParent, pos[2], pos[3], pos[4])
             else planner:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 24, -180) end
-            planner.CloseButton:SetScript("OnClick", function() ns.ShowPlanner(false) end)
+            planner.CloseButton:SetScript("OnClick", function() ns.SetOption("planner", false) end)
             planner.plan = ns.UI.Button(planner, 110, 20, "outline")
             planner.plan:SetPoint("RIGHT", planner.CloseButton, "LEFT", -6, 0)
             planner.plan:SetScript("OnClick", function()
-                ns.PlanRoute()
+                if planner.resume then
+                    local _, selectedIndex = TrackedQuest()
+                    if selectedIndex then C_SuperTrack.SetSuperTrackedQuestID(0) end
+                    if route then route.paused = false end
+                elseif route and route.stops[route.index] then
+                    route.paused = true
+                else
+                    ns.PlanRoute()
+                end
                 ns.ArrowUndismiss()
                 ns.ArrowRefresh()
                 RefreshPanel()
             end)
-            planner.heading = ns.UI.Text(planner, 12, "accent")
+            planner.context = ns.UI.Text(planner, 10, "accent", nil, "medium")
+            planner.context:SetPoint("TOPLEFT", 12, -31)
+            planner.context:SetWidth(planner:GetWidth() - 24)
+            planner.context:SetJustifyH("LEFT")
+            planner.heading = ns.UI.Text(planner, 13, "text", nil, "bold")
             planner.heading:SetPoint("TOPLEFT", 12, -30)
             planner.heading:SetWidth(planner:GetWidth() - 24)
             planner.heading:SetJustifyH("LEFT")
+            planner.expand = ns.UI.Button(planner, 54, 20, "ghost")
+            planner.expand:SetScript("OnClick", function()
+                DB.plannerExpanded = not DB.plannerExpanded
+                ns.RefreshPlanner()
+            end)
+            planner.snooze = ns.UI.Button(planner, 98, 20, "outline")
+            planner.snooze:SetText(L["Snooze stop"])
+            planner.snooze.tip = L["Hide this stop until you leave the zone."]
+            planner.snooze:SetScript("OnEnter", ns.UI.ShowTip)
+            planner.snooze:SetScript("OnLeave", function() GameTooltip:Hide() end)
+            planner.snooze:SetScript("OnClick", function() ns.SnoozeRouteStop(false) end)
+            planner.undo = ns.UI.Button(planner, 64, 20, "outline")
+            planner.undo:SetText(L["Undo"])
+            planner.undo.tip = L["Undo snooze"]
+            planner.undo:SetScript("OnEnter", ns.UI.ShowTip)
+            planner.undo:SetScript("OnLeave", function() GameTooltip:Hide() end)
+            planner.undo:SetScript("OnClick", function() ns.SnoozeRouteStop(true) end)
+            planner.host = ns.MakeHostButton(planner)
+            planner.hosting = ns.UI.Text(planner, 11, "accent")
+            planner.hosting:SetWidth(planner:GetWidth() - 24)
+            planner.hosting:SetJustifyH("LEFT")
             planner.rows = {}
-            for i = 1, 3 do
-                local row = CreateFrame("Frame", nil, planner)
-                row:SetWidth(planner:GetWidth() - 24)
-                row.pin = ns.UI.Button(row, 40, 18, "outline")
-                row.pin:SetPoint("RIGHT")
-                row.pin:SetText(L["Pin"])
-                row.pin.tip = L["Mark on map"]
-                row.pin:SetScript("OnEnter", ns.UI.ShowTip)
-                row.pin:SetScript("OnLeave", function() GameTooltip:Hide() end)
-                row.pin:SetScript("OnClick", function()
-                    local task = row.task
-                    if task and not RouteTaskDone(task) then MarkPlace(task.destination, task.title) end
-                end)
-                row.text = ns.UI.Text(row, 12, "text")
-                row.text:SetPoint("LEFT")
-                row.text:SetWidth(row:GetWidth() - row.pin:GetWidth() - 6)
-                row.text:SetJustifyH("LEFT")
-                planner.rows[i] = row
-            end
         end
         planner:Show()
         ns.RefreshPlanner()
@@ -6731,7 +7303,7 @@ local function InitializeRoutes()
             tt:AddLine(target.name, 1, 1, 1, true)
         end
         for _, task in ipairs(stop.tasks) do
-            if (task.pickup and not RouteTaskDone(task)) or (task.index and (C_QuestLog.GetLogIndexForQuestID(task.questID) or 0) > 0) then
+            if (task.pickup and not RouteTaskDone(task)) or (task.index and ns.QuestLogIndex(task.questID)) then
                 tt:AddLine(RouteTaskText(task), 1, 1, 1, true)
             end
         end
@@ -6743,16 +7315,16 @@ local function InitializeRoutes()
         local active = route and route.index <= count
         view.plan:SetText(route and L["Replan"] or L["Plan My Route"])
         view.pause:SetShown(not not active)
-        view.skip:SetShown(not not active)
+        view.skip:SetShown(active and not route.reward or false)
         view.pause:SetText(route and route.paused and L["Resume"] or L["Pause"])
         local status = ""
         if active and route.paused then
             status = L["Route paused"]
         elseif route and not active then
-            status = count == 0 and L["No quest stops found in this zone"] or L["Route ended"]
+            status = route.message or (count == 0 and L["No quest stops found in this zone"] or L["Route ended"])
         end
         view.status:ClearAllPoints()
-        view.status:SetPoint("LEFT", active and view.skip or view.plan, "RIGHT", 10, 0)
+        view.status:SetPoint("LEFT", active and (route.reward and view.pause or view.skip) or view.plan, "RIGHT", 10, 0)
         view.status:SetText(status)
         if not active then
             view.mark:Hide()
@@ -6769,14 +7341,14 @@ local function InitializeRoutes()
             view.details:SetSpacing(3)
         end
         local stop = route.stops[route.index]
-        local heading = string.format(L["Stop %d of %d"], route.index, count) .. " · " .. StopDestination(stop)
+        local heading = (route.prep or route.reward or string.format(L["Stop %d of %d"], route.index, count)) .. " · " .. StopDestination(stop)
         local yards = ns.ArrowGeometry(stop.target).yards
         if yards then
             heading = heading .. " · " .. string.format(L["%d yd away"], math.floor(yards + 0.5))
         end
         local lines = { "|cff53d1c5" .. heading .. "|r" }
         for _, task in ipairs(stop.tasks) do
-            if (task.pickup and not RouteTaskDone(task)) or (not task.pickup and (C_QuestLog.GetLogIndexForQuestID(task.questID) or 0) > 0) then
+            if (task.pickup and not RouteTaskDone(task)) or (not task.pickup and ns.QuestLogIndex(task.questID)) then
                 lines[#lines + 1] = RouteTaskText(task)
             end
         end
@@ -6797,6 +7369,8 @@ local function InitializeRoutes()
                 break
             end
         end
+        local first = stop.tasks[1]
+        view.mark:SetText(#stop.tasks > 1 and L["Pin stop"] or ns.PinLabel(first.pickup, first.index or first.delivery))
         view.mark.tip = StopDestination(stop)
         view.mark:Show()
         view.details:SetText(table.concat(lines, "\n"))
@@ -6885,6 +7459,10 @@ local function CreateArrow()
     f.needle:SetSize(64, 64)
     f.needle:SetPoint("CENTER", f.ring, "CENTER")
     f.needle:SetTexture("Interface\\AddOns\\Questynator\\Media\\CompassNeedle")
+    f.source = ns.UI.Text(f, 11, "accent", nil, "medium")
+    f.source:SetPoint("LEFT", f.ring, "RIGHT", 4, 0)
+    f.source:SetText(L["Selected quest"])
+    f.source:Hide()
     f.line1 = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     f.line1:SetPoint("TOP", f.ring, "BOTTOM", 0, -2)
     f.line1:SetWidth(220)
@@ -6927,6 +7505,7 @@ function ns.ArrowRefresh()
     if not current or not prev or prev.questID ~= current.questID or prev.routeStop ~= current.routeStop then geo = nil end
     if current then
         if not arrow then CreateArrow() end
+        arrow.source:SetShown(current.selectedQuest == true)
         if not arrow:IsShown() then alpha = 0; arrow:SetAlpha(0) end
         arrow:Show()
     elseif arrow then
@@ -7103,16 +7682,41 @@ function ns.RolesFromText(text)
     return out
 end
 
-local function HostRole()
-    local mine = ns.MyRoles()
-    return (mine.T and "T") or (mine.H and "H") or "D"
+-- At most five players. Try their offered roles and keep the assignment that
+-- fills the most standard party slots, including flexible roles on the host.
+local function AssignDungeonRoles(members)
+    local left = { T = 1, H = 1, D = 3 }
+    local picks, best, bestScore = {}, {}, -1
+    local function Assign(i, score)
+        if bestScore == #members then return end
+        if i > #members then
+            if score > bestScore then
+                bestScore = score
+                for j, role in ipairs(picks) do best[j] = role end
+            end
+            return
+        end
+        for _, role in ipairs(ROLES) do
+            if members[i].offered:find(role, 1, true) then
+                picks[i] = role
+                local filled = left[role] > 0
+                left[role] = left[role] - 1
+                Assign(i + 1, score + (filled and 1 or 0))
+                left[role] = left[role] + 1
+            end
+        end
+    end
+    Assign(1, 0)
+    for i, role in ipairs(best) do
+        members[i].role = role
+        left[role] = left[role] - 1
+    end
+    return left
 end
 
 -- a 5-player group: 1 tank, 1 healer, 3 DPS. Fill it with the host and every member, then list what's left.
 function ns.UpdateDungeonComposition(quiet)
     if not myDungeon or myDungeon.mode ~= "host" then return end
-    local left = { T = 1, H = 1, D = 3 }
-    left[HostRole()] = left[HostRole()] - 1
     local members = {}
     for i = 1, 4 do
         local u = "party" .. i
@@ -7120,24 +7724,13 @@ function ns.UpdateDungeonComposition(quiet)
             local name = UnitName(u)
             local full = (GetUnitName and GetUnitName(u, true)) or name
             local offered = myDungeon.offered[full] or myDungeon.offered[name] or ""
-            members[#members + 1] = { name = name, offered = offered }
+            members[#members + 1] = { name = name, offered = offered ~= "" and offered or "D" }
         end
     end
-    -- single-role players first, then flexible ones take the role that's still open
-    table.sort(members, function(a, b) return #a.offered < #b.offered end)
-    for _, m in ipairs(members) do
-        local pick
-        if #m.offered == 0 then
-            pick = "D"                                  -- whispered just "+": counted as DPS
-        else
-            for _, r in ipairs(ROLES) do
-                if m.offered:find(r, 1, true) and left[r] > 0 then pick = r; break end
-            end
-            pick = pick or m.offered:sub(1, 1)
-        end
-        left[pick] = left[pick] - 1
-        m.role = pick
-    end
+    local offered = RoleString(ns.MyRoles())
+    members[#members + 1] = { offered = offered ~= "" and offered or "D" }
+    local left = AssignDungeonRoles(members)
+    table.remove(members) -- the roster shown to the host contains party members
     local before = RoleString(myDungeon.needs) .. ":" .. (myDungeon.needCount and myDungeon.needCount.D or "")
     for _, r in ipairs(ROLES) do left[r] = math.max(0, left[r]) end
     -- never ask for more players than there are free spots (an extra tank takes a DPS spot)
@@ -7186,8 +7779,8 @@ function ns.DungeonBeacon()
     local _, class = UnitClass("player")
     local members = IsInGroup() and GetNumGroupMembers() or 1
     local roles = (myDungeon.mode == "host") and RoleString(myDungeon.needs) or RoleString(ns.MyRoles())
-    Send(string.format("D|%d|%d|%s|%s|%s|%s|%d", myDungeon.id, UnitLevel("player") or 1,
-        myDungeon.mode == "host" and "H" or "S", roles, SID, class or "", members))
+    Send(string.format("D|%d|%d|%s|%s|%s|%s|%d|%d", myDungeon.id, UnitLevel("player") or 1,
+        myDungeon.mode == "host" and "H" or "S", roles, SID, class or "", members, ns.PendingHostInvites()))
 end
 
 function ns.StartDungeon(id, mode)
@@ -7239,13 +7832,14 @@ function ns.StopDungeon(silent)
     ns.RequestRefresh()
 end
 
-function ns.OnDungeonBeacon(sender, id, lvl, mode, roles, sid, class, members)
+function ns.OnDungeonBeacon(sender, id, lvl, mode, roles, sid, class, members, pending)
     id = tonumber(id)
     if not id or not DUNGEON_BY_ID[id] or sid == SID then return end
     dboard[id] = dboard[id] or {}
     local isNew = not dboard[id][sender]
     dboard[id][sender] = { mode = (mode == "H") and "host" or "seek", roles = roles or "", level = tonumber(lvl),
-        class = (class ~= "" and class) or nil, members = tonumber(members) or 1, t = GetTime() }
+        class = (class ~= "" and class) or nil, members = tonumber(members) or 1, t = GetTime(),
+        pending = math.max(0, math.min(MAX_PARTY - 1, tonumber(pending) or 0)) }
     -- someone who fits what I'm doing showed up
     if isNew and myDungeon and myDungeon.id == id then
         local e = dboard[id][sender]
@@ -7263,13 +7857,7 @@ function ns.OnDungeonCancel(sender, id)
 end
 
 -- dungeons around your level, with everyone hosting or looking for each
-local HORDE_RACES = { [2] = true, [5] = true, [6] = true, [8] = true, [9] = true, [10] = true }
-local function MyFaction()
-    local f = UnitFactionGroup and UnitFactionGroup("player")
-    if f == "Horde" then return "H" elseif f == "Alliance" then return "A" end
-    local _, _, raceID = UnitRace("player")
-    return raceID and (HORDE_RACES[raceID] and "H" or "A") or nil
-end
+local MyFaction = ns.PlayerFaction
 
 function ns.DungeonList()
     local me, now, out = UnitLevel("player") or 1, GetTime(), {}
@@ -7279,14 +7867,15 @@ function ns.DungeonList()
         for name, e in pairs(dboard[d.id] or {}) do
             if now - e.t > DUNGEON_TTL then dboard[d.id][name] = nil
             else
-                local row = { name = name, roles = e.roles, level = e.level, class = e.class, members = e.members }
+                local row = { name = name, roles = e.roles, level = e.level, class = e.class,
+                    members = e.members, pending = e.pending }
                 if e.mode == "host" then hosts[#hosts + 1] = row else seekers[#seekers + 1] = row end
             end
         end
         local mineHere = myDungeon and myDungeon.id == d.id
         -- up to the dungeon's top level (above it the loot and XP aren't worth it), and only where your faction can get in
         local fits = me >= d.min - 3 and me <= d.max and not (d.faction and faction and d.faction ~= faction)
-        if fits or #hosts > 0 or #seekers > 0 or mineHere then
+        if fits or #hosts > 0 or #seekers > 0 or mineHere or QuestynatorPrepDungeon == d.id then
             table.sort(hosts, function(a, b) return (a.members or 1) > (b.members or 1) end)
             table.sort(seekers, function(a, b) return (a.level or 0) > (b.level or 0) end)
             out[#out + 1] = { id = d.id, name = ns.DungeonName(d.id), min = d.min, max = d.max, d = d,
@@ -7325,6 +7914,7 @@ end
 
 function ns.JoinDungeon(host, id)
     if TestBlocked("would whisper + to " .. tostring(host)) then return end
+    ns.RememberDungeonRequest(id)
     ns.trustInviter = { who = host, t = GetTime() }
     local roles = ns.RolesText(RoleString(ns.MyRoles()))
     local send = (C_ChatInfo and C_ChatInfo.SendAddonMessage) or SendAddonMessage
@@ -7357,11 +7947,9 @@ function ns.OnDungeonWhisper(sender, text)
     local who = Ambiguate(sender, "none")
     local said = ns.RolesFromText((tostring(text or ""):gsub("^%s*%S+", "")))
     if said ~= "" and not myDungeon.offered[who] then myDungeon.offered[who] = said end
-    local slots = MAX_PARTY - (IsInGroup() and GetNumGroupMembers() or 1)
     local count = myDungeon.inviteCount[sender] or 0
-    if slots > 0 and count < MAX_INVITES then
+    if count < MAX_INVITES and Invite(sender, true) then
         myDungeon.inviteCount[sender] = count + 1
-        Invite(sender)
         ns.Alert()
         Print(string.format(L["Invited %s (whispered +) for: %s"], Ambiguate(sender, "none"), ns.DungeonName(myDungeon.id)))
     end
@@ -7374,6 +7962,7 @@ function ns.DungeonWaypoint(id)
 end
 
 end
+InitializeQuestAndPartyFeatures()
 
 ---------------------------------------------------------------------------
 -- admin tools: announcements, consented debug info, test mode (used by the private QuestynatorAdmin addon)
@@ -7519,6 +8108,7 @@ function ns.RequestRefresh()
     pendingRefresh = true
     C_Timer.After(0, function()
         pendingRefresh = false
+        ns.RefreshPlanner()
         local ok, err = pcall(RefreshTracker)
         if not ok then
             if ns.LogError then ns.LogError("tracker", err) end
@@ -7622,11 +8212,15 @@ ns.OPTIONS = {
     { key = "partyChat",  section = "Features",  label = "Party chat messages (objectives done, quest completed)" },
     { key = "autoAccept", section = "Features",  label = "Auto-accept invites from matched players" },
     { key = "chatScan",   section = "Features",  label = "Chat scanner (find players looking for groups in chat)" },
+    { key = "reminders",  section = "Features",  label = "Smart reminders for quests, rewards, groups, and treasures" },
     { key = "minimap",    section = "Interface", label = "Minimap button" },
+    { key = "planner",    section = "Interface", label = "Show Route Planner" },
     { key = "sound",      section = "Interface", label = "Sound alerts" },
 }
 
 function ns.GetOption(key)
+    if key == "reminders" then return DB.reminders ~= false end
+    if key == "planner" then return not DB.plannerHidden end
     if key == "minimap" then return not (DB.minimap and DB.minimap.hide) end
     if key == "arrow" then return DB.arrow ~= false end
     return DB[key] and true or false
@@ -7634,7 +8228,9 @@ end
 
 function ns.SetOption(key, on)
     on = on and true or false
-    if key == "minimap" then
+    if key == "planner" then
+        ns.ShowPlanner(on)
+    elseif key == "minimap" then
         if type(DB.minimap) ~= "table" then DB.minimap = {} end
         DB.minimap.hide = not on
         local DBIcon = LibStub and LibStub("LibDBIcon-1.0", true)
@@ -7648,6 +8244,7 @@ function ns.SetOption(key, on)
         if on then pcall(ns.ArrowUndismiss) end
         pcall(ns.ArrowRefresh)
     end
+    if key == "reminders" then ns.StartSmartReminders() end
     if ns.RefreshOptionViews then pcall(ns.RefreshOptionViews) end
 end
 
@@ -7716,6 +8313,46 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Get a one-click invite request when a group has room for an unfinished quest in your log.",
+        "Use Host LFG in the planner or main window to host the selected quest. Stop hosting from the same button. Pending invites now reserve seats across quest and dungeon hosting.",
+        "Near a quest turn-in, see a usable equipment reward and pin its NPC. After a turn-in, get a pin for a newly available follow-up in your zone.",
+    } },
+    { v = "1.6.1", lines = {
+        "Smart reminders offer nearby treasure and dungeon quest pickups while you play. Pin the giver directly from the reminder.",
+        "When preparing for Scarlet Monastery, route to missing pickups or request a share directly from a party member. Dismiss a reminder for 30 minutes, or disable reminders in Options.",
+    } },
+    { v = "1.6.0", lines = {
+        "Open Dungeons and click Prep beside Scarlet Monastery to see your dungeon quests, missing prerequisites, and known equipment rewards.",
+        "Pin a pickup or route through the available quest givers across zones. Your saved reward pursuit resumes afterward.",
+        "Request share whispers a party member whose Questynator reports that they can share the quest.",
+    } },
+    { v = "1.5.3", lines = {
+        "The compass labels a selected quest. Resume route returns you to your planned stop.",
+        "Snooze a stop until you leave the zone. Use Undo snooze to restore it, even after a reload.",
+        "Pins identify pickups, objectives, and turn-ins. Reward pins now match the pursuit destination.",
+        "Hover over rewards to compare equipped gear and see the remaining quest count. Empty zone searches can expand to all zones with the same filters.",
+        "Related tabs now sit together. The compass handles overlapping mob names and waits for confirmation before showing a turn-in.",
+        "Quest listings withdraw after leadership changes, dungeon roles account for flexible hosts, and idle XP expires from the hourly estimate.",
+    } },
+    { v = "1.5.0", lines = {
+        "Open Reward Hunting after Treasures or type /qn rewards to search 1,120 quest rewards for your character.",
+        "Current zone shows rewards with a local pickup, unfinished objective, or turn-in. Turn it off to browse all zones.",
+        "Filter by Weapon, Armor, Jewelry, or Trinkets. All weapon types opens inside the window. Armor follows your class and level.",
+        "Ready turn-ins appear first. Pin a quest pickup or pursue a reward chain across zones with the Route Planner.",
+        "All 18 Treasures entries now show their actual reward item icons.",
+        "Quest availability and follow-up suggestions now recognize Alliance and Horde Skyborne restrictions.",
+    } },
+    { v = "1.4.0", lines = {
+        "Quest Routes builds up to ten stops in your current zone from quest objectives, turn-ins, and eligible pickups within 300 yards.",
+        "The route starts on login or reload. It replans as quests and objectives change, when you enter a new zone, and when you level up.",
+        "The floating Route Planner shows the next three actions. Click Pin beside an action to mark its location, even when several tasks share a stop.",
+        "Show or hide the window under Options > AddOns > Questynator, or type /qn planner. Its position and visibility are saved.",
+        "The compass follows the quest selected in the objective tracker. Clear the selection to follow the route again.",
+        "Hover over the minimap button for the current stop, distance when available, objective counts, and active searches.",
+        "The planner checks quest completion before suggesting pickups and includes the Lost Journal that starts The Adventurer.",
+        "Fixed quest searches and sharing treating a quest as active when the client returns a log index of zero.",
+    } },
+    { v = "1.3.1", lines = {
         "Two players who both created a group for the same quest now end up in one group instead of waiting on each other",
         "Invites are only accepted automatically from players whose level range and objectives match yours, while you're still searching",
         "A declined or cancelled invite can no longer be accepted later by mistake",
@@ -7955,6 +8592,143 @@ end
 ---------------------------------------------------------------------------
 -- slash commands
 ---------------------------------------------------------------------------
+do
+    local picker
+
+    function ns.HostedQuest()
+        local first
+        for id, search in pairs(seeking) do
+            if search.listing and (not first or id < first) then first = id end
+        end
+        return first
+    end
+
+    local function CanHost()
+        return MyState() ~= 1 and not (IsInRaid and IsInRaid())
+            and (not IsInGroup() or GetNumGroupMembers() < MAX_PARTY)
+    end
+
+    local function Eligible(id)
+        return id and ns.QuestLogIndex(id) and ns.QuestState(id) == "inlog" and not ns.IsReadyToTurnIn(id)
+    end
+
+    local function Selected()
+        local id = C_SuperTrack and C_SuperTrack.GetSuperTrackedQuestID and C_SuperTrack.GetSuperTrackedQuestID()
+        return Eligible(id) and id or nil
+    end
+
+    function ns.MakeHostButton(parent)
+        local b = ns.UI.Button(parent, 94, 22, "outline")
+        b:SetMotionScriptsWhileDisabled(true)
+        b:SetScript("OnClick", function() ns.ToggleQuestHost() end)
+        b:SetScript("OnEnter", ns.UI.ShowTip)
+        b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        return b
+    end
+
+    function ns.PaintHostButton(b)
+        local hosted = ns.HostedQuest()
+        local target = hosted or Selected()
+        local context = target and QuestTitle(target) or L["From your quest log"]
+        local enabled = hosted or CanHost()
+        if not enabled then context = L["Requires leadership and a free slot"] end
+        local kind = hosted and "soft" or "outline"
+        if b.kind ~= kind then b:SetKind(kind) end
+        b:SetText(hosted and L["Stop hosting"] or L["Host LFG"])
+        b.tip = hosted and string.format(L["Stop hosting %s."], context)
+            or (target and enabled and string.format(L["Host a group for %s."], context) or context)
+        if enabled then b:Enable() else b:Disable() end
+        return hosted, context
+    end
+
+    function ns.QuickHostQuest(id)
+        if not CanHost() then Print(L["Hosting requires a free party slot and group leadership."]); return end
+        if not Eligible(id) then Print(L["Choose an unfinished quest in your log."]); return end
+        if seeking[id] and seeking[id].listing then return end
+        if not seeking[id] then ns.Start(id) end
+        local level = UnitLevel("player")
+        ns.CreateListing(id, { min = math.max(1, level - DB.levelRange), max = level + DB.levelRange,
+            want = ns.NeedMask(id), autoInvite = true })
+        ns.RefreshPlanner()
+    end
+
+    local function ShowChoices(ids)
+        if not picker then
+            picker = ns.UI.Window("QuestynatorHostPicker", 320, 194)
+            picker:SetPoint("CENTER")
+            picker:SetFrameStrata("FULLSCREEN_DIALOG")
+            picker:SetToplevel(true)
+            picker:SetClampedToScreen(true)
+            if UISpecialFrames then tinsert(UISpecialFrames, "QuestynatorHostPicker") end
+            picker.TitleText:SetText(L["Choose a quest to host"])
+            picker.CloseButton:SetScript("OnClick", function() picker:Hide() end)
+            picker.rows = {}
+            for i = 1, 5 do
+                local button = ns.UI.Button(picker, 296, 23, "outline")
+                button:SetPoint("TOPLEFT", 12, -32 - (i - 1) * 25)
+                button.label:ClearAllPoints()
+                button.label:SetPoint("LEFT", 9, 0)
+                button.label:SetWidth(274)
+                button.label:SetJustifyH("LEFT")
+                button.label:SetWordWrap(false)
+                button:SetScript("OnEnter", ns.UI.ShowTip)
+                button:SetScript("OnLeave", function() GameTooltip:Hide() end)
+                button:SetScript("OnClick", function(self)
+                    picker:Hide()
+                    ns.QuickHostQuest(self.id)
+                end)
+                picker.rows[i] = button
+            end
+            picker.prev = ns.UI.Button(picker, 80, 21, "ghost")
+            picker.prev:SetPoint("BOTTOMLEFT", 12, 9)
+            picker.prev:SetText(L["Previous"])
+            picker.next = ns.UI.Button(picker, 80, 21, "ghost")
+            picker.next:SetPoint("BOTTOMRIGHT", -12, 9)
+            picker.next:SetText(L["Next"])
+            function picker:Page(start)
+                self.start = start
+                for i, row in ipairs(self.rows) do
+                    row.id = self.ids[start + i - 1]
+                    row:SetShown(row.id ~= nil)
+                    if row.id then
+                        row.tip = QuestTitle(row.id)
+                        row:SetText(row.tip)
+                    end
+                end
+                self.prev:SetShown(start > 1)
+                self.next:SetShown(start + #self.rows <= #self.ids)
+                self:SetHeight(40 + math.min(#self.ids, #self.rows) * 25 + (#self.ids > #self.rows and 29 or 0))
+            end
+            picker.prev:SetScript("OnClick", function() picker:Page(picker.start - #picker.rows) end)
+            picker.next:SetScript("OnClick", function() picker:Page(picker.start + #picker.rows) end)
+        end
+        picker.ids = ids
+        picker:Page(1)
+        picker:Show()
+        picker:Raise()
+    end
+
+    function ns.ToggleQuestHost()
+        local hosted = ns.HostedQuest()
+        if hosted then
+            ns.Stop(hosted, "Hosting stopped")
+            ns.RefreshPlanner()
+            return
+        end
+        if not CanHost() then Print(L["Hosting requires a free party slot and group leadership."]); return end
+        local tracked = Selected()
+        if tracked then ns.QuickHostQuest(tracked); return end
+        local ids = {}
+        for i = 1, C_QuestLog.GetNumQuestLogEntries() do
+            local info = C_QuestLog.GetInfo(i)
+            if info and not info.isHeader and not info.isHidden and Eligible(info.questID) then ids[#ids + 1] = info.questID end
+        end
+        if #ids > 1 then ShowChoices(ids)
+        elseif #ids == 1 then ns.QuickHostQuest(ids[1])
+        else Print(L["Choose an unfinished quest in your log."]) end
+    end
+end
+
 local function ListQuests()
     for i = 1, C_QuestLog.GetNumQuestLogEntries() do
         local info = C_QuestLog.GetInfo(i)
@@ -7992,6 +8766,7 @@ SlashCmdList.QUESTYNATOR = function(msg)
     local cmd, arg = strsplit(" ", (msg or ""):lower(), 2)
     local id = tonumber(arg)
     if cmd == "find" and id then ns.Toggle(id)
+    elseif cmd == "host" then ns.ToggleQuestHost()
     elseif cmd == "list" then ListQuests()
     elseif cmd == "auto" then
         DB.autoAccept = not DB.autoAccept
@@ -8010,7 +8785,9 @@ SlashCmdList.QUESTYNATOR = function(msg)
         end
         if not any then Print(L["Not searching"]) end
     elseif cmd == "" or cmd == "panel" then ns.TogglePanel()
-    elseif cmd == "planner" then ns.ShowPlanner(DB.plannerHidden)
+    elseif cmd == "planner" then ns.SetOption("planner", not ns.GetOption("planner"))
+    elseif cmd == "snooze" then ns.SnoozeRouteStop(false)
+    elseif cmd == "undo" then ns.SnoozeRouteStop(true)
     elseif cmd == "minimap" then ns.ToggleMinimap()
     elseif cmd == "chat" then
         DB.chatScan = not DB.chatScan
@@ -8030,9 +8807,9 @@ SlashCmdList.QUESTYNATOR = function(msg)
     elseif cmd == "about" then ns.PrintAbout(); ns.ShowCopyBattleTag()
     elseif cmd == "thanks" or cmd == "thank" then ns.ThankParty()
     elseif cmd == "dungeon" or cmd == "dungeons" then ns.ShowPanel(); ns.SelectTab(4)
+    elseif cmd == "rewards" then ns.ShowPanel(); ns.SelectTab(8)
     elseif cmd == "version" then
-        local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
-        Print("Questynator " .. tostring(getMeta and getMeta(ADDON_NAME, "Version") or "?"))
+        Print("Questynator " .. ns.Version())
     elseif cmd == "stats" then
         Print(L["Quests done with Questynator groups:"] .. " " .. DB.stats.quests .. "  -  " .. L["Groups formed:"] .. " " .. DB.stats.groups)
     elseif cmd == "online" then
@@ -8082,7 +8859,7 @@ f:SetScript("OnEvent", function(_, event, ...)
         for _, e in ipairs({ "PLAYER_LOGIN", "CHAT_MSG_ADDON", "PARTY_INVITE_REQUEST", "GROUP_ROSTER_UPDATE",
                              "QUEST_REMOVED", "QUEST_TURNED_IN", "QUEST_LOG_UPDATE", "QUEST_WATCH_LIST_CHANGED",
                              "CHAT_MSG_WHISPER", "CHAT_MSG_CHANNEL", "CHAT_MSG_GUILD", "PLAYER_ENTERING_WORLD",
-                             "PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP" }) do
+                             "PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA" }) do
             f:RegisterEvent(e)
         end
     elseif event == "PLAYER_LOGIN" then
@@ -8136,6 +8913,7 @@ f:SetScript("OnEvent", function(_, event, ...)
         local text, sender = ...
         pcall(ns.OnPublicChat, text, sender, nil, (select(12, ...)))
     elseif event == "PLAYER_ENTERING_WORLD" then
+        ns.StartSmartReminders()
         ns.StartInitialRoute(true)
         -- join the hidden channel after the default channels, so General keeps its number
         if not ns.presenceStarted then
@@ -8160,8 +8938,11 @@ f:SetScript("OnEvent", function(_, event, ...)
     elseif event == "SUPER_TRACKING_CHANGED" then
         pcall(ns.ArrowUndismiss)          -- picking a quest brings a hidden arrow back
         pcall(ns.ArrowRefresh)
+    elseif event == "ZONE_CHANGED_NEW_AREA" then
+        ns.QueueRouteReplan()
     elseif event == "PLAYER_XP_UPDATE" or event == "PLAYER_LEVEL_UP" then
         pcall(ns.OnXPChange)
+        if event == "PLAYER_LEVEL_UP" then ns.QueueRouteReplan() end
         ns.RequestRefresh()
     else -- QUEST_LOG_UPDATE / QUEST_WATCH_LIST_CHANGED
         if event == "QUEST_LOG_UPDATE" then ns.StartInitialRoute() end
