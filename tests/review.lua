@@ -511,6 +511,12 @@ case("the in-world marker sits on the game's navigation frame and never moves th
     local m = env.QuestynatorWorldMarker
     assert(m and m.shown and m.glyph.text == "!" and m.title.text == "A", "marker missing")
     assert(m.dist.text == "140 yd" and m.eta.text == "~0:20" and m.sub.text:find("^Pickup"), m.dist.text .. " " .. m.eta.text)
+    local secret = setmetatable({}, { __lt = function() error("compared a secret value") end })
+    env.issecretvalue = function(v) return v == secret end
+    env.GetUnitSpeed = function() return secret end                               -- hidden in combat/instances
+    ns.WorldMarkerUpdate()
+    assert(m.eta.text == "~0:20", "secret speed: " .. tostring(m.eta.text))
+    env.GetUnitSpeed = function() return 7 end
     local far = env.C_Navigation.GetDistance
     env.C_Navigation.GetDistance = function() return 5 end
     ns.WorldMarkerUpdate()

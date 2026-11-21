@@ -12,6 +12,12 @@ local RUN_SPEED = 7          -- yards a second on foot; used until you start mov
 local BEAM_H = 130           -- the icon floats this far above the spot
 local marker, placed, ours   -- our frame, the stop we put on the map, the waypoint we set
 
+-- the game hides some numbers from addons (in combat, instances); those can't be compared, so treat them as missing
+local function Readable(v)
+    if v == nil or (issecretvalue and issecretvalue(v)) then return nil end
+    return v
+end
+
 local function Supported()
     return C_Navigation and C_Navigation.GetFrame and C_Map and C_Map.SetUserWaypoint
         and UiMapPoint and UiMapPoint.CreateFromCoordinates and C_SuperTrack
@@ -265,7 +271,7 @@ function ns.WorldMarkerUpdate()
         else marker:SetPoint("BOTTOM", nav, "CENTER", 0, 0) end
         marker.nav, marker.anchored, marker.clamped, marker.flipAt = nav, clamped, clamped, nil
     end
-    local yards = C_Navigation.GetDistance and C_Navigation.GetDistance()
+    local yards = C_Navigation.GetDistance and Readable(C_Navigation.GetDistance())
     if not yards or yards <= 0 then yards = ns.ArrowGeometry(marker.summary.target).yards end
     local here = yards and yards <= ARRIVE
     Paint(here and GREEN or TEAL)
@@ -275,7 +281,7 @@ function ns.WorldMarkerUpdate()
         marker.dist:SetTextColor(GREEN[1], GREEN[2], GREEN[3])
         marker.eta:SetText("")
     elseif yards then
-        local speed = (GetUnitSpeed and GetUnitSpeed("player")) or 0
+        local speed = (GetUnitSpeed and Readable(GetUnitSpeed("player"))) or 0
         marker.dist:SetText(string.format(L["%d yd"], math.floor(yards + 0.5)))
         marker.dist:SetTextColor(1, 1, 1)
         marker.eta:SetText(clamped and "" or ("~" .. Clock(yards / (speed > 0.5 and speed or RUN_SPEED))))
