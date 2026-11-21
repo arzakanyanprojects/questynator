@@ -28,6 +28,104 @@ end
 ---------------------------------------------------------------------------
 ns.LOCALES = {
 deDE = {
+    ["%d dungeon quest pickups are available."] = "%d Dungeonquests können angenommen werden.",
+    ["%d in log · %d ready to pick up"] = "%d im Questlog · %d annehmbar",
+    ["%d of %d quests complete"] = "%d von %d Quests erledigt",
+    ["%d pending"] = "%d ausstehend",
+    ["%d yd"] = "%d m",
+    ["%d yd away"] = "%d m entfernt",
+    ["%s can share %s."] = "%s kann %s teilen.",
+    ["%s can share this quest."] = "%s kann diese Quest teilen.",
+    ["%s is recruiting for %s (%d/5)."] = "%s sucht Mitspieler für %s (%d/5).",
+    ["All weapon types"] = "Alle Waffentypen",
+    ["Area %d"] = "Gebiet %d",
+    ["Armor (%s)"] = "Rüstung (%s)",
+    ["Choice of reward"] = "Belohnung nach Wahl",
+    ["Choose All weapon types to see the other matching weapons."] = "Wähle „Alle Waffentypen“, um die übrigen passenden Waffen zu sehen.",
+    ["Choose a quest to host"] = "Quest für deine Gruppe wählen",
+    ["Choose an unfinished quest in your log."] = "Wähle eine unerledigte Quest aus deinem Questlog.",
+    ["Closest to earning"] = "Am nächsten dran",
+    ["Could you share %s?"] = "Kannst du %s teilen?",
+    ["Current zone unavailable"] = "Aktuelles Gebiet nicht verfügbar",
+    ["Dungeon Prep"] = "Dungeon-Vorbereitung",
+    ["Dungeon pickups snoozed"] = "Dungeonquests ausgelassen",
+    ["From your quest log"] = "Aus deinem Questlog",
+    ["Guaranteed reward"] = "Feste Belohnung",
+    ["Host LFG"] = "Gruppe leiten",
+    ["Host a group for %s."] = "Eine Gruppe für %s leiten.",
+    ["Hosting requires a free party slot and group leadership."] = "Zum Leiten brauchst du einen freien Gruppenplatz und die Gruppenführung.",
+    ["Hosting stopped"] = "Gruppenleitung beendet",
+    ["Hosting: %s"] = "Du leitest: %s",
+    ["Later"] = "Später",
+    ["Later (30 min)"] = "Später (30 Min.)",
+    ["Less"] = "Weniger",
+    ["Loading reward items…"] = "Belohnungen werden geladen…",
+    ["Location unknown"] = "Ort unbekannt",
+    ["Mark on map"] = "Auf Karte markieren",
+    ["More"] = "Mehr",
+    ["Next"] = "Weiter",
+    ["No eligible pickups or known quest stops in this zone."] = "Keine annehmbaren Quests oder bekannten Queststopps in diesem Gebiet.",
+    ["No matching rewards"] = "Keine passenden Belohnungen",
+    ["No matching rewards in this zone"] = "Keine passenden Belohnungen in diesem Gebiet",
+    ["No matching weapons of this type"] = "Keine passenden Waffen dieses Typs",
+    ["No other stops found. Undo snooze to restore a stop."] = "Keine weiteren Stopps gefunden. Nimm das Auslassen zurück, um einen Stopp wiederherzustellen.",
+    ["No quest stops found in this zone"] = "Keine Queststopps in diesem Gebiet",
+    ["No remaining prep quests for your character."] = "Keine offenen Vorbereitungsquests für deinen Charakter.",
+    ["Pause"] = "Pause",
+    ["Pending"] = "Ausstehend",
+    ["Pick up"] = "Annehmen",
+    ["Pick up %s from %s"] = "%s bei %s annehmen",
+    ["Pickup location unknown"] = "Annahmeort unbekannt",
+    ["Plan My Route"] = "Route planen",
+    ["Prep"] = "Vorb.",
+    ["Prerequisite required"] = "Vorquest erforderlich",
+    ["Prerequisites left: %d. Next: %s"] = "Offene Vorquests: %d. Nächste: %s",
+    ["Previous"] = "Zurück",
+    ["Pursue Reward"] = "Belohnung verfolgen",
+    ["Pursuing"] = "Wird verfolgt",
+    ["Quest follow-up"] = "Folgequest",
+    ["Quest group"] = "Questgruppe",
+    ["Quest log full"] = "Questlog voll",
+    ["Quest reward"] = "Questbelohnung",
+    ["Ready to claim"] = "Abholbereit",
+    ["Ready to turn in"] = "Bereit zur Abgabe",
+    ["Replan"] = "Neu planen",
+    ["Request invite"] = "Einladung anfragen",
+    ["Request share"] = "Teilen anfragen",
+    ["Requires leadership and a free slot"] = "Erfordert Gruppenführung und einen freien Platz",
+    ["Requires level %d"] = "Benötigt Stufe %d",
+    ["Resume"] = "Fortsetzen",
+    ["Reward Hunting"] = "Belohnungsjagd",
+    ["Rewards"] = "Belohnungen",
+    ["Route ended"] = "Route beendet",
+    ["Route paused"] = "Route pausiert",
+    ["Route stop %d"] = "Routenstopp %d",
+    ["Route to missing pickups"] = "Route zu fehlenden Quests",
+    ["Route to pickups"] = "Route zu den Quests",
+    ["Search item, slot or quest"] = "Gegenstand, Platz oder Quest suchen",
+    ["Show or hide Dungeon Prep"] = "Dungeon-Vorbereitung ein- oder ausblenden",
+    ["Showing unfinished reward quests for your level and equipment proficiencies."] = "Angezeigt werden unerledigte Belohnungsquests für deine Stufe und deine Ausrüstungskenntnisse.",
+    ["Speak to %s"] = "Sprich mit %s",
+    ["Still to pick up: %s"] = "Noch anzunehmen: %s",
+    ["Stop %d of %d"] = "Stopp %d von %d",
+    ["Stop hosting"] = "Leitung beenden",
+    ["Stop hosting %s."] = "Gruppenleitung für %s beenden.",
+    ["Stop prep route"] = "Vorbereitungsroute beenden",
+    ["Stop pursuit"] = "Verfolgung beenden",
+    ["Turn in"] = "Abgeben",
+    ["Turn in %s"] = "%s abgeben",
+    ["Turn in %s to %s."] = "Gib %s bei %s ab.",
+    ["Turn in at %s"] = "Abgabe bei %s",
+    ["Undo"] = "Zurück",
+    ["Up next: %s"] = "Danach: %s",
+    ["Waiting for invited players."] = "Warte auf eingeladene Spieler.",
+    ["Waiting for item details from the game."] = "Warte auf Gegenstandsdaten vom Spiel.",
+    ["Waiting for quest and map data"] = "Warte auf Quest- und Kartendaten",
+    ["stop all quest searches"] = "alle Questsuchen stoppen",
+    ["Cloth"] = "Stoff",
+    ["Leather"] = "Leder",
+    ["Mail"] = "Kette",
+    ["Plate"] = "Platte",
     ["Pin pickup"] = "Annahme markieren",
     ["Pin objective"] = "Ziel markieren",
     ["Pin turn-in"] = "Abgabe markieren",
@@ -336,6 +434,104 @@ deDE = {
     ["to"] = "bis",
 },
 frFR = {
+    ["%d dungeon quest pickups are available."] = "%d quêtes de donjon sont disponibles.",
+    ["%d in log · %d ready to pick up"] = "%d dans le journal · %d à prendre",
+    ["%d of %d quests complete"] = "%d quêtes terminées sur %d",
+    ["%d pending"] = "%d en attente",
+    ["%d yd"] = "%d m",
+    ["%d yd away"] = "à %d m",
+    ["%s can share %s."] = "%s peut partager %s.",
+    ["%s can share this quest."] = "%s peut partager cette quête.",
+    ["%s is recruiting for %s (%d/5)."] = "%s recrute pour %s (%d/5).",
+    ["All weapon types"] = "Tous les types d’armes",
+    ["Area %d"] = "Zone %d",
+    ["Armor (%s)"] = "Armure (%s)",
+    ["Choice of reward"] = "Récompense au choix",
+    ["Choose All weapon types to see the other matching weapons."] = "Choisis Tous les types d’armes pour voir les autres armes correspondantes.",
+    ["Choose a quest to host"] = "Choisis une quête à organiser",
+    ["Choose an unfinished quest in your log."] = "Choisis une quête inachevée de ton journal.",
+    ["Closest to earning"] = "Les plus proches",
+    ["Could you share %s?"] = "Peux-tu partager %s ?",
+    ["Current zone unavailable"] = "Zone actuelle indisponible",
+    ["Dungeon Prep"] = "Préparation du donjon",
+    ["Dungeon pickups snoozed"] = "Quêtes de donjon reportées",
+    ["From your quest log"] = "Depuis ton journal",
+    ["Guaranteed reward"] = "Récompense garantie",
+    ["Host LFG"] = "Organiser",
+    ["Host a group for %s."] = "Organiser un groupe pour %s.",
+    ["Hosting requires a free party slot and group leadership."] = "Pour organiser, il faut une place libre et être chef de groupe.",
+    ["Hosting stopped"] = "Organisation arrêtée",
+    ["Hosting: %s"] = "Organisation : %s",
+    ["Later"] = "Plus tard",
+    ["Later (30 min)"] = "Plus tard (30 min)",
+    ["Less"] = "Moins",
+    ["Loading reward items…"] = "Chargement des récompenses…",
+    ["Location unknown"] = "Lieu inconnu",
+    ["Mark on map"] = "Marquer sur la carte",
+    ["More"] = "Plus",
+    ["Next"] = "Suivant",
+    ["No eligible pickups or known quest stops in this zone."] = "Aucune quête à prendre ni étape connue dans cette zone.",
+    ["No matching rewards"] = "Aucune récompense correspondante",
+    ["No matching rewards in this zone"] = "Aucune récompense correspondante dans cette zone",
+    ["No matching weapons of this type"] = "Aucune arme correspondante de ce type",
+    ["No other stops found. Undo snooze to restore a stop."] = "Aucune autre étape. Annule le report pour en rétablir une.",
+    ["No quest stops found in this zone"] = "Aucune étape de quête dans cette zone",
+    ["No remaining prep quests for your character."] = "Plus aucune quête de préparation pour ton personnage.",
+    ["Pause"] = "Pause",
+    ["Pending"] = "En attente",
+    ["Pick up"] = "Prendre",
+    ["Pick up %s from %s"] = "Prendre %s auprès de %s",
+    ["Pickup location unknown"] = "Lieu de départ inconnu",
+    ["Plan My Route"] = "Planifier",
+    ["Prep"] = "Prépa",
+    ["Prerequisite required"] = "Prérequis nécessaire",
+    ["Prerequisites left: %d. Next: %s"] = "Prérequis restants : %d. Suivant : %s",
+    ["Previous"] = "Précédent",
+    ["Pursue Reward"] = "Viser la récompense",
+    ["Pursuing"] = "Visée",
+    ["Quest follow-up"] = "Quête suivante",
+    ["Quest group"] = "Groupe de quête",
+    ["Quest log full"] = "Journal plein",
+    ["Quest reward"] = "Récompense de quête",
+    ["Ready to claim"] = "Prête à récupérer",
+    ["Ready to turn in"] = "Prête à rendre",
+    ["Replan"] = "Replanifier",
+    ["Request invite"] = "Demander une invitation",
+    ["Request share"] = "Demander partage",
+    ["Requires leadership and a free slot"] = "Nécessite d’être chef et une place libre",
+    ["Requires level %d"] = "Niveau %d requis",
+    ["Resume"] = "Reprendre",
+    ["Reward Hunting"] = "Chasse aux récompenses",
+    ["Rewards"] = "Récompenses",
+    ["Route ended"] = "Parcours terminé",
+    ["Route paused"] = "Parcours en pause",
+    ["Route stop %d"] = "Étape %d",
+    ["Route to missing pickups"] = "Itinéraire des quêtes à prendre",
+    ["Route to pickups"] = "Itinéraire des quêtes",
+    ["Search item, slot or quest"] = "Chercher objet, emplacement ou quête",
+    ["Show or hide Dungeon Prep"] = "Afficher ou masquer la préparation",
+    ["Showing unfinished reward quests for your level and equipment proficiencies."] = "Quêtes à récompense inachevées pour ton niveau et tes compétences d’équipement.",
+    ["Speak to %s"] = "Parler à %s",
+    ["Still to pick up: %s"] = "Encore à prendre : %s",
+    ["Stop %d of %d"] = "Étape %d sur %d",
+    ["Stop hosting"] = "Arrêter",
+    ["Stop hosting %s."] = "Arrêter d’organiser %s.",
+    ["Stop prep route"] = "Arrêter l’itinéraire",
+    ["Stop pursuit"] = "Arrêter la visée",
+    ["Turn in"] = "Rendre",
+    ["Turn in %s"] = "Rendre %s",
+    ["Turn in %s to %s."] = "Rends %s à %s.",
+    ["Turn in at %s"] = "À rendre auprès de %s",
+    ["Undo"] = "Annuler",
+    ["Up next: %s"] = "Ensuite : %s",
+    ["Waiting for invited players."] = "En attente des joueurs invités.",
+    ["Waiting for item details from the game."] = "En attente des détails des objets.",
+    ["Waiting for quest and map data"] = "En attente des données de quêtes et de carte",
+    ["stop all quest searches"] = "arrêter toutes les recherches de quêtes",
+    ["Cloth"] = "Tissu",
+    ["Leather"] = "Cuir",
+    ["Mail"] = "Mailles",
+    ["Plate"] = "Plaques",
     ["Pin pickup"] = "Épingler le départ",
     ["Pin objective"] = "Épingler l’objectif",
     ["Pin turn-in"] = "Épingler le rendu",
@@ -644,6 +840,104 @@ frFR = {
     ["to"] = "à",
 },
 esES = {
+    ["%d dungeon quest pickups are available."] = "Hay %d misiones de mazmorra disponibles.",
+    ["%d in log · %d ready to pick up"] = "%d en el registro · %d por recoger",
+    ["%d of %d quests complete"] = "%d de %d misiones completadas",
+    ["%d pending"] = "%d pendientes",
+    ["%d yd"] = "%d m",
+    ["%d yd away"] = "a %d m",
+    ["%s can share %s."] = "%s puede compartir %s.",
+    ["%s can share this quest."] = "%s puede compartir esta misión.",
+    ["%s is recruiting for %s (%d/5)."] = "%s busca jugadores para %s (%d/5).",
+    ["All weapon types"] = "Todos los tipos de arma",
+    ["Area %d"] = "Zona %d",
+    ["Armor (%s)"] = "Armadura (%s)",
+    ["Choice of reward"] = "Recompensa a elegir",
+    ["Choose All weapon types to see the other matching weapons."] = "Elige Todos los tipos de arma para ver las demás armas que coinciden.",
+    ["Choose a quest to host"] = "Elige una misión para organizar",
+    ["Choose an unfinished quest in your log."] = "Elige una misión sin terminar de tu registro.",
+    ["Closest to earning"] = "Más cerca de conseguir",
+    ["Could you share %s?"] = "¿Puedes compartir %s?",
+    ["Current zone unavailable"] = "Zona actual no disponible",
+    ["Dungeon Prep"] = "Preparación de mazmorra",
+    ["Dungeon pickups snoozed"] = "Misiones de mazmorra pospuestas",
+    ["From your quest log"] = "De tu registro de misiones",
+    ["Guaranteed reward"] = "Recompensa garantizada",
+    ["Host LFG"] = "Organizar grupo",
+    ["Host a group for %s."] = "Organizar un grupo para %s.",
+    ["Hosting requires a free party slot and group leadership."] = "Para organizar necesitas un hueco libre y ser líder del grupo.",
+    ["Hosting stopped"] = "Organización detenida",
+    ["Hosting: %s"] = "Organizando: %s",
+    ["Later"] = "Después",
+    ["Later (30 min)"] = "Después (30 min)",
+    ["Less"] = "Menos",
+    ["Loading reward items…"] = "Cargando recompensas…",
+    ["Location unknown"] = "Ubicación desconocida",
+    ["Mark on map"] = "Marcar en el mapa",
+    ["More"] = "Más",
+    ["Next"] = "Siguiente",
+    ["No eligible pickups or known quest stops in this zone."] = "No hay misiones disponibles ni paradas conocidas en esta zona.",
+    ["No matching rewards"] = "No hay recompensas que coincidan",
+    ["No matching rewards in this zone"] = "No hay recompensas que coincidan en esta zona",
+    ["No matching weapons of this type"] = "No hay armas de este tipo que coincidan",
+    ["No other stops found. Undo snooze to restore a stop."] = "No hay más paradas. Deshaz el aplazamiento para recuperar una.",
+    ["No quest stops found in this zone"] = "No hay paradas de misión en esta zona",
+    ["No remaining prep quests for your character."] = "No quedan misiones de preparación para tu personaje.",
+    ["Pause"] = "Pausa",
+    ["Pending"] = "Pendiente",
+    ["Pick up"] = "Recoger",
+    ["Pick up %s from %s"] = "Recoger %s de %s",
+    ["Pickup location unknown"] = "Lugar de inicio desconocido",
+    ["Plan My Route"] = "Planificar ruta",
+    ["Prep"] = "Prep.",
+    ["Prerequisite required"] = "Requiere misión previa",
+    ["Prerequisites left: %d. Next: %s"] = "Misiones previas restantes: %d. Siguiente: %s",
+    ["Previous"] = "Anterior",
+    ["Pursue Reward"] = "Perseguir recompensa",
+    ["Pursuing"] = "En curso",
+    ["Quest follow-up"] = "Misión siguiente",
+    ["Quest group"] = "Grupo de misión",
+    ["Quest log full"] = "Registro lleno",
+    ["Quest reward"] = "Recompensa de misión",
+    ["Ready to claim"] = "Lista para reclamar",
+    ["Ready to turn in"] = "Lista para entregar",
+    ["Replan"] = "Replanificar",
+    ["Request invite"] = "Pedir invitación",
+    ["Request share"] = "Pedir compartir",
+    ["Requires leadership and a free slot"] = "Requiere ser líder y un hueco libre",
+    ["Requires level %d"] = "Requiere nivel %d",
+    ["Resume"] = "Reanudar",
+    ["Reward Hunting"] = "Caza de recompensas",
+    ["Rewards"] = "Recompensas",
+    ["Route ended"] = "Ruta terminada",
+    ["Route paused"] = "Ruta en pausa",
+    ["Route stop %d"] = "Parada %d",
+    ["Route to missing pickups"] = "Ruta a misiones pendientes",
+    ["Route to pickups"] = "Ruta a las misiones",
+    ["Search item, slot or quest"] = "Buscar objeto, ranura o misión",
+    ["Show or hide Dungeon Prep"] = "Mostrar u ocultar la preparación",
+    ["Showing unfinished reward quests for your level and equipment proficiencies."] = "Se muestran misiones con recompensa sin terminar para tu nivel y competencias de equipo.",
+    ["Speak to %s"] = "Habla con %s",
+    ["Still to pick up: %s"] = "Por recoger: %s",
+    ["Stop %d of %d"] = "Parada %d de %d",
+    ["Stop hosting"] = "Detener grupo",
+    ["Stop hosting %s."] = "Dejar de organizar %s.",
+    ["Stop prep route"] = "Detener ruta de preparación",
+    ["Stop pursuit"] = "Dejar de perseguir",
+    ["Turn in"] = "Entregar",
+    ["Turn in %s"] = "Entregar %s",
+    ["Turn in %s to %s."] = "Entrega %s a %s.",
+    ["Turn in at %s"] = "Entregar a %s",
+    ["Undo"] = "Deshacer",
+    ["Up next: %s"] = "Después: %s",
+    ["Waiting for invited players."] = "Esperando a los jugadores invitados.",
+    ["Waiting for item details from the game."] = "Esperando los datos de los objetos.",
+    ["Waiting for quest and map data"] = "Esperando datos de misiones y mapa",
+    ["stop all quest searches"] = "detener todas las búsquedas de misiones",
+    ["Cloth"] = "Tela",
+    ["Leather"] = "Cuero",
+    ["Mail"] = "Malla",
+    ["Plate"] = "Placas",
     ["Pin pickup"] = "Marcar inicio",
     ["Pin objective"] = "Marcar objetivo",
     ["Pin turn-in"] = "Marcar entrega",
@@ -952,6 +1246,104 @@ esES = {
     ["to"] = "a",
 },
 ruRU = {
+    ["%d dungeon quest pickups are available."] = "Доступно заданий подземелья: %d.",
+    ["%d in log · %d ready to pick up"] = "В журнале: %d · можно взять: %d",
+    ["%d of %d quests complete"] = "Выполнено заданий: %d из %d",
+    ["%d pending"] = "ожидают: %d",
+    ["%d yd"] = "%d м",
+    ["%d yd away"] = "%d м отсюда",
+    ["%s can share %s."] = "%s может поделиться заданием %s.",
+    ["%s can share this quest."] = "%s может поделиться этим заданием.",
+    ["%s is recruiting for %s (%d/5)."] = "%s собирает группу: %s (%d/5).",
+    ["All weapon types"] = "Все типы оружия",
+    ["Area %d"] = "Зона %d",
+    ["Armor (%s)"] = "Броня (%s)",
+    ["Choice of reward"] = "Награда на выбор",
+    ["Choose All weapon types to see the other matching weapons."] = "Выберите «Все типы оружия», чтобы увидеть остальное подходящее оружие.",
+    ["Choose a quest to host"] = "Выберите задание для сбора группы",
+    ["Choose an unfinished quest in your log."] = "Выберите незавершённое задание из журнала.",
+    ["Closest to earning"] = "Ближе всего к получению",
+    ["Could you share %s?"] = "Можешь поделиться заданием %s?",
+    ["Current zone unavailable"] = "Текущая зона недоступна",
+    ["Dungeon Prep"] = "Подготовка к подземелью",
+    ["Dungeon pickups snoozed"] = "Задания подземелья отложены",
+    ["From your quest log"] = "Из журнала заданий",
+    ["Guaranteed reward"] = "Гарантированная награда",
+    ["Host LFG"] = "Собрать группу",
+    ["Host a group for %s."] = "Собрать группу для: %s.",
+    ["Hosting requires a free party slot and group leadership."] = "Чтобы собрать группу, нужно свободное место и роль лидера.",
+    ["Hosting stopped"] = "Сбор группы остановлен",
+    ["Hosting: %s"] = "Сбор группы: %s",
+    ["Later"] = "Позже",
+    ["Later (30 min)"] = "Позже (30 мин)",
+    ["Less"] = "Меньше",
+    ["Loading reward items…"] = "Загрузка наград…",
+    ["Location unknown"] = "Место неизвестно",
+    ["Mark on map"] = "Отметить на карте",
+    ["More"] = "Больше",
+    ["Next"] = "Далее",
+    ["No eligible pickups or known quest stops in this zone."] = "В этой зоне нет доступных заданий или известных точек.",
+    ["No matching rewards"] = "Нет подходящих наград",
+    ["No matching rewards in this zone"] = "В этой зоне нет подходящих наград",
+    ["No matching weapons of this type"] = "Нет подходящего оружия этого типа",
+    ["No other stops found. Undo snooze to restore a stop."] = "Других точек нет. Верните отложенную точку, чтобы продолжить.",
+    ["No quest stops found in this zone"] = "В этой зоне нет точек заданий",
+    ["No remaining prep quests for your character."] = "Для вашего персонажа не осталось заданий подготовки.",
+    ["Pause"] = "Пауза",
+    ["Pending"] = "Ожидание",
+    ["Pick up"] = "Взять",
+    ["Pick up %s from %s"] = "Взять «%s» у %s",
+    ["Pickup location unknown"] = "Где взять — неизвестно",
+    ["Plan My Route"] = "Построить маршрут",
+    ["Prep"] = "Подг.",
+    ["Prerequisite required"] = "Нужно предыдущее задание",
+    ["Prerequisites left: %d. Next: %s"] = "Осталось предыдущих заданий: %d. Следующее: %s",
+    ["Previous"] = "Назад",
+    ["Pursue Reward"] = "Добыть награду",
+    ["Pursuing"] = "Цель",
+    ["Quest follow-up"] = "Следующее задание",
+    ["Quest group"] = "Группа для задания",
+    ["Quest log full"] = "Журнал заполнен",
+    ["Quest reward"] = "Награда за задание",
+    ["Ready to claim"] = "Можно получить",
+    ["Ready to turn in"] = "Можно сдать",
+    ["Replan"] = "Перестроить",
+    ["Request invite"] = "Попросить приглашение",
+    ["Request share"] = "Попросить",
+    ["Requires leadership and a free slot"] = "Нужны роль лидера и свободное место",
+    ["Requires level %d"] = "Требуется уровень %d",
+    ["Resume"] = "Продолжить",
+    ["Reward Hunting"] = "Охота за наградами",
+    ["Rewards"] = "Награды",
+    ["Route ended"] = "Маршрут завершён",
+    ["Route paused"] = "Маршрут на паузе",
+    ["Route stop %d"] = "Точка %d",
+    ["Route to missing pickups"] = "Маршрут к заданиям",
+    ["Route to pickups"] = "Маршрут к заданиям",
+    ["Search item, slot or quest"] = "Поиск предмета, ячейки или задания",
+    ["Show or hide Dungeon Prep"] = "Показать или скрыть подготовку",
+    ["Showing unfinished reward quests for your level and equipment proficiencies."] = "Показаны незавершённые задания с наградами для вашего уровня и навыков владения снаряжением.",
+    ["Speak to %s"] = "Поговорить: %s",
+    ["Still to pick up: %s"] = "Осталось взять: %s",
+    ["Stop %d of %d"] = "Точка %d из %d",
+    ["Stop hosting"] = "Остановить сбор",
+    ["Stop hosting %s."] = "Прекратить сбор группы: %s.",
+    ["Stop prep route"] = "Остановить маршрут",
+    ["Stop pursuit"] = "Отменить цель",
+    ["Turn in"] = "Сдать",
+    ["Turn in %s"] = "Сдать «%s»",
+    ["Turn in %s to %s."] = "Сдайте «%s» персонажу %s.",
+    ["Turn in at %s"] = "Сдать: %s",
+    ["Undo"] = "Вернуть",
+    ["Up next: %s"] = "Далее: %s",
+    ["Waiting for invited players."] = "Ожидание приглашённых игроков.",
+    ["Waiting for item details from the game."] = "Ожидание данных о предметах.",
+    ["Waiting for quest and map data"] = "Ожидание данных заданий и карты",
+    ["stop all quest searches"] = "остановить все поиски заданий",
+    ["Cloth"] = "Ткань",
+    ["Leather"] = "Кожа",
+    ["Mail"] = "Кольчуга",
+    ["Plate"] = "Латы",
     ["Pin pickup"] = "Где взять",
     ["Pin objective"] = "Где выполнить",
     ["Pin turn-in"] = "Где сдать",
@@ -1391,7 +1783,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.2" end
+    if type(v) ~= "string" or v == "" then v = "1.6.3" end
     return v
 end
 
@@ -5772,6 +6164,18 @@ function ns.CreateListing(questID, opts)
     ns.RequestRefresh()
 end
 
+-- Stop hosting. A search that Host LFG started ends with its listing; a search the
+-- player started earlier keeps looking for a group.
+function ns.WithdrawListing(questID)
+    local s = seeking[questID]
+    if not s or not s.listing then return end
+    if s.quickHost then ns.Stop(questID, "Hosting stopped"); return end
+    s.listing = nil
+    Beacon(questID, true)
+    Print(QuestTitle(questID) .. ": " .. L["Hosting stopped"])
+    ns.RequestRefresh()
+end
+
 local function OnCreateClicked()
     local d = dialog
     local questID = d.questID
@@ -6514,20 +6918,14 @@ function ns.ObjectiveSpots(qid, objectiveIndex)
             entries[#entries + 1] = { name = (name or ""):lower(), refs = refs }
         end
     end
-    local open = {}
-    local objectives = (C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(qid)) or {}
-    for i, o in ipairs(objectives) do
-        if (not objectiveIndex or i == objectiveIndex) and not o.finished and o.text then
-            open[#open + 1] = o.text:lower()
-        end
-    end
-    local refs = {}
-    for _, text in ipairs(open) do
-        local hits = {}
+    -- entries an objective text names; a longer name hides one it contains
+    -- ("Burly Rockjaw Trogg" over "Rockjaw Trogg")
+    local function Named(text)
+        local hits, named = {}, {}
         for _, e in ipairs(entries) do
             local first, last
             if e.name ~= "" then first, last = text:find(e.name, 1, true) end
-            if first then hits[#hits + 1] = { first = first, last = last, refs = e.refs } end
+            if first then hits[#hits + 1] = { first = first, last = last, entry = e } end
         end
         for _, hit in ipairs(hits) do
             local contained = false
@@ -6538,15 +6936,35 @@ function ns.ObjectiveSpots(qid, objectiveIndex)
                     break
                 end
             end
-            if not contained then
-                for _, r in ipairs(hit.refs) do refs[r] = true end
+            if not contained then named[#named + 1] = hit.entry end
+        end
+        return named
+    end
+    local objectives = (C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(qid)) or {}
+    local refs, finishedNames, anyNamed, firstOpen, openInScope = {}, {}, false, nil, 0
+    for i, o in ipairs(objectives) do
+        local named = o.text and Named(o.text:lower()) or {}
+        if #named > 0 then anyNamed = true end
+        if o.finished then
+            for _, e in ipairs(named) do finishedNames[e] = true end
+        elseif o.text then
+            firstOpen = firstOpen or i
+            if not objectiveIndex or i == objectiveIndex then
+                openInScope = openInScope + 1
+                for _, e in ipairs(named) do for _, r in ipairs(e.refs) do refs[r] = true end end
             end
         end
     end
-    -- With no finished objectives a quest-wide selection can still use every
-    -- known spot, even when the client's translated names don't match the data.
-    if not next(refs) and #open > 0 and #open == #objectives then
-        for _, e in ipairs(entries) do for _, r in ipairs(e.refs) do refs[r] = true end end
+    -- Translated clients never match the English names in the data. Fall back to every
+    -- spot no finished objective names: for the whole quest, for a single-objective quest,
+    -- or, when no objective names anything, for the first open objective so routes advance.
+    if not next(refs) and openInScope > 0 and (not objectiveIndex or #objectives == 1
+        or (not anyNamed and objectiveIndex == firstOpen)) then
+        for _, e in ipairs(entries) do
+            if not finishedNames[e] then
+                for _, r in ipairs(e.refs) do refs[r] = true end
+            end
+        end
     end
     local out = {}
     for r in pairs(refs) do
@@ -6922,7 +7340,8 @@ local function InitializeRoutes()
             QuestynatorRewardGoal = nil
             if route then route.paused = false end
         end
-        if not route then return end
+        -- No route yet (left an instance, crossed open water): plan from scratch.
+        if not route then ns.StartInitialRoute(); return end
         if turnedInID then
             route.awaitingRemoval = route.awaitingRemoval or {}
             route.awaitingRemoval[turnedInID] = true
@@ -8313,6 +8732,12 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "The Route Planner opens compact with your next action. Click More for up to three actions, Snooze stop, and Undo. Its main button pauses and resumes the route.",
+        "Speak-to quests become route stops at their NPC, a replan keeps your current task first, and the Quests tab's Skip button is now Snooze stop.",
+        "Stop hosting keeps a quest search you started before hosting. Translated clients keep compass guidance after you finish one objective.",
+        "Reward Hunting, Dungeon Prep, hosting, reminders, and the planner are translated into German, French, Spanish, and Russian.",
+    } },
+    { v = "1.6.2", lines = {
         "Get a one-click invite request when a group has room for an unfinished quest in your log.",
         "Use Host LFG in the planner or main window to host the selected quest. Stop hosting from the same button. Pending invites now reserve seats across quest and dungeon hosting.",
         "Near a quest turn-in, see a usable equipment reward and pin its NPC. After a turn-in, get a pin for a newly available follow-up in your zone.",
@@ -8645,7 +9070,10 @@ do
         if not CanHost() then Print(L["Hosting requires a free party slot and group leadership."]); return end
         if not Eligible(id) then Print(L["Choose an unfinished quest in your log."]); return end
         if seeking[id] and seeking[id].listing then return end
-        if not seeking[id] then ns.Start(id) end
+        if not seeking[id] then
+            ns.Start(id)
+            if seeking[id] then seeking[id].quickHost = true end
+        end
         local level = UnitLevel("player")
         ns.CreateListing(id, { min = math.max(1, level - DB.levelRange), max = level + DB.levelRange,
             want = ns.NeedMask(id), autoInvite = true })
@@ -8711,7 +9139,7 @@ do
     function ns.ToggleQuestHost()
         local hosted = ns.HostedQuest()
         if hosted then
-            ns.Stop(hosted, "Hosting stopped")
+            ns.WithdrawListing(hosted)
             ns.RefreshPlanner()
             return
         end

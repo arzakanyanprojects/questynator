@@ -45,7 +45,7 @@ Open a reward to see the remaining quests in order. The current step has a **Pin
 ## Quest Routes
 
 Questynator automatically plans your route after you log in or run `/reload`.
-**Questynator : Route Planner** shows the current destination and up to three pending actions, numbered by stop.
+**Questynator : Route Planner** shows the current destination and your next action. Click **More** to see up to three actions, **Snooze stop**, and **Undo**; **Less** collapses it again.
 Click the pin beside an action to mark its pickup, objective, or turn-in. The Quests tab can also pin a whole stop when several tasks share it.
 
 **Snooze stop** hides the current stop for this visit to the zone, including after a replan or reload. **Undo snooze** restores the most recently snoozed stop. Both actions are also available through `/qn snooze` and `/qn undo`. Snoozing a reward stop keeps the pursuit saved while the planner looks for other work.
@@ -54,14 +54,14 @@ Questynator remembers its position and visibility across sessions.
 
 Questynator uses known
 locations in your current zone to plan up to ten stops from your active
-objectives, ready turn-ins, and eligible quest pickups within 300 yards of you. Nearby tasks can share a stop. The compass
+objectives, ready turn-ins, "speak to" quests, and eligible quest pickups within 300 yards of you. When nothing else is in reach, it points to the nearest pickup in the zone. Nearby tasks can share a stop. The compass
 advances after all tasks at the current stop are done. When you select a quest in the objective tracker, the compass shows **Selected quest** and the floating planner previews your next route stop under **Up next when you resume**. Click **Resume route** to return to that stop or reward pursuit.
 
 The route replans when quests enter or leave your log, when you finish an objective or turn in a quest, when you enter a new zone, and when you level up.
 If the route is paused, it replans when you resume.
 
-Use **Pause** to suspend route guidance, **Skip** to move to the next stop, or
-**Replan** to build a fresh route from your current location and quest progress.
+The planner's main button pauses route guidance and the compass; click **Resume route** to continue. In the Quests tab, use **Pause**, **Snooze stop** to skip the current stop, or
+**Replan** to build a fresh route from your current location and quest progress. A replan keeps the task you are working on first.
 
 ## Dungeon finder
 The **Dungeons** tab lists the dungeons around your level. Pick your roles (Tank, Healer, DPS), then:
@@ -131,7 +131,7 @@ Left-click opens Questynator, right-click stops all searches, hover shows your n
 Drag it around the minimap. `/qn minimap` hides or shows it. Questynator is also in Blizzard's addon menu on the minimap.
 
 ## Create Group
-Click **Host LFG** in the floating planner or the main window, or type `/qn host`. Questynator lists the unfinished quest selected in the tracker. With no eligible selection, it uses your only unfinished quest or lets you pick from your log. Quick hosting uses your configured level range and unfinished objectives, accepts invite requests, and lists the group on the addon board. **Stop hosting** withdraws the displayed listing.
+Click **Host LFG** in the floating planner or the main window, or type `/qn host`. Questynator lists the unfinished quest selected in the tracker. With no eligible selection, it uses your only unfinished quest or lets you pick from your log. Quick hosting uses your configured level range and unfinished objectives, accepts invite requests, and lists the group on the addon board. **Stop hosting** withdraws the listing. If you were already searching for that quest before you hosted it, the search keeps running.
 
 An outgoing Questynator invite reserves one slot across quest and dungeon hosting. Joining clears that reservation, and an unanswered invite expires after 60 seconds. Updated hosts advertise pending seats to the Groups and Dungeons tabs.
 
@@ -147,7 +147,10 @@ Blizzard's own LFG board can't be filled in by addons (listing titles are protec
 |---|---|
 | `/qn`, `/questynator` (or `/lfg` if no other addon uses it) | Opens/closes the window |
 | `/qn dungeons` | Open the Dungeons tab |
+| `/qn rewards` | Open the Reward Hunting tab |
 | `/qn planner` | Show or hide the floating Route Planner |
+| `/qn snooze`, `/qn undo` | Snooze the current route stop, or restore the last snoozed stop |
+| `/qn host` | Host LFG for the selected quest, or stop hosting |
 | `/qn arrow` | Turn the turn-in arrow on/off |
 | `/qn thanks` | Thank your party (+1 kudos each) |
 | `/qn partychat` | Turn the "objectives done" and "quest completed" party messages on/off |

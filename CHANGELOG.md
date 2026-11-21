@@ -1,3 +1,13 @@
+# Questynator 1.6.3
+
+- The Route Planner opens compact with your next action. Click **More** for up to three actions, **Snooze stop**, and **Undo**. Its main button pauses and resumes the route, and a paused route also pauses the compass.
+- "Speak to" quests become route stops at their NPC. When nothing else is within reach, the route points to the nearest pickup in the zone. A replan keeps the task you are working on first.
+- The Quests tab's **Skip** button is now **Snooze stop**.
+- **Stop hosting** keeps a quest search you started before hosting.
+- On German, French, Spanish, and Russian clients, the compass keeps guiding a selected quest after you finish one of its objectives.
+- The route plans again when you enter a zone or level up without an active route.
+- Reward Hunting, Dungeon Prep, hosting, reminders, and the planner are translated into German, French, Spanish, and Russian.
+
 # Questynator 1.6.2
 
 - **Host LFG** in the planner and main window lists the selected quest in one click. The planner shows the quest and hosting status. Use the same button to stop, or type `/qn host`.

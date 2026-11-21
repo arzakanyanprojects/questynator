@@ -2,7 +2,7 @@
 ## Title: Questynator
 ## Notes: Plan quest routes, follow objectives, and find other players for quests and dungeons.
 ## Author: Ashot
-## Version: 1.6.2
+## Version: 1.6.3
 ## IconTexture: Interface\AddOns\Questynator\Media\Icon
 ## X-License: GPL-3.0-or-later
 ## SavedVariables: QuestynatorDB

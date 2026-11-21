@@ -555,7 +555,7 @@ function ns.RefreshRewardHunting()
                 if missingMap then
                     title = L["Current zone unavailable"]
                 elseif pending > 0 then
-                    title, subtitle = L["Loading reward items."], L["Waiting for item details from the game."]
+                    title, subtitle = L["Loading reward items…"], L["Waiting for item details from the game."]
                 elseif weaponTypeFilter and next(weaponTypes) then
                     subtitle = L["Choose All weapon types to see the other matching weapons."]
                 end

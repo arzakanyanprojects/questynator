@@ -586,5 +586,47 @@ case("dungeon boards accept both old beacons and reserved seats", function(ns)
     error("missing dungeon")
 end)
 
+case("translated objectives keep guidance after one objective is finished", function(ns, env)
+    env.C_QuestLog.GetQuestObjectives = function() return {
+        { text = "Felsenkiefertrogg getötet: 6/6", finished = true },
+        { text = "Kräftiger Felsenkiefertrogg getötet: 0/6", finished = false },
+    } end
+    assert(#ns.ObjectiveSpots(170) > 0, "selected quest lost its spots")
+    assert(#ns.ObjectiveSpots(170, 2) > 0, "first open objective lost its spots")
+    assert(#ns.ObjectiveSpots(170, 1) == 0, "finished objective still has spots")
+end)
+
+case("a quest-wide fallback skips spots named by a finished objective", function(ns, env)
+    env.C_QuestLog.GetQuestObjectives = function() return {
+        { text = "Rockjaw Trogg slain: 6/6", finished = true },
+        { text = "Something unrelated: 0/1", finished = false },
+    } end
+    local spots = ns.ObjectiveSpots(170)
+    assert(#spots > 0)
+    for _, spot in ipairs(spots) do assert(spot.name ~= "Rockjaw Trogg", "suggested a finished objective") end
+end)
+
+case("stopping a quick host keeps a search the player started earlier", function(ns, env)
+    env.C_QuestLog.GetLogIndexForQuestID = function(id) return id == 170 and 1 or 0 end
+    env.C_SuperTrack = { GetSuperTrackedQuestID = function() return 170 end }
+    env.C_QuestLog.GetQuestObjectives = function() return {{ finished = false }} end
+    ns.Start(170)
+    ns.ToggleQuestHost()
+    assert(ns.HostedQuest() == 170)
+    env.now = env.now + 5
+    ns.ToggleQuestHost()
+    assert(not ns.HostedQuest() and ns.IsSearching(170), "the earlier search ended with the listing")
+    assert(env.messages[#env.messages]:find("|170|31|0|0|0|0|0|", 1, true), "listing was not withdrawn")
+end)
+
+case("a German client sees the newer feature strings translated", function()
+    GetLocale = function() return "deDE" end
+    local ok, ns = pcall(client)
+    GetLocale = nil
+    assert(ok, ns)
+    assert(ns.L["Reward Hunting"] == "Belohnungsjagd" and ns.L["Hosting stopped"] == "Gruppenleitung beendet")
+    assert(ns.L["%d in log · %d ready to pick up"]:find("Questlog", 1, true))
+end)
+
 print(string.format("%d passed, %d failed", passed, failed))
 if failed > 0 then os.exit(1) end
