@@ -20,6 +20,7 @@ Data\QuestData.lua
 Data\JournalPickups.lua
 Data\RewardCatalog.lua
 Questynator.lua
+Routes.lua
 RewardHunting.lua
 DungeonPrep.lua
 SmartReminders.lua

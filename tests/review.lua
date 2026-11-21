@@ -44,7 +44,7 @@ local function client(savedSnoozes)
         ReadyForTurnIn = function() return false end,
     }
     for _, path in ipairs({ "Data/QuestData.lua", "Data/JournalPickups.lua", "Data/RewardCatalog.lua",
-                            "Questynator.lua", "RewardHunting.lua", "DungeonPrep.lua", "SmartReminders.lua" }) do
+                            "Questynator.lua", "Routes.lua", "RewardHunting.lua", "DungeonPrep.lua", "SmartReminders.lua" }) do
         setfenv(assert(loadfile(path)), env)("Questynator", ns)
     end
     env.eventFrame:OnEvent("ADDON_LOADED", "Questynator")
