@@ -537,11 +537,21 @@ case("the in-world marker sits on the game's navigation frame and never moves th
     env.C_Navigation.WasClampedToScreen = function() return false end
     env.C_Navigation.GetDistance = far
     assert(pin and math.abs(pin.position.x - 0.02) < 1e-6 and tracked, "route stop not placed on the map")
+    local placed = pin
+    pin = nil                                                                    -- the player removes the pin
+    ns.WorldMarkerUpdate()
+    assert(not m.shown, "marker stayed frozen after the pin was removed")
+    ns.WorldMarkerRefresh()
+    assert(pin == nil and not m.shown, "put back a pin the player removed")
+    pin = placed                                                                 -- e.g. Pin on map
+    ns.WorldMarkerUpdate()
+    assert(m.shown, "marker didn't come back with the pin")
     pin = { uiMapID = pin.uiMapID, position = { x = 0.5, y = 0.5 } }        -- the player pins somewhere else
     env.UnitPosition = function() return 150, 20, 0, 1 end
     ns.UpdateRoute()
     ns.WorldMarkerRefresh()
     assert(pin.position.x == 0.5, "the player's own pin was replaced")
+    assert(not m.shown, "our label sat on the player's own pin")
     env.C_SuperTrack.GetSuperTrackedQuestID = function() return 170 end      -- a quest picked in the tracker
     ns.WorldMarkerUpdate()
     assert(not m.shown)

@@ -1,3 +1,7 @@
+# Questynator 1.6.7
+
+- Fixed the in-world waypoint freezing on screen after you remove its map pin. It now hides when you remove the pin or pin somewhere else, and comes back with the next route stop.
+
 # Questynator 1.6.6
 
 - Fixed a Lua error from the in-world waypoint in combat and instances, where the game hides your run speed from addons. The time to the stop now uses normal running speed there.

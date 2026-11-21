@@ -1951,7 +1951,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.6" end
+    if type(v) ~= "string" or v == "" then v = "1.6.7" end
     return v
 end
 
@@ -8227,6 +8227,9 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Fixed the in-world waypoint freezing on screen after you remove its map pin. It now hides when you remove the pin or pin somewhere else, and comes back with the next route stop.",
+    } },
+    { v = "1.6.6", lines = {
         "Fixed a Lua error from the in-world waypoint in combat and instances, where the game hides your run speed. The time to the stop now uses normal running speed there.",
     } },
     { v = "1.6.5", lines = {

@@ -56,6 +56,13 @@ local function Place(target)
     return true
 end
 
+-- Our pin is still the map waypoint. The player may remove it or pin somewhere else; the game's
+-- navigation frame then stops moving or follows their pin, so the marker must not stay on it.
+local function OurPinUp()
+    local current = ours and C_Map.GetUserWaypoint and C_Map.GetUserWaypoint()
+    return current and SameSpot({ uiMap = current.uiMapID, x = current.position.x, y = current.position.y }, ours) or false
+end
+
 local function Clear()
     if ours and C_Map.GetUserWaypoint and C_Map.ClearUserWaypoint then
         local current = C_Map.GetUserWaypoint()
@@ -246,7 +253,13 @@ function ns.WorldMarkerUpdate()
     if not marker or not marker.summary then return end
     local now = GetTime()
     local nav = C_Navigation.GetFrame and C_Navigation.GetFrame()
-    if QuestSelected() then marker:Hide(); return end
+    if QuestSelected() or not OurPinUp() then
+        -- step aside; the game's own icon comes back for whatever it guides to now
+        marker:Hide()
+        if SuperTrackedFrame and SuperTrackedFrame.SetAlpha then SuperTrackedFrame:SetAlpha(1) end
+        return
+    end
+    if SuperTrackedFrame and SuperTrackedFrame.SetAlpha then SuperTrackedFrame:SetAlpha(0) end
     if not nav then
         -- the game rebuilds its navigation frame when the waypoint changes: wait it out
         marker.lostAt = marker.lostAt or now
