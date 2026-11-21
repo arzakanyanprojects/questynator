@@ -1951,7 +1951,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.5" end
+    if type(v) ~= "string" or v == "" then v = "1.6.6" end
     return v
 end
 
@@ -8227,6 +8227,9 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Fixed a Lua error from the in-world waypoint in combat and instances, where the game hides your run speed. The time to the stop now uses normal running speed there.",
+    } },
+    { v = "1.6.5", lines = {
         "Every tab has a new two-column layout: summary and controls on the left, the list on the right. The Quests tab shows your route beside your quests, with ready turn-ins first.",
         "A new in-world waypoint marks your next route stop with a beam, rings on the spot, the distance and time. It fades as you get close and turns green when you arrive.",
         "Routes always go to the nearest stop, skip dungeon and battleground quests, and suggest the best next zone when yours runs out.",

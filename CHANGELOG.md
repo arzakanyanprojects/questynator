@@ -1,3 +1,7 @@
+# Questynator 1.6.6
+
+- Fixed a Lua error from the in-world waypoint in combat and instances, where the game hides your run speed from addons. The time to the stop now uses normal running speed there.
+
 # Questynator 1.6.5
 
 ## New look
