@@ -581,7 +581,18 @@ StopSummary = function(stop)
     local who = target.name and target.name ~= "" and target.name or ZoneName(target.area)
     local more = 0
     for _, t in ipairs(stop.tasks) do if t ~= task and not RouteTaskDone(t) then more = more + 1 end end
-    return { kind = kind, title = task.title, who = who, more = more, target = target }
+    -- the card near the stop lists this task's objectives: just its own for an objective stop, all of
+    -- them for a turn-in (none for a pickup, it isn't in the log yet)
+    local lines = {}
+    if not task.pickup and task.questID then
+        local objectives = (C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(task.questID)) or {}
+        for i, o in ipairs(objectives) do
+            if (not task.index or task.index == i) and o.text and o.text ~= "" then
+                lines[#lines + 1] = { text = o.text, done = o.finished and true or false }
+            end
+        end
+    end
+    return { kind = kind, title = task.title, who = who, more = more, target = target, lines = lines }
 end
 
 function ns.SnoozeRouteStop(undo)

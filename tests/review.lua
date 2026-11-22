@@ -501,41 +501,77 @@ case("the in-world marker sits on the game's navigation frame and never moves th
     env.C_Navigation = { GetFrame = function() return nav end, GetDistance = function() return 140 end,
                          WasClampedToScreen = function() return false end }
     env.UiMapPoint = { CreateFromCoordinates = function(map, x, y) return { uiMapID = map, position = { x = x, y = y } } end }
-    env.C_Map.SetUserWaypoint = function(p) pin = p end
+    local sets = 0
+    env.C_Map.SetUserWaypoint = function(p)                  -- the game fires USER_WAYPOINT_UPDATED right away
+        pin, sets = p, sets + 1
+        assert(sets < 50, "placing the waypoint loops")
+        ns.WorldMarkerRefresh()
+    end
     env.C_Map.GetUserWaypoint = function() return pin end
     env.C_Map.ClearUserWaypoint = function() pin = nil; cleared = cleared + 1 end
     env.C_SuperTrack = { SetSuperTrackedUserWaypoint = function(on) tracked = on end, GetSuperTrackedQuestID = function() return 0 end }
     env.GetUnitSpeed = function() return 7 end
+    local mapPin = { alpha = 1, mouse = true }                                  -- the world map's waypoint pin
+    function mapPin:SetAlpha(a) self.alpha = a end
+    function mapPin:EnableMouse(on) self.mouse = on end
+    env.WorldMapFrame = { EnumeratePinsByTemplate = function(_, template)
+        local done = template ~= "WaypointLocationPinTemplate"
+        return function() if not done then done = true; return mapPin end end
+    end }
     ns.PlanRoute()
     ns.WorldMarkerRefresh()
+    assert(mapPin.alpha == 0 and not mapPin.mouse, "our waypoint shows a pin on the world map")
     local m = env.QuestynatorWorldMarker
-    assert(m and m.shown and m.glyph.text == "!" and m.title.text == "A", "marker missing")
-    assert(m.dist.text == "140 yd" and m.eta.text == "~0:20" and m.sub.text:find("^Pickup"), m.dist.text .. " " .. m.eta.text)
+    assert(m and m.shown and m.mode == "far" and m.far.shown, "marker missing or not in far mode")
+    assert(m.far.badge.glyph.text == "!" and m.far.title.text == "A" and m.near.title.text == "A", "badge or title missing")
+    assert(m.far.dist.text == "140 yd" and m.far.eta.text == "~0:20" and m.near.sub.text:find("^Pickup"), m.far.dist.text .. " " .. m.far.eta.text)
     local secret = setmetatable({}, { __lt = function() error("compared a secret value") end })
     env.issecretvalue = function(v) return v == secret end
     env.GetUnitSpeed = function() return secret end                               -- hidden in combat/instances
     ns.WorldMarkerUpdate()
-    assert(m.eta.text == "~0:20", "secret speed: " .. tostring(m.eta.text))
+    assert(m.far.eta.text == "~0:20", "secret speed: " .. tostring(m.far.eta.text))
     env.GetUnitSpeed = function() return 7 end
     local far = env.C_Navigation.GetDistance
-    env.C_Navigation.GetDistance = function() return 5 end
+    env.C_Navigation.GetDistance = function() return 60 end                      -- under 100 yd: the card
     ns.WorldMarkerUpdate()
-    assert(m.dist.text == "You're here" and m.eta.text == "", "no arrival state")
-    for _ = 1, 20 do ns.WorldMarkerUpdate() end
-    assert(m.targetAlpha < 0.2, "still fully visible on top of the target: " .. m.targetAlpha)
-    env.C_Navigation.WasClampedToScreen = function() return true end
-    ns.WorldMarkerUpdate()
-    assert(m.card.shown, "flipped to the edge layout without waiting")          -- a brief flip is ignored
+    assert(m.mode == "far", "switched to the card without waiting")
     env.now = env.now + 0.5
     ns.WorldMarkerUpdate()
-    assert(not m.card.shown and not m.beam.shown, "label shown at the screen edge")
-    local nav = env.C_Navigation.GetFrame
+    assert(m.mode == "near" and m.near.shown and m.near.dist.text == "60 yd", "no near card at 60 yd")
+    env.C_Navigation.GetDistance = function() return 105 end                     -- inside the gap: stays a card
+    env.now = env.now + 0.5
+    ns.WorldMarkerUpdate()
+    assert(m.mode == "near", "flipped back to the beam inside the 95-110 yd gap")
+    env.C_Navigation.GetDistance = function() return 5 end
+    ns.WorldMarkerUpdate()
+    assert(m.near.dist.text == "You're here" and m.near.dim <= 0.5, "no arrival state on the card")
+    env.C_Navigation.WasClampedToScreen = function() return true end
+    ns.WorldMarkerUpdate()
+    assert(m.mode == "near", "flipped to the orbit without waiting")             -- a brief flip is ignored
+    env.now = env.now + 0.5
+    ns.WorldMarkerUpdate()
+    assert(m.mode == "orbit" and m.orbit.shown and m.orbit.dist.text == "5 yd", "no off-screen badge")
+    nav.GetCenter = function() return 1800, 900 end                              -- up and right of the middle
+    env.UIParent.GetCenter = function() return 960, 540 end
+    for _ = 1, 3 do m:OnUpdate(0.05) end                                         -- animation frames
+    assert(m.orbit.x > 0 and m.orbit.y > 0 and m.orbit.angle > 0 and m.orbit.angle < math.pi / 2,
+        "off-screen badge not on the target's side of the screen")
+    env.C_Navigation.WasClampedToScreen = function() return false end            -- still at the screen edge
+    env.now = env.now + 0.5
+    ns.WorldMarkerUpdate()
+    assert(m.mode == "orbit", "left the orbit while the spot is at the screen edge")
+    local navFrame = env.C_Navigation.GetFrame
     env.C_Navigation.GetFrame = function() return nil end                          -- the game rebuilds its frame
     ns.WorldMarkerUpdate()
     assert(m.shown, "hid during a brief navigation-frame rebuild")
-    env.C_Navigation.GetFrame = nav
-    env.C_Navigation.WasClampedToScreen = function() return false end
+    env.C_Navigation.GetFrame = navFrame
+    nav.GetCenter = nil
     env.C_Navigation.GetDistance = far
+    ns.WorldMarkerUpdate()
+    env.now = env.now + 0.5
+    ns.WorldMarkerUpdate()
+    assert(m.mode == "far", "didn't return to the beam on screen at 140 yd")
+    for _ = 1, 3 do m:OnUpdate(0.05) end
     assert(pin and math.abs(pin.position.x - 0.02) < 1e-6 and tracked, "route stop not placed on the map")
     local placed = pin
     pin = nil                                                                    -- the player removes the pin
@@ -547,16 +583,75 @@ case("the in-world marker sits on the game's navigation frame and never moves th
     ns.WorldMarkerUpdate()
     assert(m.shown, "marker didn't come back with the pin")
     pin = { uiMapID = pin.uiMapID, position = { x = 0.5, y = 0.5 } }        -- the player pins somewhere else
+    tracked = false
     env.UnitPosition = function() return 150, 20, 0, 1 end
     ns.UpdateRoute()
     ns.WorldMarkerRefresh()
     assert(pin.position.x == 0.5, "the player's own pin was replaced")
-    assert(not m.shown, "our label sat on the player's own pin")
-    env.C_SuperTrack.GetSuperTrackedQuestID = function() return 170 end      -- a quest picked in the tracker
+    assert(mapPin.alpha == 1 and mapPin.mouse, "the player's own pin is hidden on the world map")
+    assert(m.shown and m.source == "pin" and tracked, "no world pin on the player's own map pin")
+    assert(m.far.title.text == "Map pin" and m.near.sub.text == "Map pin" and m.far.badge.glyph.text == "", m.far.title.text)
+    -- a ready quest picked in the tracker: the game guides to its turn-in NPC, and our pin shows it there
+    env.C_SuperTrack.GetSuperTrackedQuestID = function() return 170 end
+    ns.ArrowTarget = function()
+        return { questID = 170, title = "The Fargodeep Mine", name = "Marshal Dughan", area = 40, x = 5, y = 5,
+                 selectedQuest = true }
+    end
+    ns.IsReadyToTurnIn = function(id) return id == 170 end
+    local objectives = env.C_QuestLog.GetQuestObjectives
+    env.C_QuestLog.GetQuestObjectives = function(id)
+        return id == 170 and { { text = "Kobold Miner slain: 8/8", finished = true } } or {}
+    end
+    env.C_Navigation.GetDistance = function() return 64 end
     ns.WorldMarkerUpdate()
-    assert(not m.shown)
+    assert(m.shown and m.source == "quest" and m.near.badge.glyph.text == "?" and m.near.title.text == "The Fargodeep Mine",
+        "no pin for the quest picked in the tracker")
+    assert(m.near.sub.text:find("Turn in", 1, true) and m.near.sub.text:find("Marshal Dughan", 1, true)
+        and m.near.lines[1].text == "Kobold Miner slain: 8/8", m.near.sub.text)
+    assert(pin.position.x == 0.5, "picking a quest moved the player's own pin")
+    env.C_SuperTrack.GetSuperTrackedQuestID = function() return 0 end         -- selection cleared
+    env.C_QuestLog.GetQuestObjectives = objectives
+    ns.WorldMarkerUpdate()
+    assert(m.source == "pin" and m.shown, "didn't go back to the player's map pin after the selection was cleared")
     ns.SetOption("worldMarker", false)
-    assert(not m.shown and cleared == 0, "cleared a pin that wasn't ours")
+    assert(not m.shown and cleared == 0 and pin.position.x == 0.5, "turning the pin off cleared the player's own pin")
+    ns.SetOption("worldMarker", true)
+    assert(m.shown and m.source == "pin", "turning it back on didn't show the player's pin")
+    pin = nil                                                                    -- the player removes their pin
+    ns.WorldMarkerUpdate()
+    assert(m.source == "route" and pin and pin.position.x ~= 0.5 and mapPin.alpha == 0,
+        "the route stop didn't come back after the player's pin was removed")
+end)
+
+case("with WaypointUI also on, the player is asked to keep one world pin", function(ns, env)
+    fakeUI(env)
+    local disabled, reloaded
+    env.C_Navigation = { GetFrame = function() return nil end }
+    env.UiMapPoint = { CreateFromCoordinates = function() return {} end }
+    env.C_Map = { SetUserWaypoint = function() end }
+    env.C_SuperTrack = { GetSuperTrackedQuestID = function() return 0 end }
+    env.C_AddOns = { IsAddOnLoaded = function(name) return name == "WaypointUI" end,
+                     DisableAddOn = function(name) disabled = name end }
+    env.ReloadUI = function() reloaded = true end
+    assert(ns.WorldPinConflict(), "both pins on, but no conflict seen")
+    local panel = ns.BuildOptionsPanel()
+    panel.refresh()
+    assert(panel.pinNote and panel.pinNote.shown and panel.pinNote.text == "WaypointUI is also on.", "no note in settings")
+    panel.pinPick:OnClick()
+    assert(env.QuestynatorPinChoice.shown, "Choose one didn't open the prompt")
+    env.QuestynatorPinChoice:Hide()
+    ns.CheckWorldPinConflict()
+    local ask = env.QuestynatorPinChoice
+    assert(ask and ask.shown and ask.TitleText.text == "Two world pins are on", "not asked")
+    ask.ours:OnClick()
+    assert(disabled == "WaypointUI" and reloaded and not ask.shown, "keeping ours didn't turn WaypointUI off")
+    ns.ShowWorldPinChoice()
+    ask.theirs:OnClick()
+    assert(not ns.GetOption("worldMarker") and not ns.WorldPinConflict(), "keeping theirs left our pin on")
+    panel.refresh()
+    assert(not panel.pinNote.shown, "settings note stayed after choosing")
+    ns.CheckWorldPinConflict()
+    assert(not ask.shown, "asked again after choosing")
 end)
 
 case("quest tips show in how-to-complete text", function(ns, env)

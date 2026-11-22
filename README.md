@@ -70,7 +70,9 @@ The planner's main button pauses route guidance and the compass; click **Resume 
 **Replan** to build a fresh route from your current location and quest progress.
 
 ### In-world waypoint
-Your next route stop gets a marker in the world: a beam and an icon (**!** pickup, **?** turn-in, a dot for an objective) with a label showing the quest, who or where, the distance and the time to get there. Behind you, it waits at the screen edge as the icon and the distance. Questynator puts the stop on the map as your waypoint, but never replaces a pin you placed yourself. While you follow a quest you picked in the objective tracker, the marker steps aside. Turn it off with **In-world waypoint over the next route stop** under Options.
+Your next route stop gets a marker in the world. Far away, a dashed beam rises to a badge (**!** pickup, **?** turn-in, a dot for an objective) with the quest, the distance and the time to get there. Under 100 yards, a card over the target shows what to do, who to talk to and your objectives, and turns green when you arrive. When the spot is behind you, the badge circles the middle of your screen and points the way.
+
+The marker also shows the quest you pick in the objective tracker and map pins you place yourself. Route stops don't add a pin to your world map, and a pin you placed is never replaced. If WaypointUI is also installed, Questynator asks which waypoint to keep. Turn it off with **In-world waypoint over the next route stop** under Options.
 
 ## Dungeon finder
 The **Dungeons** tab lists the dungeons around your level. Pick your roles (Tank, Healer, DPS), then:

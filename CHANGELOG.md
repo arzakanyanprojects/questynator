@@ -1,3 +1,11 @@
+# Questynator 1.6.9
+
+- **The in-world waypoint is rebuilt.** Far away, a dashed beam rises to a badge with the quest, distance and time. Under 100 yards, a card over the target shows what to do and your objectives. When the spot is off screen, the badge circles the middle of your screen and points the way.
+- New animations: a new stop drops in and its beam unrolls, the card slides up, and the modes fade into each other.
+- The waypoint also shows the quest you select in the tracker (its turn-in NPC once it's ready) and map pins you place yourself. Route stops no longer put a pin on your world map.
+- If WaypointUI is also installed, you're asked which waypoint to keep. **Options** shows a **Choose one** button while both are on.
+- Fixed a Lua error from the waypoint when the spot was at the edge of the screen.
+
 # Questynator 1.6.7
 
 - Fixed the in-world waypoint freezing on screen after you remove its map pin. It now hides when you remove the pin or pin somewhere else, and comes back with the next route stop.

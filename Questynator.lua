@@ -474,6 +474,16 @@ deDE = {
     ["searching"] = "sucht",
     ["stop all searches"] = "alle Suchen beenden",
     ["to"] = "bis",
+    -- world pin (1.7.0)
+    ["Two world pins are on"] = "Zwei Weltmarkierungen sind aktiv",
+    ["WaypointUI also draws a pin on your route stop. Keep one:"] = "WaypointUI setzt ebenfalls eine Markierung auf deinen Routenstopp. Behalte eine:",
+    ["Use Questynator's"] = "Questynator verwenden",
+    ["Use WaypointUI's"] = "WaypointUI verwenden",
+    ["Picking ours turns WaypointUI off and reloads."] = "Wählst du unsere, wird WaypointUI deaktiviert und die Oberfläche neu geladen.",
+    ["WaypointUI is also on."] = "WaypointUI ist ebenfalls aktiv.",
+    ["Choose one"] = "Eine wählen",
+    ["+%d more here"] = "+%d weitere hier",
+    ["Map pin"] = "Kartenmarkierung",
 },
 frFR = {
     ["You're here"] = "Vous y êtes",
@@ -922,6 +932,16 @@ frFR = {
     ["searching"] = "recherche",
     ["stop all searches"] = "arrêter toutes les recherches",
     ["to"] = "à",
+    -- world pin (1.7.0)
+    ["Two world pins are on"] = "Deux repères dans le monde sont actifs",
+    ["WaypointUI also draws a pin on your route stop. Keep one:"] = "WaypointUI place aussi un repère sur votre étape. Gardez-en un :",
+    ["Use Questynator's"] = "Utiliser Questynator",
+    ["Use WaypointUI's"] = "Utiliser WaypointUI",
+    ["Picking ours turns WaypointUI off and reloads."] = "Choisir le nôtre désactive WaypointUI et recharge l'interface.",
+    ["WaypointUI is also on."] = "WaypointUI est aussi actif.",
+    ["Choose one"] = "Choisir",
+    ["+%d more here"] = "+%d autres ici",
+    ["Map pin"] = "Repère sur la carte",
 },
 esES = {
     ["You're here"] = "Has llegado",
@@ -1370,6 +1390,16 @@ esES = {
     ["searching"] = "buscando",
     ["stop all searches"] = "detener todas las búsquedas",
     ["to"] = "a",
+    -- world pin (1.7.0)
+    ["Two world pins are on"] = "Hay dos marcadores en el mundo",
+    ["WaypointUI also draws a pin on your route stop. Keep one:"] = "WaypointUI también marca tu parada de ruta. Quédate con uno:",
+    ["Use Questynator's"] = "Usar Questynator",
+    ["Use WaypointUI's"] = "Usar WaypointUI",
+    ["Picking ours turns WaypointUI off and reloads."] = "Elegir el nuestro desactiva WaypointUI y recarga la interfaz.",
+    ["WaypointUI is also on."] = "WaypointUI también está activo.",
+    ["Choose one"] = "Elegir uno",
+    ["+%d more here"] = "+%d más aquí",
+    ["Map pin"] = "Marca en el mapa",
 },
 ruRU = {
     ["You're here"] = "Вы на месте",
@@ -1818,6 +1848,16 @@ ruRU = {
     ["searching"] = "поиск",
     ["stop all searches"] = "остановить все поиски",
     ["to"] = "до",
+    -- world pin (1.7.0)
+    ["Two world pins are on"] = "Включены две метки в мире",
+    ["WaypointUI also draws a pin on your route stop. Keep one:"] = "WaypointUI тоже ставит метку на точку маршрута. Оставьте одну:",
+    ["Use Questynator's"] = "Использовать Questynator",
+    ["Use WaypointUI's"] = "Использовать WaypointUI",
+    ["Picking ours turns WaypointUI off and reloads."] = "Если выбрать нашу, WaypointUI отключится и интерфейс перезагрузится.",
+    ["WaypointUI is also on."] = "WaypointUI тоже включён.",
+    ["Choose one"] = "Выбрать",
+    ["+%d more here"] = "+%d здесь ещё",
+    ["Map pin"] = "Метка на карте",
 },
 }
 ns.ApplyLocale(GetLocale and GetLocale() or "enUS")
@@ -1951,7 +1991,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.7" end
+    if type(v) ~= "string" or v == "" then v = "1.6.9" end
     return v
 end
 
@@ -8227,6 +8267,13 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "The in-world waypoint is rebuilt. Far away, a dashed beam rises to a badge with the quest, distance and time. Under 100 yards, a card over the target shows what to do and your objectives. When the spot is off screen, the badge circles the middle of your screen and points the way.",
+        "New animations: a new stop drops in and its beam unrolls, the card slides up, and the modes fade into each other.",
+        "The waypoint also shows the quest you select in the tracker (its turn-in NPC once it's ready) and map pins you place yourself. Route stops no longer put a pin on your world map.",
+        "If WaypointUI is also installed, you're asked which waypoint to keep. Options shows a Choose one button while both are on.",
+        "Fixed a Lua error from the waypoint when the spot was at the edge of the screen.",
+    } },
+    { v = "1.6.7", lines = {
         "Fixed the in-world waypoint freezing on screen after you remove its map pin. It now hides when you remove the pin or pin somewhere else, and comes back with the next route stop.",
     } },
     { v = "1.6.6", lines = {
@@ -8442,6 +8489,20 @@ function ns.BuildOptionsPanel()
         cb:SetScript("OnClick", function(self) ns.SetOption(self.key, self:GetChecked()) end)
         p.checks[#p.checks + 1] = cb
         y = y - 28
+        if o.key == "worldMarker" and ns.WorldPinConflict and ns.WorldPinConflict() then
+            -- WaypointUI draws a pin too: say so under the switch, with a way to pick one
+            local note = UI.Text(p, 11, "text")
+            note:SetPoint("TOPLEFT", 44, y + 2)
+            note:SetTextColor(1, 0.83, 0.3)
+            note:SetText(L["WaypointUI is also on."])
+            local pick = UI.Button(p, 10, 20, "ghost")
+            pick:SetText(L["Choose one"])
+            pick:SetWidth((tonumber(pick.label:GetStringWidth()) or 70) + 20)
+            pick:SetPoint("LEFT", note, "RIGHT", 8, 0)
+            pick:SetScript("OnClick", function() ns.ShowWorldPinChoice() end)
+            p.pinNote, p.pinPick = note, pick
+            y = y - 24
+        end
     end
     y = y - 10
     local h = UI.Text(p, 11, "accent", nil, "bold")
@@ -8470,6 +8531,11 @@ function ns.BuildOptionsPanel()
     about:SetText(ns.AuthorLine() .. "\n" .. "BattleTag " .. AUTHOR.battletag .. "    " .. L["Bugs & ideas: CurseForge"])
     local function refresh()
         for _, cb in ipairs(p.checks) do cb:SetChecked(ns.GetOption(cb.key)) end
+        if p.pinNote then
+            local both = ns.WorldPinConflict() and true or false
+            p.pinNote:SetShown(both)
+            p.pinPick:SetShown(both)
+        end
     end
     p.refresh = refresh
     p:SetScript("OnShow", refresh)
@@ -8815,6 +8881,7 @@ f:SetScript("OnEvent", function(_, event, ...)
         pcall(ns.SetupTooltipTag)
         pcall(ns.ExposeAdminAPI)
         pcall(f.RegisterEvent, f, "SUPER_TRACKING_CHANGED")
+        pcall(f.RegisterEvent, f, "USER_WAYPOINT_UPDATED")
         -- optional events: not every client has them
         pcall(f.RegisterEvent, f, "PARTY_INVITE_CANCEL")
         pcall(f.RegisterEvent, f, "PARTY_LEADER_CHANGED")
@@ -8831,6 +8898,9 @@ f:SetScript("OnEvent", function(_, event, ...)
         pcall(ns.RegisterOptions)
         C_Timer.After(5, function()
             if ns.WhatsNewShouldShow() then pcall(ns.ShowWhatsNew) end
+        end)
+        C_Timer.After(4, function()
+            if ns.CheckWorldPinConflict then pcall(ns.CheckWorldPinConflict) end
         end)
         wasGrouped = IsInGroup()
         if wasGrouped then ns.SchedulePartySync(true) end
@@ -8873,6 +8943,12 @@ f:SetScript("OnEvent", function(_, event, ...)
     elseif event == "SUPER_TRACKING_CHANGED" then
         pcall(ns.ArrowUndismiss)          -- picking a quest brings a hidden arrow back
         pcall(ns.ArrowRefresh)
+    elseif event == "USER_WAYPOINT_UPDATED" then
+        -- the world pin follows a placed or removed map pin; a moment later, outside the map's own
+        -- event handling (setting our waypoint from inside it fires this event again)
+        if ns.WorldMarkerRefresh then
+            C_Timer.After(0, function() pcall(ns.WorldMarkerRefresh) end)
+        end
     elseif event == "ZONE_CHANGED_NEW_AREA" then
         ns.QueueRouteReplan()
     elseif event == "PLAYER_XP_UPDATE" or event == "PLAYER_LEVEL_UP" then
