@@ -12,13 +12,17 @@ local MEDIA = "Interface\\AddOns\\Questynator\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local TEAL, GOLD, GREEN = { 0.31, 0.82, 0.77 }, { 1, 0.83, 0.3 }, { 0.37, 0.83, 0.54 }
 local RUN_SPEED = 7            -- yards a second on foot; used until you start moving
-local ARRIVE = 8               -- yards: close enough to call it "here"
+local ARRIVE = 8               -- yards: you're there, the marker gets out of the way
+local LEAVE = 15               -- yards: walked off again, the marker comes back (no flicker at the edge)
+local FADE = 0.6               -- seconds to fade out on arrival, and back in when you walk away
+local COMBAT_ALPHA = 0.1       -- in combat the marker fades to this, so it doesn't cover the fight
 local NEAR_IN, NEAR_OUT = 95, 110 -- the card takes over under NEAR_IN yards and gives way above NEAR_OUT
 local FAINT_FROM = 25          -- from here in, the card fades to half so the NPC or object stays visible
 local EDGE = 0.1               -- off screen once the spot is this share of the screen from an edge
 local HOLD = 0.35              -- a new mode must hold this long before we switch (no flicker)
 local CROSSFADE = 0.175
-local BEAM_H = 120             -- far mode: the badge sits this far above the spot
+local BEAM_H = 160             -- far mode: the badge sits this far above the spot
+local CARD_LIFT = 80           -- near mode: the card floats this far above the spot, over the NPC's head
 local DASH, GAP = 6, 4         -- the beam's dashes
 local marker, placed, ours     -- our frame, the stop we put on the map, the waypoint we set
 local Source                   -- what the pin shows: "quest", "pin" or "route" (below)
@@ -213,6 +217,15 @@ local function SetBadge(b, kind)
     b.dot:SetShown(kind.glyph == nil)
 end
 
+-- the same badge for the Route Planner's card: kind is "pickup", "turnin" or "objective"
+function ns.QuestBadge(parent, size)
+    local b = Badge(parent, size)
+    b.ring:SetVertexColor(TEAL[1], TEAL[2], TEAL[3], 1)
+    b.dot:SetVertexColor(TEAL[1], TEAL[2], TEAL[3], 1)
+    return b
+end
+function ns.SetQuestBadge(b, kind) SetBadge(b, KIND[kind] or KIND.objective) end
+
 local function BuildFar(f)
     local UI = ns.UI
     local far = CreateFrame("Frame", nil, f)
@@ -351,7 +364,7 @@ local function AnimateNear(card, now)
     end
     if marker.nav then
         card:ClearAllPoints()
-        card:SetPoint("BOTTOM", marker.nav, "CENTER", 0, 18 + card.slide)
+        card:SetPoint("BOTTOM", marker.nav, "CENTER", 0, CARD_LIFT + card.slide)
     end
     local bob = 0.5 - 0.5 * math.cos(2 * math.pi * (now % 1.2) / 1.2)
     card.chev:ClearAllPoints()
@@ -383,7 +396,27 @@ end
 
 local function Animate(self, dt)
     local now = GetTime()
-    if self.introAt then self:SetAlpha(Clamp01((now - self.introAt) / 1)) end
+    -- the whole marker fades out when you reach the spot and back in when you walk away
+    local show, goal = self.show or 1, self.showTo or 1
+    if show ~= goal then
+        local step = dt / FADE
+        show = goal > show and math.min(goal, show + step) or math.max(goal, show - step)
+        self.show = show
+    end
+    if show <= 0 and goal <= 0 then
+        self:Hide()
+        self.mode, self.pending = nil, nil
+        return
+    end
+    -- in combat: fade down to COMBAT_ALPHA, and back up after
+    local fighting = (InCombatLockdown and InCombatLockdown()) or (UnitAffectingCombat and UnitAffectingCombat("player"))
+    local combat, want = self.combat or 1, fighting and COMBAT_ALPHA or 1
+    if combat ~= want then
+        local step = dt / FADE
+        combat = want > combat and math.min(want, combat + step) or math.max(want, combat - step)
+        self.combat = combat
+    end
+    self:SetAlpha((self.introAt and Clamp01((now - self.introAt) / 1) or 1) * show * combat)
     for _, part in ipairs(self.parts) do
         local goal = part.fadeTo or 0
         local a = part.fade or 0
@@ -489,8 +522,16 @@ function ns.WorldMarkerUpdate()
 
     local yards = C_Navigation.GetDistance and Readable(C_Navigation.GetDistance())
     if (not yards or yards <= 0) and marker.summary.target then yards = ns.ArrowGeometry(marker.summary.target).yards end
-    local here = yards and yards <= ARRIVE
-    Paint(here and GREEN or TEAL)
+    -- on the spot: fade out, so the NPC or object is in plain view; fade back in once you walk away
+    local arrived = yards ~= nil and (yards <= ARRIVE or (marker.arrived and yards <= LEAVE))
+    if arrived ~= marker.arrived and not arrived then marker.leftSpot = true end
+    marker.arrived = arrived
+    if arrived then
+        marker.showTo = 0                           -- Animate fades it out, then hides it
+        return
+    end
+    marker.showTo = 1
+    Paint(TEAL)
 
     -- which mode, held a moment before switching so a brief flip doesn't flicker
     local want
@@ -501,7 +542,8 @@ function ns.WorldMarkerUpdate()
     if fresh then
         marker.introAt = marker.newStop and now or nil
         marker.newStop = nil
-        marker:SetAlpha(marker.introAt and 0 or 1)
+        marker.show = marker.leftSpot and 0 or 1    -- walked off the spot: fade back in
+        marker:SetAlpha(marker.introAt and 0 or marker.show)
         marker.pending = nil
         SetMode(want, now, true)
     elseif want ~= marker.mode then
@@ -520,18 +562,14 @@ function ns.WorldMarkerUpdate()
     local scale = yards and math.max(0.7, math.min(1.1, 0.25 * 2000 / math.max(yards, 1))) or 1
     far.scale = far.scale and (far.scale + (scale - far.scale) * 0.3) or scale
     far:SetScale(far.scale)
-    -- near: the distance (or "You're here"), and fading so the target shows through
+    -- near: the distance, and fading so the target shows through
     local near = marker.near
-    if here then
-        near.dist:SetText(L["You're here"])
-        near.dist:SetTextColor(GREEN[1], GREEN[2], GREEN[3])
-    else
-        near.dist:SetText(distText)
-        near.dist:SetTextColor(0.6, 0.64, 0.68)
-    end
+    near.dist:SetText(distText)
+    near.dist:SetTextColor(0.6, 0.64, 0.68)
     near.dim = yards and (0.5 + 0.5 * Clamp01((yards - ARRIVE) / (FAINT_FROM - ARRIVE))) or 1
     -- off screen: the distance under the badge
     marker.orbit.dist:SetText(distText)
+    marker.leftSpot = nil
     marker:Show()
 end
 
@@ -562,10 +600,29 @@ local function TheirPin()
     return w
 end
 
+-- A pin Questynator placed knows its quest and who stands there: say what to do (pick up, objective,
+-- turn in) and show the objectives, like a route stop. Any other pin shows its zone.
 local function PinSummary(w)
+    local target = { uiMap = w.uiMapID, x = w.position.x * 100, y = w.position.y * 100 }
+    local db = ns.DB and ns.DB()
+    local pin = ns.pinInfo or (db and db.pinInfo)
+    if pin and SameSpot({ uiMap = pin.uiMap, x = pin.x / 100, y = pin.y / 100 }, w.position and
+        { uiMap = w.uiMapID, x = w.position.x, y = w.position.y }) and (pin.questID or pin.who) then
+        local id, kind, lines = pin.questID, "pickup", {}
+        if id and ns.QuestLogIndex and ns.QuestLogIndex(id) then
+            kind = ns.IsReadyToTurnIn and ns.IsReadyToTurnIn(id) and "turnin" or "objective"
+            for _, o in ipairs((C_QuestLog.GetQuestObjectives and C_QuestLog.GetQuestObjectives(id)) or {}) do
+                if o.text and o.text ~= "" then lines[#lines + 1] = { text = o.text, done = o.finished and true or false } end
+            end
+        elseif not id then
+            kind = "pin"
+        end
+        local who = pin.who and pin.who ~= "" and pin.who or nil
+        return { kind = kind, title = pin.title or who or L["Map pin"], who = who, more = 0, lines = lines,
+                 target = target, questID = id }
+    end
     local info = C_Map.GetMapInfo and C_Map.GetMapInfo(w.uiMapID)
-    return { kind = "pin", title = (info and info.name) or L["Map pin"], more = 0, lines = {},
-             target = { uiMap = w.uiMapID, x = w.position.x * 100, y = w.position.y * 100 } }
+    return { kind = "pin", title = (info and info.name) or L["Map pin"], more = 0, lines = {}, target = target }
 end
 
 -- what the pin shows: the quest picked in the tracker, else the player's own map pin, else the route stop
@@ -689,12 +746,25 @@ function ns.WorldPinConflict()
     return Supported() and Enabled() and OtherLoaded() or false
 end
 
--- Keep ours: turn WaypointUI off for this character and reload. Keep theirs: turn our pin off.
+-- Keep ours: turn WaypointUI off for this character (the button then reloads). Keep theirs: turn our pin off.
+-- ReloadUI is protected on this client, so addon code can't call it: the button runs a /reload macro.
+-- Turn WaypointUI off and save the addon list (like the game's AddOns window does before it reloads;
+-- without the save the change is lost on reload). Off for every character: both pins clash everywhere.
+local function DisableOther()
+    local disable = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
+    if disable then
+        pcall(disable, OTHER)
+        if UnitName then pcall(disable, OTHER, UnitName("player")) end
+    end
+    local save = (C_AddOns and C_AddOns.SaveAddOns) or SaveAddOns
+    if save then pcall(save) end
+end
+
 function ns.ChooseWorldPin(which)
+    local db = ns.DB and ns.DB()
+    if db then db.worldPinAsked, db.worldPinChoice = true, which end
     if which == "ours" then
-        local disable = (C_AddOns and C_AddOns.DisableAddOn) or DisableAddOn
-        if disable then pcall(disable, OTHER, UnitName and UnitName("player") or nil) end
-        if ReloadUI then ReloadUI() end
+        DisableOther()
     else
         ns.SetOption("worldMarker", false)
     end
@@ -719,7 +789,24 @@ function ns.ShowWorldPinChoice()
         chooser.ours = UI.Button(chooser, 150, 24, "outline")
         chooser.ours:SetPoint("TOPLEFT", 12, -66)
         chooser.ours:SetText(L["Use Questynator's"])
-        chooser.ours:SetScript("OnClick", function() chooser:Hide(); ns.ChooseWorldPin("ours") end)
+        local function KeepOurs()
+            chooser:Hide()
+            ns.ChooseWorldPin("ours")
+            print("|cff33ccffQuestynator|r: " .. L["WaypointUI is off. Type /reload if the game didn't reload."])
+        end
+        chooser.ours:SetScript("OnClick", KeepOurs)
+        -- a secure button over it runs /reload after turning WaypointUI off (built out of combat, at login)
+        local ok, reload = pcall(CreateFrame, "Button", nil, chooser.ours, "SecureActionButtonTemplate")
+        if ok and reload and reload.SetAttribute then
+            reload:SetAllPoints(chooser.ours)
+            reload:RegisterForClicks("AnyUp", "AnyDown")
+            reload:SetAttribute("type", "macro")
+            reload:SetAttribute("macrotext", "/reload")
+            reload:SetScript("PreClick", KeepOurs)
+            reload:SetScript("OnEnter", function() local f = chooser.ours:GetScript("OnEnter"); if f then f(chooser.ours) end end)
+            reload:SetScript("OnLeave", function() local f = chooser.ours:GetScript("OnLeave"); if f then f(chooser.ours) end end)
+            chooser.reload = reload
+        end
         chooser.theirs = UI.Button(chooser, 150, 24, "ghost")
         chooser.theirs:SetPoint("LEFT", chooser.ours, "RIGHT", 8, 0)
         chooser.theirs:SetText(L["Use WaypointUI's"])
@@ -732,7 +819,18 @@ function ns.ShowWorldPinChoice()
     return chooser
 end
 
--- at login: ask while both are on (closing it asks again next time)
+-- at login: ask once while both are on. Closing it counts as an answer; Options keeps a Choose one
+-- button for later.
 function ns.CheckWorldPinConflict()
-    if ns.WorldPinConflict() then ns.ShowWorldPinChoice() end
+    local db = ns.DB and ns.DB()
+    if not ns.WorldPinConflict() then return end
+    if db and db.worldPinChoice == "ours" then
+        -- picked ours, but WaypointUI is still running: turn it off again
+        DisableOther()
+        print("|cff33ccffQuestynator|r: " .. L["WaypointUI is off. Type /reload if the game didn't reload."])
+        return
+    end
+    if db and db.worldPinAsked then return end
+    if db then db.worldPinAsked = true end
+    ns.ShowWorldPinChoice()
 end

@@ -16,7 +16,7 @@ Open it with `/qn`, the minimap button, or `/lfg` when that command is available
 - **Treasures:** track bag quests and the Cozy Sleeping Bag for your character.
 - **Rewards:** quest rewards worth chasing for your class and level (see Reward Hunting).
 - **Quest log rewards:** XP, money and reputation for finishing every quest in your log, with a small XP bar showing where that gets you, at the bottom of the Quests tab's route column.
-- **Stats:** users online, quests done with Questynator groups, groups formed, active searches.
+- **Gear icon** (top right): opens Questynator's settings under **Options → AddOns**. The bottom line shows your searches, users online and **Made by Valacas#21304** (click it to copy the BattleTag).
 
 ## Use
 - Type `/qn` to open the **Questynator panel**: your quest log with a **Find Group** button per quest (drag to move, Esc to close).
@@ -46,9 +46,9 @@ Open a reward to see the remaining quests in order. The current step has a **Pin
 ## Quest Routes
 
 Questynator automatically plans your route after you log in or run `/reload`.
-**Questynator : Route Planner** shows the current destination and your next action. Click **More** to see up to three actions, **Snooze stop**, and **Undo**; **Less** collapses it again.
-A grey line under each action shows the quest's level, XP and Elite or group tag. For a quest you haven't picked up yet, it also says what the quest asks for and where, for example "Get Tear of the Moons from General Twinbraid's Strongbox (49, 84)". Later stops show how far away they are, and the stop counter shows the distance to the current stop.
-Click the pin beside an action to mark its pickup, objective, or turn-in. The Quests tab can also pin a whole stop when several tasks share it.
+The floating **Route Planner** shows your next task as a card: a quest badge (**!** pickup, **?** turn-in, a dot for an objective), what to do and how far, the quest, and who to see. **Pin** marks it on the map and **Snooze** skips it. Under the card, **Then** lists the next two tasks (**More** shows four); click one to mark it on the map. A route mode you started (a starter guide, dungeon prep, a reward pursuit or a zone trip) is named at the top with **Stop**, and a guide shows its trips as a bar.
+A grey line on the card shows the quest's level, XP and Elite or group tag. For a quest you haven't picked up yet, it also says what the quest asks for and where, for example "Get Tear of the Moons from General Twinbraid's Strongbox (49, 84)". Later stops show how far away they are, and the stop counter shows the distance to the current stop.
+The Quests tab can also pin a whole stop when several tasks share it.
 
 **Snooze stop** hides the current stop for this visit to the zone, including after a replan or reload. **Undo snooze** restores the most recently snoozed stop. Both actions are also available through `/qn snooze` and `/qn undo`. Snoozing a reward stop keeps the pursuit saved while the planner looks for other work.
 Drag the window to move it. Use **Options → AddOns → Questynator → Show Route Planner** or `/qn planner` to show or hide it. The window’s **x** also hides it.
@@ -61,7 +61,12 @@ advances after all tasks at the current stop are done. When you select a quest i
 
 When the zone has nothing left for your level, the planner shows **Best next**: the zone with the most pickups and quests from your log, with a zone on another continent counting half. **Route there** guides you to that zone and hands back to normal planning when you arrive. The trip isn't saved, so it ends when you log out. **Show zones** opens the Zones tab.
 
-A dungeon prep route, a reward pursuit and a zone trip are named at the top of the planner, with a **Stop** button beside the name.
+A starter guide, a dungeon prep route, a reward pursuit and a zone trip are named at the top of the planner, with a **Stop** button beside the name. Only one of them runs at a time: starting one ends the other.
+
+### Starter guides
+Quest guides for the seven starting areas, levels 1 to 6: Northshire (Human), Coldridge Valley (Dwarf, Gnome), Shadowglen (Night Elf), Valley of Trials (Orc, Troll), Camp Narache (Tauren), Deathknell (Undead) and Zephras Isle (Skyborne). A new character is offered the guide for the area it stands in, and can pick another starting area of its faction instead. Open the guides any time with `/qn guide`.
+
+Each guide is a series of trips through the area. The Route Planner shows the current trip's pickups, objectives and turn-ins, and class quests for your class only. Steps are quests only: no tips, trainer visits or shortcuts. When a step needs a higher level, the planner says which level. Once every step is done, the guide ends and the normal route takes over for the next town.
 
 The route replans when quests enter or leave your log, when you finish an objective or turn in a quest, when you enter a new zone, and when you level up.
 If the route is paused, it replans when you resume.
@@ -70,9 +75,9 @@ The planner's main button pauses route guidance and the compass; click **Resume 
 **Replan** to build a fresh route from your current location and quest progress.
 
 ### In-world waypoint
-Your next route stop gets a marker in the world. Far away, a dashed beam rises to a badge (**!** pickup, **?** turn-in, a dot for an objective) with the quest, the distance and the time to get there. Under 100 yards, a card over the target shows what to do, who to talk to and your objectives, and turns green when you arrive. When the spot is behind you, the badge circles the middle of your screen and points the way.
+Your next route stop gets a marker in the world. Far away, a dashed beam rises to a badge (**!** pickup, **?** turn-in, a dot for an objective) with the quest, the distance and the time to get there. Under 100 yards, a card over the target shows what to do, who to talk to and your objectives. When you reach the spot, the marker fades out so you can see the NPC or object; it fades back in if you walk away. When the spot is behind you, the badge circles the middle of your screen and points the way.
 
-The marker also shows the quest you pick in the objective tracker and map pins you place yourself. Route stops don't add a pin to your world map, and a pin you placed is never replaced. If WaypointUI is also installed, Questynator asks which waypoint to keep. Turn it off with **In-world waypoint over the next route stop** under Options.
+The marker also shows the quest you pick in the objective tracker and map pins you place yourself. Route stops don't add a pin to your world map, and a pin you placed is never replaced. If WaypointUI is also installed, Questynator asks once which waypoint to keep; **Choose one** under Options asks again. Turn it off with **In-world waypoint over the next route stop** under Options.
 
 ## Dungeon finder
 The **Dungeons** tab lists the dungeons around your level. Pick your roles (Tank, Healer, DPS), then:
@@ -98,7 +103,6 @@ Reminders also offer **Request invite** for a matching quest group with space, *
 - **Party progress**: in a party, each quest card shows how far your partners are ("Lunaria 9/12", "done", "doesn't have it") with a **Share quest** link.
 - **Party messages**: when all objectives of a quest are done, and when you turn it in, Questynator tells your party in party chat.
 - **Kudos**: after a quest done together you can thank your party. Kudos show in tooltips.
-- **Top helpers this week**: groups formed and quests done together, on the Stats tab.
 - **Popular near you**: on the Nearby tab, quests other Questynator players in your zone are doing right now.
 
 ## Smarter quest cards
@@ -128,7 +132,7 @@ looking for your quest. `/qn sound` turns this off.
 
 ## Stats
 Questynator counts the groups it formed for you and the quests you turned in while in them.
-Open the Stats panel or type `/qn stats`.
+Type `/qn stats` to see them.
 
 ## Spot other users
 Hover a player: if they run Questynator, their tooltip says **Questynator user**.
@@ -160,6 +164,7 @@ Blizzard's own LFG board can't be filled in by addons (listing titles are protec
 | `/qn dungeons` | Open the Dungeons tab |
 | `/qn rewards` | Open the Reward Hunting tab |
 | `/qn planner` | Show or hide the floating Route Planner |
+| `/qn guide` | Start or stop a starter guide |
 | `/qn snooze`, `/qn undo` | Snooze the current route stop, or restore the last snoozed stop |
 | `/qn host` | Host LFG for the selected quest, or stop hosting |
 | `/qn arrow` | Turn the turn-in arrow on/off |
@@ -189,7 +194,7 @@ and send the output. The `## Interface:` number in the .toc is 16001; verify wit
 
 ## Contact
 Made by **Bethrayer Forever** (Horde, PvE). BattleTag: **Valacas#21304**.
-In game: `/qn about`, or the About box on the Stats tab. Bugs and ideas are welcome in the CurseForge comments.
+In game: `/qn about`, or click **Made by Valacas#21304** at the bottom of the window. Bugs and ideas are welcome in the CurseForge comments.
 
 ## Credits and license
 Quest locations, objectives and reputation rewards in `Data/QuestData.lua` and the additional item reward sources in `Data/RewardCatalog.lua` come from the QuestieDB database of the

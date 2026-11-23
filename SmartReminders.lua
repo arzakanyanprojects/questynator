@@ -174,7 +174,7 @@ local function Act()
     else
         local p = live.place
         local q = ns.ZoneQuest(live.id)
-        ns.Waypoint(p.area, p.x, p.y, ns.AnyQuestTitle(live.id, q and q.name), true)
+        ns.Waypoint(p.area, p.x, p.y, ns.AnyQuestTitle(live.id, q and q.name), true, { questID = live.id, who = p.name })
     end
 end
 

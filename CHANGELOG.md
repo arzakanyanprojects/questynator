@@ -1,3 +1,29 @@
+# Questynator 1.7.0
+
+## Starter guides
+- **Quest guides for all seven starting areas, levels 1 to 6:** Northshire, Coldridge Valley, Shadowglen, Valley of Trials, Camp Narache, Deathknell and Zephras Isle.
+- A new character is offered the guide for its starting area, or can pick another one. Open the guides any time with **Guides** in the Route Planner or `/qn guide`.
+- The guide leads the Route Planner through every quest in order: pickups, objectives and turn-ins, including your class quests. It's named in the planner with a **Stop** button and a bar for its trips, and the normal route takes over when the guide ends.
+
+## Route Planner
+- **New look.** The current task is a card with the quest badge (**!** pickup, **?** turn-in, a dot for objectives), what to do and how far, who to see, level and XP, and **Pin** and **Snooze**. The next tasks sit under it; click one to mark it on the map.
+- A pin you set on a route step moves on to the next step by itself once that step is done.
+- Starting a guide, a reward pursuit or a dungeon prep route no longer drops a pin on your map; the in-world waypoint shows the stop.
+
+## In-world waypoint
+- Map pins from Questynator show the quest: **Pickup**, **Objective** or **Turn in**, who to see, and your objectives, instead of just "Map pin".
+- Fades out when you reach the spot, so the NPC or object is in plain view, and fades back in if you walk away.
+- Fades to 10% in combat.
+- Sits higher: the card floats above the NPC's head and the beam is taller.
+
+## Window
+- The Stats tab is gone. The gear icon opens Questynator's settings under **Options → AddOns**, and the bottom line says **Made by Valacas#21304** (click to copy the BattleTag). `/qn stats` and `/qn about` still work.
+
+## Fixes
+- Fixed "Questynator tried to call the protected function Reload()" when you pick **Use Questynator's** in the WaypointUI prompt.
+- Fixed WaypointUI staying on after you picked **Use Questynator's**.
+- The "Two world pins are on" prompt is asked once instead of after every reload. **Options → Choose one** still opens it.
+
 # Questynator 1.6.9
 
 - **The in-world waypoint is rebuilt.** Far away, a dashed beam rises to a badge with the quest, distance and time. Under 100 yards, a card over the target shows what to do and your objectives. When the spot is off screen, the badge circles the middle of your screen and points the way.

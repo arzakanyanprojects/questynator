@@ -44,7 +44,7 @@ local function client(savedSnoozes)
         ReadyForTurnIn = function() return false end,
     }
     for _, path in ipairs({ "Data/QuestData.lua", "Data/JournalPickups.lua", "Data/QuestTips.lua", "Data/RewardCatalog.lua",
-                            "Questynator.lua", "Routes.lua", "WorldMarker.lua", "RewardHunting.lua", "DungeonPrep.lua", "SmartReminders.lua" }) do
+                            "Data/StarterGuides.lua", "Questynator.lua", "Routes.lua", "StarterGuides.lua", "WorldMarker.lua", "RewardHunting.lua", "DungeonPrep.lua", "SmartReminders.lua" }) do
         setfenv(assert(loadfile(path)), env)("Questynator", ns)
     end
     env.eventFrame:OnEvent("ADDON_LOADED", "Questynator")
@@ -327,6 +327,7 @@ case("the planner window shows the suggestion, starts the trip and offers Stop",
             if key == "IsShown" then return function(self) return self.shown ~= false end end
             if key == "GetWidth" then return function() return 360 end end
             if key == "GetHeight" or key == "GetStringHeight" then return function() return 16 end end
+            if key:match("^Create") then return function() return widget() end end
             if key:match("^[A-Z]") then return noop end
         end })
     end
@@ -345,9 +346,11 @@ case("the planner window shows the suggestion, starts the trip and offers Stop",
     assert(window.suggest.text == "Best next: #44 · 2 pickups", window.suggest.text)
     window.travel:OnClick()
     ns.RefreshPlanner()
-    assert(window.stopMode.shown and window.context.text:find("^Traveling to #44 · %d+ yd$") and not window.suggest.shown,
-        window.context.text)
-    assert(window.rows[1].text.text == "Pick up A from Far" and window.rows[1].detail.text ~= nil)
+    assert(window.stopMode.shown and window.mode.text == "Traveling to #44" and not window.suggest.shown, window.mode.text)
+    local card = window.card
+    assert(card.badge.glyph.text == "!" and card.kind.text:find("^Pick up · %d+ yd$"), tostring(card.kind.text))
+    assert(card.title.text == "A" and card.sub.text == "Far" and card.pin.text == "Pin pickup", tostring(card.sub.text))
+    assert(window.rows[1].shown and window.rows[1].text.text == "Pick up B from Farther", "no Then row for the next stop")
     window.stopMode:OnClick()
     ns.RefreshPlanner()
     assert(not window.stopMode.shown and window.suggest.shown)
@@ -542,15 +545,40 @@ case("the in-world marker sits on the game's navigation frame and never moves th
     env.now = env.now + 0.5
     ns.WorldMarkerUpdate()
     assert(m.mode == "near", "flipped back to the beam inside the 95-110 yd gap")
-    env.C_Navigation.GetDistance = function() return 5 end
+    env.C_Navigation.GetDistance = function() return 20 end
     ns.WorldMarkerUpdate()
-    assert(m.near.dist.text == "You're here" and m.near.dim <= 0.5, "no arrival state on the card")
+    assert(m.shown and m.near.dist.text == "20 yd" and m.near.dim < 1, "the card doesn't fade near the target")
+    env.C_Navigation.GetDistance = function() return 5 end                       -- on the spot: fades out of the way
+    ns.WorldMarkerUpdate()
+    assert(m.shown and m.showTo == 0, "the marker vanished at once instead of fading")
+    m:OnUpdate(0.3)
+    assert(m.shown and m.show > 0 and m.show < 1, "no fade on arrival: " .. tostring(m.show))
+    m:OnUpdate(0.4)
+    assert(not m.shown, "the marker covers the spot you're standing on")
+    env.C_Navigation.GetDistance = function() return 12 end                      -- a step back: still hidden
+    ns.WorldMarkerUpdate()
+    assert(not m.shown, "the marker flickers back at the edge of the spot")
+    env.C_Navigation.GetDistance = function() return 30 end                      -- walked away: fades back in
+    ns.WorldMarkerUpdate()
+    assert(m.shown and m.show == 0 and m.mode == "near" and m.near.dist.text == "30 yd", "the marker didn't come back")
+    m:OnUpdate(0.3)
+    assert(m.show > 0 and m.show < 1, "popped back instead of fading in")
+    m:OnUpdate(0.4)
+    assert(m.show == 1)
+    env.InCombatLockdown = function() return true end                           -- combat: fades to 10%
+    m:OnUpdate(0.3)
+    assert(m.shown and m.combat < 1 and m.combat > 0.1, "no fade into combat: " .. tostring(m.combat))
+    m:OnUpdate(0.4)
+    assert(math.abs(m.combat - 0.1) < 1e-9, "not at 10% in combat: " .. tostring(m.combat))
+    env.InCombatLockdown = function() return false end                          -- out of combat: back
+    m:OnUpdate(0.7)
+    assert(m.combat == 1, "didn't come back after combat")
     env.C_Navigation.WasClampedToScreen = function() return true end
     ns.WorldMarkerUpdate()
     assert(m.mode == "near", "flipped to the orbit without waiting")             -- a brief flip is ignored
     env.now = env.now + 0.5
     ns.WorldMarkerUpdate()
-    assert(m.mode == "orbit" and m.orbit.shown and m.orbit.dist.text == "5 yd", "no off-screen badge")
+    assert(m.mode == "orbit" and m.orbit.shown and m.orbit.dist.text == "30 yd", "no off-screen badge")
     nav.GetCenter = function() return 1800, 900 end                              -- up and right of the middle
     env.UIParent.GetCenter = function() return 960, 540 end
     for _ = 1, 3 do m:OnUpdate(0.05) end                                         -- animation frames
@@ -623,6 +651,85 @@ case("the in-world marker sits on the game's navigation frame and never moves th
         "the route stop didn't come back after the player's pin was removed")
 end)
 
+case("a pin from Questynator tells the in-world waypoint the quest and who to see", function(ns, env)
+    routeFixture(ns, env)
+    fakeUI(env)
+    local pin
+    local nav = env.CreateFrame()
+    env.C_Navigation = { GetFrame = function() return nav end, GetDistance = function() return 60 end,
+                         WasClampedToScreen = function() return false end }
+    env.UiMapPoint = { CreateFromCoordinates = function(map, x, y) return { uiMapID = map, position = { x = x, y = y } } end }
+    env.C_Map.SetUserWaypoint = function(p) pin = p; ns.WorldMarkerRefresh() end
+    env.C_Map.GetUserWaypoint = function() return pin end
+    env.C_Map.GetMapInfo = function() return { mapType = 3, name = "Westfall" } end
+    env.C_SuperTrack = { SetSuperTrackedUserWaypoint = noop, GetSuperTrackedQuestID = function() return 0 end }
+    env.GetUnitSpeed = function() return 7 end
+    ns.Waypoint(40, 44.7, 44.5, "The Problem With Prideclaws", nil, { questID = 92515, who = "Indari Sunseam" })
+    local m = env.QuestynatorWorldMarker
+    assert(m and m.source == "pin", "no waypoint on the pin")
+    assert(m.far.title.text == "The Problem With Prideclaws" and m.far.badge.glyph.text == "!", tostring(m.far.title.text))
+    assert(m.near.sub.text:find("^Pickup") and m.near.sub.text:find("Indari Sunseam", 1, true), tostring(m.near.sub.text))
+    env.C_QuestLog.GetLogIndexForQuestID = function(id) return id == 92515 and 1 or 0 end    -- picked up and done
+    env.C_QuestLog.ReadyForTurnIn = function(id) return id == 92515 end
+    ns.WorldMarkerRefresh()
+    assert(m.far.badge.glyph.text == "?" and m.near.sub.text:find("^Turn in"), tostring(m.near.sub.text))
+    ns.pinInfo = nil                                                                   -- /reload: the pin stays
+    ns.WorldMarkerRefresh()
+    assert(m.far.title.text == "The Problem With Prideclaws", "the pin forgot its quest after a reload")
+    pin = { uiMapID = pin.uiMapID, position = { x = 0.1, y = 0.1 } }                    -- a pin of the player's own
+    ns.WorldMarkerRefresh()
+    assert(m.far.title.text == "Westfall" and m.near.sub.text == "Map pin", tostring(m.far.title.text))
+end)
+
+case("a pin set on a route step moves on to the next step once it's done", function(ns, env)
+    routeFixture(ns, env)
+    local pin, said = nil, 0
+    env.UiMapPoint = { CreateFromCoordinates = function(map, x, y) return { uiMapID = map, position = { x = x, y = y } } end }
+    env.C_Map.SetUserWaypoint = function(p) pin = p end
+    env.C_Map.GetUserWaypoint = function() return pin end
+    env.C_SuperTrack = { SetSuperTrackedUserWaypoint = noop, GetSuperTrackedQuestID = function() return 0 end }
+    env.print = function() said = said + 1 end
+    local taken = {}
+    ns.QuestState = function(id) return taken[id] and "inlog" or "available" end
+    ns.AvailableQuests = function() return {
+        { questID = 1, name = "A", giver = "First", area = 40, x = 2, y = 2, level = 30 },
+        { questID = 2, name = "B", giver = "First", area = 40, x = 2, y = 2, level = 30 },   -- same NPC
+        { questID = 3, name = "C", giver = "Second", area = 40, x = 16, y = 2, level = 31 },
+    } end
+    ns.PlanRoute()
+    local first = ns.RouteTarget()
+    assert(first.name == "First")
+    ns.Waypoint(40, first.x, first.y, "A", nil, { questID = 1, who = "First", route = true })   -- Pin pickup
+    said = 0
+    taken[1] = true                                       -- A picked up: B is still at the same spot
+    ns.UpdateRoute()
+    assert(pin.position.x == 0.02 and env.QuestynatorDB.pinInfo.questID == 2, "the pin left a spot with work left")
+    taken[2] = true                                       -- that stop is done
+    ns.UpdateRoute()
+    assert(math.abs(pin.position.x - 0.16) < 1e-6 and env.QuestynatorDB.pinInfo.questID == 3, "the pin didn't move on")
+    assert(said == 0, "moving the pin printed to chat")
+    pin = { uiMapID = pin.uiMapID, position = { x = 0.5, y = 0.5 } }   -- the player pins somewhere else
+    taken[3] = true
+    ns.UpdateRoute()
+    assert(pin.position.x == 0.5, "moved a pin the player placed")
+end)
+
+case("the window's gear opens Questynator's options, and the bottom line says who made it", function(ns, env)
+    fakeUI(env)
+    local opened, copied = 0, 0
+    ns.OpenOptions = function() opened = opened + 1 end
+    ns.ShowCopyBattleTag = function() copied = copied + 1 end
+    ns.ShowPanel()
+    local p = env.QuestynatorPanel
+    assert(p.optionsBtn and not p.statsView and not p.statsBtn, "the Stats view is still there")
+    p.optionsBtn:OnClick()
+    assert(opened == 1, "the gear didn't open Options > AddOns > Questynator")
+    local made = p.madeBy
+    assert(made and made.text.text:find("^Made by ") and made.text.text:find("Valacas#21304", 1, true), "no Made by line")
+    made:OnClick()
+    assert(copied == 1, "Made by doesn't offer the BattleTag")
+end)
+
 case("with WaypointUI also on, the player is asked to keep one world pin", function(ns, env)
     fakeUI(env)
     local disabled, reloaded
@@ -630,8 +737,10 @@ case("with WaypointUI also on, the player is asked to keep one world pin", funct
     env.UiMapPoint = { CreateFromCoordinates = function() return {} end }
     env.C_Map = { SetUserWaypoint = function() end }
     env.C_SuperTrack = { GetSuperTrackedQuestID = function() return 0 end }
+    local saved = 0
     env.C_AddOns = { IsAddOnLoaded = function(name) return name == "WaypointUI" end,
-                     DisableAddOn = function(name) disabled = name end }
+                     DisableAddOn = function(name) disabled = name end,
+                     SaveAddOns = function() saved = saved + 1 end }
     env.ReloadUI = function() reloaded = true end
     assert(ns.WorldPinConflict(), "both pins on, but no conflict seen")
     local panel = ns.BuildOptionsPanel()
@@ -643,8 +752,19 @@ case("with WaypointUI also on, the player is asked to keep one world pin", funct
     ns.CheckWorldPinConflict()
     local ask = env.QuestynatorPinChoice
     assert(ask and ask.shown and ask.TitleText.text == "Two world pins are on", "not asked")
-    ask.ours:OnClick()
-    assert(disabled == "WaypointUI" and reloaded and not ask.shown, "keeping ours didn't turn WaypointUI off")
+    ask:Hide()                                                    -- closed with x: not asked on every reload
+    ns.CheckWorldPinConflict()
+    assert(not ask.shown, "asked again on the next login after closing it")
+    panel.pinPick:OnClick()                                       -- still there under Options
+    assert(ask.shown, "Choose one stopped working after the prompt was closed")
+    assert(ask.reload, "no secure /reload button over Use Questynator's")
+    ask.reload:PreClick()
+    -- ReloadUI is protected on this client: addon code calling it is blocked, the button's macro reloads
+    assert(disabled == "WaypointUI" and not reloaded and not ask.shown, "keeping ours didn't turn WaypointUI off")
+    assert(saved > 0, "the addon list wasn't saved, so the reload brings WaypointUI back")
+    disabled, saved = nil, 0                                      -- next login: WaypointUI still running
+    ns.CheckWorldPinConflict()
+    assert(disabled == "WaypointUI" and saved > 0 and not ask.shown, "picked ours, but WaypointUI stayed on")
     ns.ShowWorldPinChoice()
     ask.theirs:OnClick()
     assert(not ns.GetOption("worldMarker") and not ns.WorldPinConflict(), "keeping theirs left our pin on")
@@ -1053,6 +1173,192 @@ case("a German client sees the newer feature strings translated", function()
     assert(ok, ns)
     assert(ns.L["Reward Hunting"] == "Belohnungsjagd" and ns.L["Hosting stopped"] == "Gruppenleitung beendet")
     assert(ns.L["%d in log · %d ready to pick up"]:find("Questlog", 1, true))
+end)
+
+-- Starter guides: a level 1 Human Warrior standing in Northshire. env.log holds the quests in the log
+-- ({ ready = true } once its objectives are done) and env.done the quests already turned in.
+local function guideFixture(ns, env)
+    env.QuestynatorDB.arrow = false
+    env.level = 1
+    env.map = ns.UiMapForArea(12)
+    env.C_Map = {
+        GetBestMapForUnit = function() return env.map end,
+        GetMapInfo = function() return { mapType = 3 } end,
+        GetWorldPosFromMapPos = function(_, pos) return 1, { x = pos.x * 1000, y = pos.y * 1000 } end,
+        GetPlayerMapPosition = function() return { x = 0.48, y = 0.43 } end,
+    }
+    env.UnitPosition = function() return 482, 429, 0, 1 end      -- next to Deputy Willem
+    env.CreateVector2D = function(x, y) return { x = x, y = y } end
+    env.log, env.done = {}, {}
+    local log = env.C_QuestLog
+    log.GetLogIndexForQuestID = function(id) return env.log[id] and 1 or 0 end
+    log.ReadyForTurnIn = function(id) return env.log[id] ~= nil and env.log[id].ready == true end
+    log.IsComplete = log.ReadyForTurnIn
+    log.IsQuestFlaggedCompleted = function(id) return env.done[id] == true end
+    log.GetQuestObjectives = function(id)
+        local q = env.log[id]
+        return q and not q.ready and { { text = "objective", finished = false, numFulfilled = 0, numRequired = 1 } } or {}
+    end
+end
+
+local function questSet(tasks)
+    local set = {}
+    for _, task in ipairs(tasks or {}) do set[task.questID] = true end
+    return set
+end
+
+case("every starter guide step names a known quest, and turn-ins follow their pickup", function(ns)
+    local D, kinds = ns.QDATA, { accept = true, complete = true, turnin = true }
+    assert(#ns.STARTER_GUIDES == 7)
+    for _, guide in ipairs(ns.STARTER_GUIDES) do
+        assert(ns.UiMapForArea(guide.area), guide.id .. ": unknown area")
+        local accepted = {}
+        for _, trip in ipairs(guide.trips) do
+            assert(type(trip[1]) == "string" and #trip > 1, guide.id .. ": trip without a name or steps")
+            for i = 2, #trip do
+                local step = trip[i]
+                local where = guide.id .. " " .. tostring(step[1]) .. " " .. tostring(step[2])
+                assert(kinds[step[1]] and (D.q[step[2]] or D.h[step[2]]), where .. ": unknown quest")
+                assert(not step.at or ns.UiMapForArea(step.at[1]), where .. ": unknown place")
+                if step[1] == "accept" then accepted[step[2]] = true
+                else assert(accepted[step[2]], where .. ": no pickup before it") end
+            end
+        end
+    end
+end)
+
+case("the Northshire guide leads a new Human Warrior step by step", function(ns, env)
+    guideFixture(ns, env)
+    ns.Waypoint = function() error("starting the guide placed a map pin") end
+    ns.SetGuide("northshire")
+    local kind, label = ns.RouteMode()
+    assert(kind == "guide" and label == "Guide: Northshire · trip 1 of 10", label)
+    assert(ns.RouteTarget().name == "Deputy Willem" and ns.RouteStopSummary().kind == "pickup")
+    env.log[783] = { ready = true }
+    ns.PlanRoute()
+    assert(ns.RouteTarget().name == "Marshal McBride" and ns.RouteStopSummary().kind == "turnin")
+    env.log[783], env.done[783] = nil, true
+    local tasks, trip = ns.GuideTasks(ns.ActiveGuide())
+    local set = questSet(tasks)
+    assert(trip == 1 and set[7] and set[5261] and set[33] and #tasks == 3)
+    -- the first two trips done: trip 3 offers this class's letter only, and holds Brotherhood of Thieves for level 2
+    for _, id in ipairs({ 7, 5261, 33, 91741, 92124 }) do env.done[id] = true end
+    tasks, trip = ns.GuideTasks(ns.ActiveGuide())
+    set = questSet(tasks)
+    assert(trip == 3 and set[91743] and set[15] and set[3100], "trip " .. tostring(trip))
+    assert(not set[3101] and not set[3105] and not set[1598] and not set[18])
+    env.level = 2
+    assert(questSet(ns.GuideTasks(ns.ActiveGuide()))[18])
+end)
+
+case("the planner names a running guide and shows its trips as segments", function(ns, env)
+    guideFixture(ns, env)
+    fakeUI(env)
+    ns.SetGuide("northshire")
+    ns.ShowPlanner(true)
+    local p = env.QuestynatorPlanner
+    assert(p.mode.text == "Guide · Northshire" and p.stopMode.shown, tostring(p.mode.text))
+    local lit = 0
+    for _, seg in ipairs(p.segs) do if seg.shown then lit = lit + 1 end end
+    assert(lit == 10, lit .. " segments for 10 trips")
+    assert(p.card.title.text == "A Threat Within" and p.card.badge.glyph.text == "!" and not p.card.snooze.shown)
+    p.stopMode:OnClick()
+    ns.RefreshPlanner()
+    assert(not p.mode.shown and not p.segs[1].shown, "the guide's bar stayed after Stop")
+    assert(p.guides.shown and p.guides.text == "Guides", "no Guides button for a level 1 character")
+    p.guides:OnClick()
+    assert(env.find("Start guide: Northshire"), "Guides didn't open the starter guides")
+    env.level = 11
+    ns.RefreshPlanner()
+    assert(not p.guides.shown, "Guides still shown past level 10")
+end)
+
+case("a guide waits for the level a step needs, then ends and hands over to the planner", function(ns, env)
+    guideFixture(ns, env)
+    local test = { id = "test", name = "Test", area = 12, trips = { { "Abbey", { "accept", 18 } } } }
+    table.insert(ns.STARTER_GUIDES, test)
+    env.done[783] = true
+    ns.SetGuide("test")
+    assert(ns.RouteMode() == "guide" and not ns.RouteTarget())
+    local tasks, _, why = ns.GuideTasks(test)
+    assert(#tasks == 0 and why == "Reach level 2 for Brotherhood of Thieves", why)
+    env.done[18] = true
+    ns.PlanRoute()
+    assert(not ns.ActiveGuide() and env.QuestynatorGuide.finished == "test" and ns.RouteMode() ~= "guide")
+end)
+
+case("an item-started guide quest sends you to the mobs that drop it", function(ns, env)
+    guideFixture(ns, env)
+    table.insert(ns.STARTER_GUIDES, { id = "loot", name = "Loot", area = 12, trips = { { "Camp", { "accept", 91741 } } } })
+    ns.SetGuide("loot")
+    assert(ns.RouteStopSummary().kind == "pickup")
+    local lines = {}
+    ns.AddRouteTooltip({ AddLine = function(_, text) lines[#lines + 1] = text end, AddDoubleLine = noop })
+    assert(lines[2] and lines[2]:find("^Loot Nibbled%-On Book from Kobold"), tostring(lines[2]))
+    env.log[91741] = {}
+    ns.UpdateRoute()
+    assert(not ns.RouteTarget())
+end)
+
+case("one route mode at a time: a guide and a reward pursuit replace each other, Stop ends the guide", function(ns, env)
+    guideFixture(ns, env)
+    ns.Waypoint = function() error("starting a route mode placed a map pin") end
+    ns.SetGuide("northshire")
+    ns.SetRewardPursuit(2041)
+    ns.SetDungeonPrepRoute(796)                 -- (prep keeps the saved pursuit to resume after it)
+    ns.SetDungeonPrepRoute(nil)
+    ns.SetRewardPursuit(2041)
+    assert(not ns.ActiveGuide() and ns.RouteMode() == "reward")
+    ns.SetGuide("northshire")
+    assert(not env.QuestynatorRewardGoal and ns.RouteMode() == "guide")
+    ns.StopRouteMode()
+    assert(not ns.ActiveGuide() and not ns.RouteMode())
+end)
+
+case("race-only guide steps are skipped for other races", function(ns, env)
+    guideFixture(ns, env)
+    env.level = 2
+    local test = { id = "sky", name = "Sky", area = 16593, trips = { { "Camp", { "accept", 92474, race = "Skyborne" } } } }
+    table.insert(ns.STARTER_GUIDES, test)
+    env.QuestynatorGuide = { active = "sky" }
+    assert(ns.GuideTasks(test) == nil)
+    env.UnitRace = function() return "Skyborne", "Skyborne", 95 end
+    env.QuestynatorGuide = { active = "sky" }
+    assert(questSet(ns.GuideTasks(test))[92474])
+end)
+
+case("a new character is offered the guide for its valley once", function(ns, env)
+    guideFixture(ns, env)
+    fakeUI(env)
+    local later = {}
+    env.C_Timer.After = function(_, fn) later[#later + 1] = fn end
+    local function run() local list = later; later = {}; for _, fn in ipairs(list) do fn() end end
+    env.QuestynatorPinChoice = { IsShown = function() return true end }     -- the WaypointUI question is up
+    ns.GuideWorldEntry()
+    run(); run()
+    assert(not env.find("Start guide: Northshire"), "the guide offer opened on top of the WaypointUI question")
+    env.QuestynatorPinChoice = nil                                          -- answered (it reloads)
+    run()
+    assert(env.find("Start guide: Northshire"), "no guide offer after the WaypointUI question closed")
+    assert(not env.QuestynatorGuide.offered, "counted as answered while still open: a reload would lose it")
+    env.C_Timer.After = function(_, fn) fn() end
+    local start = env.find("Start guide: Northshire")
+    assert(start and env.find("Coldridge Valley") and not env.find("Valley of Trials") and env.find("Zephras Isle"))
+    start:OnClick()
+    assert(ns.ActiveGuide().id == "northshire" and ns.RouteMode() == "guide")
+    ns.SetGuide(nil)
+    start.shown = false
+    ns.GuideWorldEntry()
+    assert(not env.find("Start guide: Northshire"), "offered twice")
+end)
+
+case("a character past level 2 is not offered a guide on login", function(ns, env)
+    guideFixture(ns, env)
+    fakeUI(env)
+    env.C_Timer.After = function(_, fn) fn() end
+    env.level = 5
+    ns.GuideWorldEntry()
+    assert(not env.find("Start guide") and not (env.QuestynatorGuide and env.QuestynatorGuide.offered))
 end)
 
 print(string.format("%d passed, %d failed", passed, failed))

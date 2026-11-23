@@ -158,7 +158,7 @@ local function MakeRow(card, width)
     row.pin:SetText(L["Pin pickup"])
     row.pin:SetScript("OnClick", function()
         local p = row.entry.place
-        if p then ns.Waypoint(p.area, p.x, p.y, Title(row.entry.id), true) end
+        if p then ns.Waypoint(p.area, p.x, p.y, Title(row.entry.id), true, { questID = row.entry.id, who = p.name }) end
     end)
     row.share = ns.UI.Button(row, 98, 20, "outline")
     row.share:SetPoint("TOPRIGHT", 0, -24)

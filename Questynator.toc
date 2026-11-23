@@ -2,7 +2,7 @@
 ## Title: Questynator
 ## Notes: Plan quest routes, follow objectives, and find other players for quests and dungeons.
 ## Author: Ashot
-## Version: 1.6.9
+## Version: 1.7.0
 ## Category: Quests
 ## Category-deDE: Quests
 ## Category-esES: Misiones
@@ -17,7 +17,7 @@
 ## IconTexture: Interface\AddOns\Questynator\Media\Icon
 ## X-License: GPL-3.0-or-later
 ## SavedVariables: QuestynatorDB
-## SavedVariablesPerCharacter: QuestynatorRewardGoal, QuestynatorRouteSnoozes, QuestynatorPrepDungeon, QuestynatorReminderSnoozes
+## SavedVariablesPerCharacter: QuestynatorRewardGoal, QuestynatorRouteSnoozes, QuestynatorPrepDungeon, QuestynatorReminderSnoozes, QuestynatorGuide
 ## AddonCompartmentFunc: Questynator_OnCompartmentClick
 ## AddonCompartmentFuncOnEnter: Questynator_OnCompartmentEnter
 ## AddonCompartmentFuncOnLeave: Questynator_OnCompartmentLeave
@@ -31,8 +31,10 @@ Data\QuestData.lua
 Data\JournalPickups.lua
 Data\QuestTips.lua
 Data\RewardCatalog.lua
+Data\StarterGuides.lua
 Questynator.lua
 Routes.lua
+StarterGuides.lua
 WorldMarker.lua
 RewardHunting.lua
 DungeonPrep.lua

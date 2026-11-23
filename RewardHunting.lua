@@ -428,7 +428,7 @@ local function Row(i, title, subtitle, reward, destination, pinLabel, remaining)
         row.sub:SetJustifyH("LEFT")
         row.pin = Button(row, 110, "Pin", function()
             local place = row.destination
-            if place then ns.Waypoint(place.area, place.x, place.y, place.name, true) end
+            if place then ns.Waypoint(place.area, place.x, place.y, place.name, true, { questID = place.questID, who = place.name }) end
         end)
         row.pin:SetPoint("RIGHT", -8, 0)
         row:SetScript("OnClick", function(self)
@@ -537,6 +537,7 @@ function ns.RefreshRewardHunting()
             end
             local where = reason or (pickup and L["Pickup location unknown"] or L["Location unknown"])
             if giver then
+                giver.questID = giver.questID or id                -- the pin's waypoint names the quest
                 local zone = ns.AreaName(giver.area)
                 local map = not zone and ns.UiMapForArea(giver.area)
                 local info = map and C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(map)

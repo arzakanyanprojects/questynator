@@ -484,6 +484,35 @@ deDE = {
     ["Choose one"] = "Eine wählen",
     ["+%d more here"] = "+%d weitere hier",
     ["Map pin"] = "Kartenmarkierung",
+    -- starter guides (1.7.0)
+    ["Guide: %s · trip %d of %d"] = "Leitfaden: %s · Abschnitt %d von %d",
+    ["Loot %s from %s"] = "Erbeute %s von %s",
+    ["Reach level %d for %s"] = "Erreiche Stufe %d für %s",
+    ["Guide waiting for %s"] = "Leitfaden wartet auf %s",
+    ["Starter guide finished: %s. The Route Planner takes over from here."] = "Startleitfaden beendet: %s. Ab hier übernimmt der Routenplaner.",
+    ["Starter guide started: %s. Stop it any time in the Route Planner."] = "Startleitfaden gestartet: %s. Du kannst ihn jederzeit im Routenplaner beenden.",
+    ["Questynator : Starter guide"] = "Questynator : Startleitfaden",
+    ["Stop the guide"] = "Leitfaden beenden",
+    ["Stop the guide: %s"] = "Leitfaden beenden: %s",
+    ["Start guide: %s"] = "Leitfaden starten: %s",
+    ["Not now"] = "Nicht jetzt",
+    ["Or choose a starting area:"] = "Oder wähle ein Startgebiet:",
+    ["Choose a starting area:"] = "Wähle ein Startgebiet:",
+    ["(running)"] = "(läuft)",
+    ["Type /qn guide to open this again."] = "Mit /qn guide öffnest du das wieder.",
+    ["WaypointUI is off. Type /reload if the game didn't reload."] = "WaypointUI ist aus. Gib /reload ein, falls das Spiel nicht neu geladen hat.",
+    ["Route Planner"] = "Routenplaner",
+    ["Guide · %s"] = "Leitfaden · %s",
+    ["Loot"] = "Erbeuten",
+    ["Deliver"] = "Abliefern",
+    ["%s from %s"] = "%s von %s",
+    ["Same stop"] = "Gleicher Stopp",
+    ["Guides"] = "Leitfäden",
+    ["Options"] = "Optionen",
+    ["Opens Questynator under Options > AddOns."] = "Öffnet Questynator unter Optionen > AddOns.",
+    ["Starter guides for the starting areas, levels 1 to 6."] = "Startleitfäden für die Startgebiete, Stufe 1 bis 6.",
+    ["New here? Follow a quest guide through your starting area. It takes you to every quest in order up to about level 6, then the Route Planner takes over."] = "Neu hier? Folge einem Quest-Leitfaden durch dein Startgebiet. Er führt dich der Reihe nach zu jeder Quest bis etwa Stufe 6, danach übernimmt der Routenplaner.",
+    ["Quest guides for the starting areas, levels 1 to 6. The guide points the Route Planner at each quest in order."] = "Quest-Leitfäden für die Startgebiete, Stufe 1 bis 6. Der Leitfaden schickt den Routenplaner der Reihe nach zu jeder Quest.",
 },
 frFR = {
     ["You're here"] = "Vous y êtes",
@@ -942,6 +971,35 @@ frFR = {
     ["Choose one"] = "Choisir",
     ["+%d more here"] = "+%d autres ici",
     ["Map pin"] = "Repère sur la carte",
+    -- starter guides (1.7.0)
+    ["Guide: %s · trip %d of %d"] = "Guide : %s · étape %d sur %d",
+    ["Loot %s from %s"] = "Récupérez %s sur %s",
+    ["Reach level %d for %s"] = "Atteignez le niveau %d pour %s",
+    ["Guide waiting for %s"] = "Le guide attend %s",
+    ["Starter guide finished: %s. The Route Planner takes over from here."] = "Guide de départ terminé : %s. Le planificateur d'itinéraire prend le relais.",
+    ["Starter guide started: %s. Stop it any time in the Route Planner."] = "Guide de départ lancé : %s. Arrêtez-le quand vous voulez dans le planificateur d'itinéraire.",
+    ["Questynator : Starter guide"] = "Questynator : Guide de départ",
+    ["Stop the guide"] = "Arrêter le guide",
+    ["Stop the guide: %s"] = "Arrêter le guide : %s",
+    ["Start guide: %s"] = "Lancer le guide : %s",
+    ["Not now"] = "Plus tard",
+    ["Or choose a starting area:"] = "Ou choisissez une zone de départ :",
+    ["Choose a starting area:"] = "Choisissez une zone de départ :",
+    ["(running)"] = "(en cours)",
+    ["Type /qn guide to open this again."] = "Tapez /qn guide pour rouvrir cette fenêtre.",
+    ["WaypointUI is off. Type /reload if the game didn't reload."] = "WaypointUI est désactivé. Tapez /reload si le jeu ne s'est pas rechargé.",
+    ["Route Planner"] = "Planificateur d'itinéraire",
+    ["Guide · %s"] = "Guide · %s",
+    ["Loot"] = "Butin",
+    ["Deliver"] = "Livrer",
+    ["%s from %s"] = "%s sur %s",
+    ["Same stop"] = "Même arrêt",
+    ["Guides"] = "Guides",
+    ["Options"] = "Options",
+    ["Opens Questynator under Options > AddOns."] = "Ouvre Questynator dans Options > AddOns.",
+    ["Starter guides for the starting areas, levels 1 to 6."] = "Guides de départ pour les zones de départ, niveaux 1 à 6.",
+    ["New here? Follow a quest guide through your starting area. It takes you to every quest in order up to about level 6, then the Route Planner takes over."] = "Nouveau ? Suivez un guide de quêtes dans votre zone de départ. Il vous mène à chaque quête dans l'ordre jusqu'au niveau 6 environ, puis le planificateur d'itinéraire prend le relais.",
+    ["Quest guides for the starting areas, levels 1 to 6. The guide points the Route Planner at each quest in order."] = "Guides de quêtes pour les zones de départ, niveaux 1 à 6. Le guide envoie le planificateur d'itinéraire à chaque quête, dans l'ordre.",
 },
 esES = {
     ["You're here"] = "Has llegado",
@@ -1400,6 +1458,35 @@ esES = {
     ["Choose one"] = "Elegir uno",
     ["+%d more here"] = "+%d más aquí",
     ["Map pin"] = "Marca en el mapa",
+    -- starter guides (1.7.0)
+    ["Guide: %s · trip %d of %d"] = "Guía: %s · tramo %d de %d",
+    ["Loot %s from %s"] = "Saquea %s de %s",
+    ["Reach level %d for %s"] = "Alcanza el nivel %d para %s",
+    ["Guide waiting for %s"] = "La guía espera a %s",
+    ["Starter guide finished: %s. The Route Planner takes over from here."] = "Guía inicial terminada: %s. A partir de aquí sigue el planificador de rutas.",
+    ["Starter guide started: %s. Stop it any time in the Route Planner."] = "Guía inicial iniciada: %s. Puedes detenerla cuando quieras en el planificador de rutas.",
+    ["Questynator : Starter guide"] = "Questynator : Guía inicial",
+    ["Stop the guide"] = "Detener la guía",
+    ["Stop the guide: %s"] = "Detener la guía: %s",
+    ["Start guide: %s"] = "Iniciar guía: %s",
+    ["Not now"] = "Ahora no",
+    ["Or choose a starting area:"] = "O elige una zona inicial:",
+    ["Choose a starting area:"] = "Elige una zona inicial:",
+    ["(running)"] = "(en curso)",
+    ["Type /qn guide to open this again."] = "Escribe /qn guide para volver a abrirla.",
+    ["WaypointUI is off. Type /reload if the game didn't reload."] = "WaypointUI está desactivado. Escribe /reload si el juego no se ha recargado.",
+    ["Route Planner"] = "Planificador de rutas",
+    ["Guide · %s"] = "Guía · %s",
+    ["Loot"] = "Saquear",
+    ["Deliver"] = "Entregar",
+    ["%s from %s"] = "%s de %s",
+    ["Same stop"] = "Misma parada",
+    ["Guides"] = "Guías",
+    ["Options"] = "Opciones",
+    ["Opens Questynator under Options > AddOns."] = "Abre Questynator en Opciones > Accesorios.",
+    ["Starter guides for the starting areas, levels 1 to 6."] = "Guías iniciales para las zonas iniciales, niveles 1 a 6.",
+    ["New here? Follow a quest guide through your starting area. It takes you to every quest in order up to about level 6, then the Route Planner takes over."] = "¿Eres nuevo? Sigue una guía de misiones por tu zona inicial. Te lleva a cada misión en orden hasta el nivel 6 más o menos y después sigue el planificador de rutas.",
+    ["Quest guides for the starting areas, levels 1 to 6. The guide points the Route Planner at each quest in order."] = "Guías de misiones para las zonas iniciales, niveles 1 a 6. La guía lleva el planificador de rutas a cada misión en orden.",
 },
 ruRU = {
     ["You're here"] = "Вы на месте",
@@ -1858,6 +1945,35 @@ ruRU = {
     ["Choose one"] = "Выбрать",
     ["+%d more here"] = "+%d здесь ещё",
     ["Map pin"] = "Метка на карте",
+    -- starter guides (1.7.0)
+    ["Guide: %s · trip %d of %d"] = "Гид: %s · этап %d из %d",
+    ["Loot %s from %s"] = "Добудьте %s: %s",
+    ["Reach level %d for %s"] = "Нужен уровень %d для «%s»",
+    ["Guide waiting for %s"] = "Гид ждёт: %s",
+    ["Starter guide finished: %s. The Route Planner takes over from here."] = "Стартовый гид пройден: %s. Дальше ведёт планировщик маршрута.",
+    ["Starter guide started: %s. Stop it any time in the Route Planner."] = "Стартовый гид запущен: %s. Остановить его можно в планировщике маршрута.",
+    ["Questynator : Starter guide"] = "Questynator : Стартовый гид",
+    ["Stop the guide"] = "Остановить гид",
+    ["Stop the guide: %s"] = "Остановить гид: %s",
+    ["Start guide: %s"] = "Начать гид: %s",
+    ["Not now"] = "Не сейчас",
+    ["Or choose a starting area:"] = "Или выберите стартовую зону:",
+    ["Choose a starting area:"] = "Выберите стартовую зону:",
+    ["(running)"] = "(идёт)",
+    ["Type /qn guide to open this again."] = "Введите /qn guide, чтобы открыть снова.",
+    ["WaypointUI is off. Type /reload if the game didn't reload."] = "WaypointUI отключён. Введите /reload, если интерфейс не перезагрузился.",
+    ["Route Planner"] = "Планировщик маршрута",
+    ["Guide · %s"] = "Гид · %s",
+    ["Loot"] = "Добыть",
+    ["Deliver"] = "Доставить",
+    ["%s from %s"] = "%s: %s",
+    ["Same stop"] = "Та же точка",
+    ["Guides"] = "Гиды",
+    ["Options"] = "Настройки",
+    ["Opens Questynator under Options > AddOns."] = "Открывает Questynator в Настройки > Модификации.",
+    ["Starter guides for the starting areas, levels 1 to 6."] = "Гиды по стартовым зонам, уровни 1–6.",
+    ["New here? Follow a quest guide through your starting area. It takes you to every quest in order up to about level 6, then the Route Planner takes over."] = "Только начали? Пройдите стартовую зону по гиду. Он ведёт по всем заданиям по порядку примерно до 6 уровня, а дальше маршрут строит планировщик.",
+    ["Quest guides for the starting areas, levels 1 to 6. The guide points the Route Planner at each quest in order."] = "Гиды по стартовым зонам, уровни 1–6. Гид ведёт планировщик маршрута по заданиям по порядку.",
 },
 }
 ns.ApplyLocale(GetLocale and GetLocale() or "enUS")
@@ -1991,7 +2107,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.6.9" end
+    if type(v) ~= "string" or v == "" then v = "1.7.0" end
     return v
 end
 
@@ -3569,7 +3685,7 @@ local function OnRowAction(r, action)
     elseif action == "turnin" then
         local q = ns.BundledQuest(questID)
         local place = q and ns.RefPlace(q.finish)
-        if place then ns.Waypoint(place.area, place.x, place.y, QuestTitle(questID)) end
+        if place then ns.Waypoint(place.area, place.x, place.y, QuestTitle(questID), nil, { questID = questID, who = place.name }) end
     end
     ns.RequestRefresh()
 end
@@ -3768,8 +3884,14 @@ function ns.WayLink(area, x, y, title, text)
     return string.format("|cff66ddff|Hquestynator:way:%d:%.1f:%.1f:%s|h%s|h|r", area, x, y, title, text)
 end
 
-function ns.Waypoint(area, x, y, title, keepQuestSelection)
+-- info (optional): { questID, who } so the in-world waypoint can say what to do there and with whom
+function ns.Waypoint(area, x, y, title, keepQuestSelection, info)
     local uiMap = ns.UiMapForArea(area)
+    -- remember what the pin is for before placing it: the game reports the new pin right away
+    -- (saved: a map pin survives a reload)
+    DB.pinInfo = uiMap and { uiMap = uiMap, x = x, y = y, questID = info and info.questID, who = info and info.who,
+        title = info and info.questID and QuestTitle(info.questID) or title, route = info and info.route } or nil
+    ns.pinInfo = DB.pinInfo
     local where = (ZoneName(area) or "?") .. string.format(" (%d, %d)", math.floor(x + 0.5), math.floor(y + 0.5))
     if uiMap and TomTom and TomTom.AddWaypoint then
         local ok = pcall(TomTom.AddWaypoint, TomTom, uiMap, x / 100, y / 100,
@@ -3784,7 +3906,7 @@ function ns.Waypoint(area, x, y, title, keepQuestSelection)
                 if not keepQuestSelection and C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
                     pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, true)
                 end
-                Print(string.format(L["Map pin set: %s"], title .. " - " .. where))
+                if not (info and info.quiet) then Print(string.format(L["Map pin set: %s"], title .. " - " .. where)) end
                 return "pin"
             end
         end
@@ -4514,7 +4636,7 @@ end
 -- Nearby tab: player chips (Questynator matches + players looking in chat)
 ---------------------------------------------------------------------------
 local nearbyContent, nearbyEmpty
-local VS = { nearbySections = {}, helperRows = {}, chips = {}, popRows = {}, CARD_GAP = 6 }
+local VS = { nearbySections = {}, chips = {}, popRows = {}, CARD_GAP = 6 }
 VS.CHIP_H, VS.POP_H = 46 + VS.CARD_GAP, 34 + VS.CARD_GAP
 
 function ns.UI.ShowTip(self)
@@ -5025,153 +5147,13 @@ end
 end
 
 ---------------------------------------------------------------------------
--- Stats tab
+-- section labels
 ---------------------------------------------------------------------------
-local statTiles = {}
-
 function ns.UI.Caps(s)
     s = tostring(s or ""):gsub(":$", "")
     if s:find("[\128-\255]") then return s end
     return s:upper()
 end
-
-function ns.BuildStatsView(p, inset)
-    local UI, C = ns.UI, ns.UI.C
-    local v = CreateFrame("Frame", nil, inset)
-    v:SetAllPoints(inset)
-    p.statsView = v
-    local W = 536          -- the Stats view has no scrollbar, so it uses the full inset (548 - 2 x 6)
-    local tileW = math.floor((W - 8) / 2)
-    local labels = { L["Users online"], L["Quests together"], L["Groups formed"], L["Active searches"] }
-    for i, text in ipairs(labels) do
-        local t = UI.Card(v, tileW, 60)
-        local col, row = (i - 1) % 2, math.floor((i - 1) / 2)
-        t:SetPoint("TOPLEFT", v, "TOPLEFT", 6 + col * (tileW + 8), -6 - row * 68)
-        t.value = UI.Text(t, 20, i == 1 and "accent" or "text", nil, "bold")
-        t.value:SetPoint("TOPLEFT", 12, -9)
-        t.label = UI.Text(t, 8, "muted", nil, "bold")
-        t.label:SetPoint("TOPLEFT", 12, -40)
-        t.label:SetText(ns.UI.Caps(text))
-        statTiles[i] = t
-    end
-
-    -- top helpers this week
-    local helpers = UI.Card(v, W, 128)
-    helpers:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -146)
-    helpers.title = UI.Text(helpers, 9, "muted", nil, "bold")
-    helpers.title:SetPoint("TOPLEFT", 12, -11)
-    helpers.title:SetText(ns.UI.Caps(L["Top helpers this week"]))
-    helpers.kudos = UI.Text(helpers, 9, "accent", nil, "medium")
-    helpers.kudos:SetPoint("TOPRIGHT", -12, -11)
-    for i = 1, 5 do
-        local y = -32 - (i - 1) * 18
-        local r = {}
-        r.rank = UI.Text(helpers, 10, "dim")
-        r.rank:SetPoint("TOPLEFT", 12, y)
-        r.badge = UI.ClassBadge(helpers, 14)
-        r.badge:SetPoint("TOPLEFT", 26, y + 1)
-        r.name = UI.Text(helpers, 11, "text", nil, "medium")
-        r.name:SetPoint("TOPLEFT", 46, y)
-        r.you = UI.Text(helpers, 9, "accent", nil, "medium")
-        r.you:SetPoint("LEFT", r.name, "RIGHT", 6, 0)
-        r.bar = helpers:CreateTexture(nil, "ARTWORK")
-        r.bar:SetHeight(4)
-        r.bar:SetPoint("TOPLEFT", helpers, "TOPLEFT", W - 276, y - 5)
-        r.bar:SetColorTexture(C.accent[1], C.accent[2], C.accent[3], 1)
-        r.score = UI.Text(helpers, 11, "text", nil, "bold")
-        r.score:SetPoint("TOPRIGHT", -12, y)
-        VS.helperRows[i] = r
-    end
-    helpers.empty = UI.Text(helpers, 10, "muted")
-    helpers.empty:SetPoint("TOPLEFT", 12, -34)
-    helpers.empty:SetWidth(W - 24)
-    helpers.empty:SetJustifyH("LEFT")
-    helpers.empty:SetText(L["Form groups and finish quests together to get on the board."])
-    p.helpers = helpers
-
-    -- about the author
-    local about = UI.Card(v, W, 100)
-    about:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -282)
-    about.title = UI.Text(about, 9, "muted", nil, "bold")
-    about.title:SetPoint("TOPLEFT", 12, -11)
-    about.title:SetText(ns.UI.Caps(L["About"]))
-    about.who = UI.Text(about, 11, "muted")
-    about.who:SetPoint("TOPLEFT", 12, -29)
-    about.who:SetText(string.format(L["Made by %s"], "|cffe8e6e3" .. AUTHOR.name .. " " .. AUTHOR.realm .. "|r")
-        .. "  |cff5b606bHorde · PvE · EU|r")
-    about.tag = UI.Text(about, 11, "accent", nil, "medium")
-    about.tag:SetPoint("TOPLEFT", 12, -47)
-    about.tag:SetText("BattleTag  " .. AUTHOR.battletag)
-    about.whisper = UI.Button(about, 128, 22, "ghost")
-    about.whisper:SetPoint("BOTTOMLEFT", 10, 10)
-    about.whisper:SetText(string.format(L["Whisper %s"], AUTHOR.name))
-    about.whisper:SetScript("OnClick", ns.WhisperAuthor)
-    about.copy = UI.Button(about, 110, 22, "ghost")
-    about.copy:SetPoint("LEFT", about.whisper, "RIGHT", 6, 0)
-    about.copy:SetText(L["Copy BattleTag"])
-    about.copy:SetScript("OnClick", ns.ShowCopyBattleTag)
-    about.note = UI.Text(about, 8, "dim")
-    about.note:SetPoint("BOTTOMRIGHT", -12, 17)
-    about.note:SetText(L["Bugs & ideas: CurseForge"])
-    p.about = about
-
-    -- quick settings: the toggles people look for most, plus the full options page
-    local qs = UI.Card(v, W, 44)
-    qs:SetPoint("TOPLEFT", v, "TOPLEFT", 6, -390)
-    -- no section label: four buttons and the labels of other languages need the whole width
-    qs.toggles = {}
-    local prev
-    for _, t in ipairs({ { "arrow", L["Quest arrow"] }, { "partyChat", L["Party messages"] }, { "sound", L["Sound"] } }) do
-        local b = UI.Button(qs, 10, 22, "ghost")
-        b:SetText(t[2])
-        b:SetWidth((tonumber(b.label:GetStringWidth()) or 60) + 20)
-        if prev then b:SetPoint("LEFT", prev, "RIGHT", 6, 0) else b:SetPoint("LEFT", qs, "LEFT", 10, 0) end
-        b.key = t[1]
-        b:SetScript("OnClick", function(self) ns.SetOption(self.key, not ns.GetOption(self.key)) end)
-        qs.toggles[#qs.toggles + 1] = b
-        prev = b
-    end
-    local all = UI.Button(qs, 86, 22, "ghost")
-    all:SetPoint("RIGHT", -10, 0)
-    all:SetText(L["All options"])
-    all:SetWidth(math.max(70, (tonumber(all.label:GetStringWidth()) or 66) + 20))
-    all:SetScript("OnClick", function() ns.OpenOptions() end)
-    p.quickSettings = qs
-    function ns.RefreshQuickSettings()
-        for _, b in ipairs(qs.toggles) do b:SetKind(ns.GetOption(b.key) and "soft" or "ghost") end
-    end
-    ns.RefreshQuickSettings()
-end
-
-local function RefreshStats()
-    local active = 0
-    for _ in pairs(seeking) do active = active + 1 end
-    local values = { ns.OnlineCount(), DB.stats.quests, DB.stats.groups, active }
-    for i, t in ipairs(statTiles) do t.value:SetText(tostring(values[i] or 0)) end
-    local h = panel and panel.helpers
-    if h then
-        h.kudos:SetText(string.format(L["Your kudos %d"], tonumber(DB.kudos) or 0))
-        local top = ns.TopHelpers(5)
-        local max = 1
-        for _, e in ipairs(top) do if (e.score or 0) > max then max = e.score end end
-        for i, r in ipairs(VS.helperRows) do
-            local e = top[i]
-            local on = e ~= nil
-            for _, k in ipairs({ "rank", "name", "you", "bar", "score" }) do r[k]:SetShown(on) end
-            r.badge:SetShown(on)
-            if on then
-                r.rank:SetText(tostring(i))
-                r.badge:SetClass(e.class)
-                r.name:SetText(ClassColorName(e.name, e.class))
-                r.you:SetText(e.me and L["you"] or "")
-                r.bar:SetWidth(math.max(2, 150 * (e.score or 0) / max))
-                r.score:SetText(tostring(e.score or 0))
-            end
-        end
-        h.empty:SetShown(#top == 0)
-    end
-end
-
 
 ---------------------------------------------------------------------------
 -- Zones tab: quests you can pick up now, grouped by the zone you get them in
@@ -5536,7 +5518,9 @@ local function Row(i)
     r.nav.icon:SetTexture("Interface\\AddOns\\Questynator\\Media\\NavArrow")
     r.nav.icon:SetVertexColor(UI.C.accent[1], UI.C.accent[2], UI.C.accent[3])
     r.nav:SetScript("OnClick", function()
-        if r.e then ns.Waypoint(r.e.area, r.e.x, r.e.y, r.e.giver .. " - " .. r.e.name) end
+        if r.e then
+            ns.Waypoint(r.e.area, r.e.x, r.e.y, r.e.giver .. " - " .. r.e.name, nil, { questID = r.e.questID, who = r.e.giver })
+        end
     end)
     Tip(r.nav, L["Click to set a waypoint"])
     r.btn:ClearAllPoints()
@@ -5852,7 +5836,9 @@ local function Row(i)
     r.btn:SetMotionScriptsWhileDisabled(true)
     r.btn:SetScript("OnClick", function()
         local e = r.e
-        if e and e.area then ns.Waypoint(e.area, e.x, e.y, (e.giver or "") .. " - " .. (e.questName or "")) end
+        if e and e.area then
+            ns.Waypoint(e.area, e.x, e.y, (e.giver or "") .. " - " .. (e.questName or ""), nil, { questID = e.step, who = e.giver })
+        end
     end)
     r.name = UI.Text(r, 12, "gold", nil, "medium")
     r.name:SetPoint("TOPLEFT", r.icon, "TOPRIGHT", 12, 1)
@@ -6003,7 +5989,6 @@ function Tabs.Render(tab)
     elseif tab == 4 then Tabs.counts[4] = ns.RefreshDungeons()
     elseif tab == 5 then ns.RefreshZones()
     elseif tab == 6 then Tabs.counts[6] = ns.RefreshTreasures()
-    elseif tab == 7 then RefreshStats()
     elseif tab == 8 then ns.RefreshRewardHunting() end
 end
 
@@ -6021,9 +6006,7 @@ local function RefreshPanel(tick)
     if panel.dungeonsView then panel.dungeonsView:SetShown(tab == 4) end
     if panel.zonesView then panel.zonesView:SetShown(tab == 5) end
     if panel.treasuresView then panel.treasuresView:SetShown(tab == 6) end
-    panel.statsView:SetShown(tab == 7)
     panel.rewardView:SetShown(tab == 8)
-    if panel.statsBtn then panel.statsBtn:SetActive(tab == 7) end
 
     if tick == true and Tabs.tick[tab] then Tabs.dirty[tab] = true end
     local rendered = Tabs.dirty[tab] and tab or nil
@@ -6065,6 +6048,12 @@ local function RefreshPanel(tick)
     if online > 0 then status = status .. "  |cff5b606b·|r  " .. string.format(L["%d users online"], online) end
     footer:SetText(status)
     stopAll:SetShown(active > 0)
+    local made = panel.madeBy
+    if made then
+        made:ClearAllPoints()
+        if active > 0 then made:SetPoint("RIGHT", stopAll, "LEFT", -10, 0)
+        else made:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -16, 8) end
+    end
 end
 
 local function MakeScroll(parent, width)
@@ -6120,35 +6109,30 @@ local function CreatePanel()
     close:SetScript("OnClick", function() p:Hide() end)
     p.CloseButton = close
 
-    -- Stats, About and quick settings live behind a small chart icon (the tab row is full)
-    local sb = CreateFrame("Button", nil, p)
-    sb:SetSize(24, 24)
-    sb:SetPoint("RIGHT", close, "LEFT", -4, 0)
-    sb.bars = {}
-    for i, h in ipairs({ 6, 11, 8 }) do
-        local t = sb:CreateTexture(nil, "ARTWORK")
-        t:SetSize(3, h)
-        t:SetPoint("BOTTOMLEFT", sb, "BOTTOMLEFT", 6 + (i - 1) * 5, 6)
-        sb.bars[i] = t
-    end
-    function sb:SetActive(on)
-        self.active = on and true or false
-        local c = on and C.accent or (self.hover and C.text or C.muted)
-        for _, t in ipairs(self.bars) do t:SetColorTexture(c[1], c[2], c[3], 1) end
-    end
-    sb:SetScript("OnEnter", function(self)
-        self.hover = true; self:SetActive(self.active)
+    -- a gear: Questynator's page under Options > AddOns
+    local gear = CreateFrame("Button", nil, p)
+    gear:SetSize(24, 24)
+    gear:SetPoint("RIGHT", close, "LEFT", -4, 0)
+    gear.icon = gear:CreateTexture(nil, "ARTWORK")
+    gear.icon:SetTexture("Interface\\AddOns\\Questynator\\Media\\Gear")
+    gear.icon:SetSize(15, 15)
+    gear.icon:SetPoint("CENTER")
+    gear.icon:SetVertexColor(C.muted[1], C.muted[2], C.muted[3], 1)
+    gear:SetScript("OnEnter", function(self)
+        self.icon:SetVertexColor(C.accent[1], C.accent[2], C.accent[3], 1)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-        GameTooltip:AddLine(L["Stats"], 1, 1, 1)
-        GameTooltip:AddLine(L["Stats, top helpers, about and settings"], 0.7, 0.7, 0.7)
+        GameTooltip:AddLine(L["Options"], 1, 1, 1)
+        GameTooltip:AddLine(L["Opens Questynator under Options > AddOns."], 0.7, 0.7, 0.7)
         GameTooltip:Show()
     end)
-    sb:SetScript("OnLeave", function(self) self.hover = false; self:SetActive(self.active); GameTooltip:Hide() end)
-    sb:SetScript("OnClick", function() ns.SelectTab(7) end)
-    sb:SetActive(false)
-    p.statsBtn = sb
+    gear:SetScript("OnLeave", function(self)
+        self.icon:SetVertexColor(C.muted[1], C.muted[2], C.muted[3], 1)
+        GameTooltip:Hide()
+    end)
+    gear:SetScript("OnClick", function() ns.OpenOptions() end)
+    p.optionsBtn = gear
     p.host = ns.MakeHostButton(p)
-    p.host:SetPoint("RIGHT", sb, "LEFT", -10, 0)
+    p.host:SetPoint("RIGHT", gear, "LEFT", -10, 0)
 
     -- Quest log rewards (hover for the full breakdown) + thin XP bar. They sit at the bottom of the
     -- Quests tab's route column, built after it (BuildRewards is called from the Quests tab below).
@@ -6314,7 +6298,6 @@ local function CreatePanel()
     ns.BuildZonesView(p, inset)
     ns.BuildTreasuresView(p, inset)
     ns.BuildRewardHunting(p, inset)
-    ns.BuildStatsView(p, inset)
 
     -- footer: status + Stop all
     local foot = p:CreateTexture(nil, "ARTWORK")
@@ -6330,6 +6313,20 @@ local function CreatePanel()
     stopAll:SetScript("OnClick", function()
         for questID in pairs(seeking) do ns.Stop(questID, "search cancelled") end
     end)
+    -- about, in one line: who made it; click to copy the BattleTag
+    local made = CreateFrame("Button", nil, p)
+    made.text = UI.Text(made, 10, "dim")
+    made.text:SetPoint("RIGHT", 0, 0)
+    made.text:SetText(string.format(L["Made by %s"], "|cffa3abb5" .. AUTHOR.battletag .. "|r"))
+    made:SetSize((tonumber(made.text:GetStringWidth()) or 120) + 4, 18)
+    made:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:AddLine(L["Copy BattleTag"], 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    made:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    made:SetScript("OnClick", function() ns.ShowCopyBattleTag() end)
+    p.madeBy = made
 
     -- tick once a second: while searching (timers, the prompt) or on the Groups tab, refresh the
     -- visible tab and the cheap shared parts; dungeon listings that time out drop off even when idle
@@ -6352,7 +6349,6 @@ function ns.SelectTab(i)
     if not panel then return end
     panel.selectedTab = i
     for _, tab in ipairs(panel.Tabs or {}) do tab:SetActive(tab:GetID() == i) end
-    if panel.statsBtn then panel.statsBtn:SetActive(i == 7) end
     Tabs.dirty[i] = true                         -- hidden tabs may be stale: build it now it's shown
     RefreshPanel(true)
 end
@@ -6360,7 +6356,6 @@ end
 function ns.TabState()
     local st = { selected = panel and panel.selectedTab or 1, active = {} }
     for _, tab in ipairs(panel and panel.Tabs or {}) do st.active[tab:GetID()] = tab.active end
-    if panel and panel.statsBtn then st.active[7] = panel.statsBtn.active end
     return st
 end
 
@@ -8267,6 +8262,20 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Starter guides: quest guides for all seven starting areas (Northshire, Coldridge Valley, Shadowglen, Valley of Trials, Camp Narache, Deathknell and Zephras Isle), levels 1 to 6.",
+        "A new character is offered the guide for its starting area. You can also pick another starting area, or open the guides any time with /qn guide.",
+        "The guide leads the Route Planner through every quest in order: pickups, objectives and turn-ins, including your class quests. It's named in the planner with a Stop button, and the normal route takes over when the guide ends.",
+        "New Route Planner look: the current task is a card with the quest badge, what to do and how far, level and XP, and Pin and Snooze. The next tasks sit under it; click one to mark it on the map. A running guide shows its trips as a bar. A Guides button opens the starter guides while you're level 10 or lower.",
+        "The Stats tab is gone. The gear icon at the top right opens Questynator's settings under Options > AddOns, and the bottom line says Made by Valacas#21304 (click it to copy the BattleTag).",
+        "A map pin you set with Questynator now shows the quest on the in-world waypoint: Pickup, Objective or Turn in, who to see, and your objectives, instead of just \"Map pin\".",
+        "A pin you set on a route step moves on to the next step by itself once that step is done.",
+        "The in-world waypoint fades out when you reach the spot, so it no longer covers the NPC or object. It fades back in if you walk away.",
+        "In combat the in-world waypoint fades to 10%, so it doesn't cover the fight, and comes back when combat ends.",
+        "Starting a guide, a reward pursuit or a dungeon prep route no longer puts a pin on your map; the in-world waypoint shows the stop. Pin on map still places one when you want it.",
+        "Fixed a blocked-action error when you pick Use Questynator's in the WaypointUI prompt, and WaypointUI now really stays off after the reload.",
+        "The \"Two world pins are on\" prompt is asked once instead of after every reload. Options > Choose one still opens it.",
+    } },
+    { v = "1.6.9", lines = {
         "The in-world waypoint is rebuilt. Far away, a dashed beam rises to a badge with the quest, distance and time. Under 100 yards, a card over the target shows what to do and your objectives. When the spot is off screen, the badge circles the middle of your screen and points the way.",
         "New animations: a new stop drops in and its beam unrolls, the card slides up, and the modes fade into each other.",
         "The waypoint also shows the quest you select in the tracker (its turn-in NPC once it's ready) and map pins you place yourself. Route stops no longer put a pin on your world map.",
@@ -8787,6 +8796,7 @@ SlashCmdList.QUESTYNATOR = function(msg)
         if not any then Print(L["Not searching"]) end
     elseif cmd == "" or cmd == "panel" then ns.TogglePanel()
     elseif cmd == "planner" then ns.SetOption("planner", not ns.GetOption("planner"))
+    elseif cmd == "guide" or cmd == "guides" then ns.ShowGuideChooser()
     elseif cmd == "snooze" then ns.SnoozeRouteStop(false)
     elseif cmd == "undo" then ns.SnoozeRouteStop(true)
     elseif cmd == "minimap" then ns.ToggleMinimap()
@@ -8816,7 +8826,7 @@ SlashCmdList.QUESTYNATOR = function(msg)
     elseif cmd == "online" then
         Print(string.format(L["Questynator users online: %d"], ns.OnlineCount()) .. " " .. L["(your realm and faction)"])
     else
-        Print("/qn (open the window) | planner | dungeons | arrow | thanks | partychat | about | minimap | chat | sound | online | stats | list | find <questID> | status | auto | probe [questID] | debug")
+        Print("/qn (open the window) | planner | guide | dungeons | arrow | thanks | partychat | about | minimap | chat | sound | online | stats | list | find <questID> | status | auto | probe [questID] | debug")
     end
 end
 
@@ -8920,6 +8930,7 @@ f:SetScript("OnEvent", function(_, event, ...)
     elseif event == "PLAYER_ENTERING_WORLD" then
         ns.StartSmartReminders()
         ns.StartInitialRoute(true)
+        if ns.GuideWorldEntry then pcall(ns.GuideWorldEntry) end
         -- join the hidden channel after the default channels, so General keeps its number
         if not ns.presenceStarted then
             ns.presenceStarted = true

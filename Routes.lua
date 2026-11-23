@@ -363,6 +363,20 @@ function ns.PlanRoute()
     UpdateVisit()
     local inst, wx, wy = PlayerWorld()
     local origin = { wInst = inst, wx = wx, wy = wy }
+    -- A starter guide you chose leads: only its current trip, in the guide's order of trips.
+    local guide = ns.ActiveGuide and ns.ActiveGuide()
+    if guide then
+        local tasks, trip, message = ns.GuideTasks(guide)
+        if tasks then
+            for _, task in ipairs(tasks) do
+                for _, place in ipairs(task.places) do PlaceDistance(place, inst, wx, wy) end
+            end
+            route = BuildStops(tasks, origin)
+            route.guide, route.guideTrip, route.guideTrips, route.message = guide.name, trip, #guide.trips, message
+            return
+        end
+        if route and route.guide then route = nil end      -- finished: plan the usual way below
+    end
     if QuestynatorPrepDungeon then
         local tasks, message = ns.PrepPickupTasks(QuestynatorPrepDungeon)
         if #tasks > 0 or message then
@@ -383,7 +397,7 @@ function ns.PlanRoute()
             QuestynatorRewardGoal = nil
         end
     end
-    if route and (route.reward or route.prep or route.travel) then route = nil end
+    if route and (route.reward or route.prep or route.travel or route.guide) then route = nil end
     if travel and inst then
         local zone = not ns.CurrentZoneMaps()[ns.UiMapForArea(travel)] and ZoneWork(inst, wx, wy)[travel]
         if zone then
@@ -409,6 +423,10 @@ end
 -- A route you started yourself, and its label for the planner. nil for ordinary leveling.
 function ns.RouteMode()
     if not route then return nil end
+    if route.guide then
+        return "guide", string.format(L["Guide: %s · trip %d of %d"], route.guide, route.guideTrip or route.guideTrips,
+            route.guideTrips)
+    end
     if route.prep then return "prep", string.format(L["Dungeon prep: %s"], route.prep) end
     if route.reward then return "reward", string.format(L["Reward: %s"], route.reward) end
     if route.travel then return "travel", string.format(L["Traveling to %s"], route.travel) end
@@ -422,16 +440,18 @@ end
 
 function ns.TravelToZone(area)
     travel = area
+    if area and ns.ActiveGuide() then ns.SetActiveGuide(nil) end
     ns.PlanRoute()
     RouteChanged()
     local target = travel and ns.RouteTarget()
     if target then ns.Waypoint(target.area, target.x, target.y, target.title, TrackedQuest() ~= nil) end
 end
 
--- The planner's Stop button: end the dungeon prep, reward pursuit or zone trip shown in the planner.
+-- The planner's Stop button: end the starter guide, dungeon prep, reward pursuit or zone trip shown in the planner.
 function ns.StopRouteMode()
     local mode = ns.RouteMode()
-    if mode == "prep" then ns.SetDungeonPrepRoute(nil)
+    if mode == "guide" then ns.SetGuide(nil)
+    elseif mode == "prep" then ns.SetDungeonPrepRoute(nil)
     elseif mode == "reward" then ns.SetRewardPursuit(nil)
     elseif mode == "travel" then ns.TravelToZone(nil) end
 end
@@ -486,6 +506,9 @@ function ns.QueueRouteReplan(turnedInID)
 end
 
 local function RouteTaskDone(task)
+    if task.loot then
+        return ns.QuestLogIndex(task.questID) ~= nil or ns.QuestState(task.questID) == "done"
+    end
     if task.pickup then
         return ns.QuestState(task.questID) ~= "available" or (C_QuestLog.IsQuestLogFull and C_QuestLog.IsQuestLogFull())
     end
@@ -552,6 +575,7 @@ function ns.UpdateRoute()
         if not stop then ns.QueueRouteReplan() end
     end
     ReorderRoute()
+    ns.FollowRoutePin()
 end
 
 function ns.RouteTarget()
@@ -623,32 +647,83 @@ function ns.SnoozeRouteStop(undo)
     ns.RequestRefresh()
 end
 
-local function MarkPlace(place, title)
+-- Pin a place; questID lets the in-world waypoint say what to do there (pick up, objective, turn in).
+-- A route pin follows the route (FollowPin); quiet moves it without a chat line.
+local function MarkPlace(place, title, questID, quiet)
     if place then
-        ns.Waypoint(place.area, place.x, place.y, title, TrackedQuest() ~= nil)
+        ns.Waypoint(place.area, place.x, place.y, title, TrackedQuest() ~= nil,
+            { questID = questID or place.questID, who = place.name, route = true, quiet = quiet })
     end
 end
 
+local function NearPin(place, pin)
+    return place and place.uiMap == pin.uiMap and math.abs(place.x - pin.x) < 0.5 and math.abs(place.y - pin.y) < 0.5
+end
+
+-- A pin you set on a route step moves on with the route: once its step is done, it goes to the step
+-- you're on now. Pinned a later step? It waits there. Removed or moved the pin? It stays as you left it.
+local function FollowPin()
+    local db = ns.DB and ns.DB()
+    local pin = db and db.pinInfo
+    if not (pin and pin.route and C_Map and C_Map.GetUserWaypoint) then return end
+    local w = C_Map.GetUserWaypoint()
+    if not (w and w.position and w.uiMapID == pin.uiMap and math.abs(w.position.x * 100 - pin.x) < 0.5
+        and math.abs(w.position.y * 100 - pin.y) < 0.5) then return end
+    local stop = route and not route.paused and route.stops[route.index]
+    if not stop then return end
+    local other
+    for i = route.index, #route.stops do
+        for _, task in ipairs(route.stops[i].tasks) do
+            if not RouteTaskDone(task) and NearPin(task.destination, pin) then
+                if task.questID == pin.questID then return end            -- the pinned step is still ahead
+                other = other or task
+            end
+        end
+    end
+    if other then                                                         -- same spot, the next task there
+        pin.questID, pin.title, pin.who = other.questID, other.title, other.destination.name
+        return
+    end
+    for _, task in ipairs(stop.tasks) do
+        if not RouteTaskDone(task) then MarkPlace(task.destination, task.title, task.questID, true); return end
+    end
+end
+ns.FollowRoutePin = FollowPin
+
+-- Start a starter guide (nil stops it). One route mode at a time: it ends prep, reward and zone trips.
+-- Starting a route mode (guide, reward, prep) places no map pin: the in-world marker already shows
+-- each stop, and a pin would take its place. Pin on map is still there for when you want one.
+function ns.SetGuide(id)
+    if id then QuestynatorPrepDungeon, QuestynatorRewardGoal, travel = nil, nil, nil end
+    ns.SetActiveGuide(id)
+    ns.PlanRoute()
+    ns.ArrowUndismiss()
+    ns.ArrowRefresh()
+    ns.RequestRefresh()
+end
+
 function ns.SetRewardPursuit(item)
-    if item then QuestynatorPrepDungeon, travel = nil, nil end
+    if item then
+        QuestynatorPrepDungeon, travel = nil, nil
+        if ns.ActiveGuide() then ns.SetActiveGuide(nil) end
+    end
     QuestynatorRewardGoal = item
     ns.PlanRoute()
     ns.ArrowUndismiss()
     ns.ArrowRefresh()
     ns.RequestRefresh()
-    local target = item and ns.RouteTarget()
-    if target then MarkPlace(target, target.title) end
 end
 
 function ns.SetDungeonPrepRoute(id)
     QuestynatorPrepDungeon = id
-    if id then travel = nil end
+    if id then
+        travel = nil
+        if ns.ActiveGuide() then ns.SetActiveGuide(nil) end
+    end
     ns.PlanRoute()
     ns.ArrowUndismiss()
     ns.ArrowRefresh()
     ns.RequestRefresh()
-    local target = QuestynatorPrepDungeon and ns.RouteTarget()
-    if target then MarkPlace(target, target.title) end
 end
 
 -- The Quests tab's left column: the route as a timeline with the current stop as a card on top,
@@ -756,6 +831,10 @@ local function StopDestination(stop)
 end
 
 local function RouteTaskText(task)
+    if task.loot then
+        local from = task.destination or task.places[1]
+        return string.format(L["Loot %s from %s"], task.loot, from.name)
+    end
     if task.pickup then
         return string.format(L["Pick up %s from %s"], task.title, task.places[1].name)
     end
@@ -835,143 +914,234 @@ function ns.RouteTaskDetail(task, yards)
     return table.concat(parts, SEP)
 end
 
+-- The floating Route Planner (style A): a header, the route mode with Stop (a guide also shows its trips
+-- as a segmented bar), the current task as a card with a quest badge, the next tasks under "Then", and
+-- a footer with More, Undo and Host LFG.
 local planner
+local PLANNER_W, PAD, MAX_SEGS = 320, 12, 14
 
-local function PlannerRow(i)
+-- what the card says about a task: the verb with the distance, the quest, and who or what
+local function TaskParts(task)
+    local where = task.destination or task.places[1]
+    if task.loot then return "pickup", L["Loot"], task.title, string.format(L["%s from %s"], task.loot, where.name) end
+    if task.pickup then return "pickup", L["Pick up"], task.title, where.name end
+    if task.delivery then return "objective", L["Deliver"], task.title, where.name end
+    if not task.index then return "turnin", L["Turn in"], task.title, where.name end
+    return "objective", L["Objective"], task.title, RouteTaskText(task)
+end
+
+local function ThenRow(i)
     local row = planner.rows[i]
     if row then return row end
-    row = CreateFrame("Frame", nil, planner)
-    row:SetWidth(planner:GetWidth() - 24)
-    row.pin = ns.UI.Button(row, 91, 20, "outline")
-    row.pin:SetPoint("TOPRIGHT")
-    row.pin.tip = L["Mark on map"]
-    row.pin:SetScript("OnEnter", ns.UI.ShowTip)
-    row.pin:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    row.pin:SetScript("OnClick", function()
-        local task = row.task
-        if task and not RouteTaskDone(task) then MarkPlace(task.destination, task.title) end
-    end)
-    row.text = ns.UI.Text(row, i == 1 and 13 or 11, i == 1 and "text" or "muted")
-    row.text:SetPoint("TOPLEFT", 0, -3)
-    row.text:SetWidth(row:GetWidth() - row.pin:GetWidth() - 8)
+    row = CreateFrame("Button", nil, planner)
+    row:SetSize(PLANNER_W - 2 * PAD - 10, 30)
+    row.dist = ns.UI.Text(row, 10, "muted", nil, "medium")
+    row.dist:SetPoint("TOPLEFT", 0, 0)
+    row.dist:SetJustifyH("LEFT")
+    row.text = ns.UI.Text(row, 11, "text")
+    row.text:SetPoint("TOPLEFT", row.dist, "BOTTOMLEFT", 0, -1)
+    row.text:SetWidth(PLANNER_W - 2 * PAD - 10)
     row.text:SetJustifyH("LEFT")
-    row.detail = ns.UI.Text(row, 10, "muted")
-    row.detail:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -2)
-    row.detail:SetWidth(row:GetWidth() - row.pin:GetWidth() - 8)
-    row.detail:SetJustifyH("LEFT")
+    row.tip = L["Mark on map"]
+    row:SetScript("OnEnter", ns.UI.ShowTip)
+    row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    row:SetScript("OnClick", function(self)
+        local task = self.task
+        if task and not RouteTaskDone(task) then MarkPlace(task.destination, task.title, task.questID) end
+    end)
     planner.rows[i] = row
     return row
 end
+
+local function LineHeight(fs, least) return math.max(least or 0, math.ceil(tonumber(fs:GetStringHeight()) or 12)) end
 
 function ns.RefreshPlanner()
     if not planner or not planner:IsShown() then return end
     local stop = route and route.stops[route.index]
     local selected, selectedIndex = TrackedQuest()
     planner.resume = stop and (selectedIndex or route.paused)
-    planner.plan:SetText(planner.resume and L["Resume route"] or (stop and L["Pause"] or L["Replan"]))
-    local heading = L["Waiting for quest and map data"]
-    local _, mode = ns.RouteMode()
+    planner.plan:SetText(planner.resume and L["Resume"] or (stop and L["Pause"] or L["Replan"]))
+    local kind, mode = ns.RouteMode()
     local suggest = ns.RouteSuggestion()
-    local context = mode or ""
-    if stop then
-        context = mode or string.format(L["Stop %d of %d"], route.index, #route.stops)
-        local yards = ns.ArrowGeometry(stop.target).yards
-        if yards then context = context .. " · " .. string.format(L["%d yd"], math.floor(yards + 0.5)) end
-        heading = StopDestination(stop)
-        if selectedIndex then
-            context = L["Selected quest"] .. " · " .. QuestTitle(selected)
-            heading = L["Up next when you resume"] .. " · " .. heading
-        elseif route.paused then
-            context = L["Route paused"] .. " · " .. context
-        end
-    elseif route then
-        heading = route.message or (QuestynatorRouteSnoozes and L["No other stops found. Undo snooze to restore a stop."])
-            or (suggest and string.format(L["Nothing left here for level %d"], UnitLevel("player") or 1))
-            or L["No eligible pickups or known quest stops in this zone."]
-    end
-    -- Dungeon prep, reward pursuit and zone trips are routes you started; Stop ends them right here.
+    local inner = PLANNER_W - 2 * PAD
+    local top = 36
+
+    -- the route mode you started, with Stop; a guide's trips as segments
     local stoppable = mode ~= nil and not (stop and selectedIndex)
-    local top = 31
+    planner.mode:SetShown(mode ~= nil)
     planner.stopMode:SetShown(stoppable)
-    if context ~= "" then
-        planner.context:SetWidth(planner:GetWidth() - 24 - (stoppable and 62 or 0))
+    local segs = 0
+    if mode then
+        local label = mode
+        if kind == "guide" then label = string.format(L["Guide · %s"], route.guide) end
+        planner.mode:SetText(label)
+        planner.mode:SetWidth(inner - (stoppable and 60 or 0))
+        planner.mode:SetPoint("TOPLEFT", PAD, -top)
+        planner.stopMode:SetPoint("TOPRIGHT", -PAD, -top + 2)
+        top = top + math.max(LineHeight(planner.mode), 18) + 4
+        if kind == "guide" and route.guideTrips then
+            segs = math.min(route.guideTrips, MAX_SEGS)
+            local current = math.min(route.guideTrip or segs, segs)
+            local gap = 3
+            local width = (inner - gap * (segs - 1)) / segs
+            for i = 1, segs do
+                local seg = planner.segs[i]
+                seg:ClearAllPoints()
+                seg:SetPoint("TOPLEFT", PAD + (i - 1) * (width + gap), -top)
+                seg:SetSize(width, 4)
+                local c = i <= current and ns.UI.C.accent or ns.UI.C.line
+                seg:SetColorTexture(c[1], c[2], c[3], i == current and 0.55 or 1)
+                seg:Show()
+            end
+            top = top + 12
+        end
+    end
+    for i = segs + 1, MAX_SEGS do planner.segs[i]:Hide() end
+
+    -- paused, or a quest picked in the tracker; plain leveling shows its stop count
+    local context
+    if stop and selectedIndex then context = L["Selected quest"] .. " · " .. QuestTitle(selected)
+    elseif stop and route.paused then context = L["Route paused"]
+    elseif stop and not mode then context = string.format(L["Stop %d of %d"], route.index, #route.stops) end
+    planner.context:SetShown(context ~= nil)
+    if context then
         planner.context:SetText(context)
-        planner.context:Show()
-        planner.stopMode:SetPoint("TOPRIGHT", -12, -top + 3)
-        top = top + math.max(math.ceil(planner.context:GetStringHeight()), stoppable and 18 or 0) + 3
-    else
-        planner.context:Hide()
+        planner.context:SetPoint("TOPLEFT", PAD, -top)
+        top = top + LineHeight(planner.context) + 5
     end
-    planner.heading:SetText(heading)
-    planner.heading:SetPoint("TOPLEFT", 12, -top)
-    top = top + math.ceil(planner.heading:GetStringHeight()) + 4
-    planner.suggest:SetShown(suggest ~= nil)
-    planner.travel:SetShown(suggest ~= nil)
-    planner.zones:SetShown(suggest ~= nil)
-    if suggest then
-        planner.suggest:SetText(string.format(L["Best next: %s"], suggest.name) .. " · " .. SuggestionCounts(suggest))
-        planner.suggest:SetPoint("TOPLEFT", 12, -top)
-        top = top + math.ceil(planner.suggest:GetStringHeight()) + 6
-        planner.travel.area = suggest.area
-        planner.travel:SetPoint("TOPLEFT", 12, -top)
-        planner.zones:SetPoint("LEFT", planner.travel, "RIGHT", 6, 0)
-        top = top + 24
-    end
-    local used, total = 0, 0
-    local limit = ns.DB().plannerExpanded and 3 or 1
+
+    -- the card: the current task, or what to do when there is none
+    local card = planner.card
+    local pending = {}
     if stop then
         for i = route.index, #route.stops do
             for _, task in ipairs(route.stops[i].tasks) do
-                if not RouteTaskDone(task) then
-                    total = total + 1
-                    if used < limit then
-                    used = used + 1
-                    local row = PlannerRow(used)
-                    row.task = task
-                    row.pin:SetText(ns.PinLabel(task.pickup, task.index or task.delivery))
-                    local label = RouteTaskText(task)
-                    local yards
-                    if i > route.index then
-                        label = string.format(L["Up next: %s"], label)
-                        yards = task.destination and ns.ArrowGeometry(task.destination).yards
-                    end
-                    row.text:SetText(label)
-                    local detail = ns.RouteTaskDetail(task, yards)
-                    row.detail:SetText(detail)
-                    row.detail:SetShown(detail ~= "")
-                    row:SetPoint("TOPLEFT", 12, -top)
-                    local height = 3 + math.ceil(row.text:GetStringHeight())
-                    if detail ~= "" then height = height + 2 + math.ceil(row.detail:GetStringHeight()) end
-                    row:SetHeight(math.max(20, height))
-                    row:Show()
-                    top = top + row:GetHeight() + 2
-                    end
-                end
+                if not RouteTaskDone(task) then pending[#pending + 1] = { task = task, stop = i } end
             end
-            if total > limit then break end
         end
     end
-    for i = used + 1, #planner.rows do
+    local first = pending[1] and pending[1].task or (stop and stop.tasks[1])
+    local cy = 10
+    local function Place(fs, x, width, gap)
+        fs:ClearAllPoints()
+        fs:SetPoint("TOPLEFT", card, "TOPLEFT", x, -cy)
+        fs:SetWidth(width)
+        fs:Show()
+        cy = cy + LineHeight(fs) + (gap or 2)
+    end
+    for _, w in ipairs({ card.badge, card.kind, card.sub, card.detail, card.suggest, card.pin, card.snooze,
+                         planner.travel, planner.zones }) do w:Hide() end
+    if first then
+        local badge, verb, title, sub = TaskParts(first)
+        ns.SetQuestBadge(card.badge, badge)
+        card.badge:Show()
+        local yards = ns.ArrowGeometry(stop.target).yards
+        card.kind:SetText(yards and (verb .. " · " .. string.format(L["%d yd"], math.floor(yards + 0.5))) or verb)
+        Place(card.kind, 48, inner - 58, 1)
+        card.title:SetText(title)
+        Place(card.title, 48, inner - 58, 1)
+        card.sub:SetText(sub or "")
+        Place(card.sub, 48, inner - 58, 6)
+        cy = math.max(cy, 46)
+        local detail = ns.RouteTaskDetail(first)
+        card.detail:SetText(detail)
+        if detail ~= "" then Place(card.detail, 10, inner - 20, 8) end
+        card.pin:SetText(ns.PinLabel(first.pickup, first.index or first.delivery))
+        card.pin:ClearAllPoints()
+        card.pin:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -cy)
+        card.pin:Show()
+        card.snooze:ClearAllPoints()
+        card.snooze:SetPoint("LEFT", card.pin, "RIGHT", 6, 0)
+        card.snooze:SetShown(not route.travel and not route.guide)
+        cy = cy + 30
+        card:SetAlpha((route.paused or selectedIndex) and 0.6 or 1)
+    else
+        card:SetAlpha(1)
+        local heading = L["Waiting for quest and map data"]
+        if route then
+            heading = route.message or (QuestynatorRouteSnoozes and L["No other stops found. Undo snooze to restore a stop."])
+                or (suggest and string.format(L["Nothing left here for level %d"], UnitLevel("player") or 1))
+                or L["No eligible pickups or known quest stops in this zone."]
+        end
+        card.title:SetText(heading)
+        Place(card.title, 10, inner - 20, 4)
+        if suggest then
+            card.suggest:SetText(string.format(L["Best next: %s"], suggest.name) .. " · " .. SuggestionCounts(suggest))
+            Place(card.suggest, 10, inner - 20, 8)
+            planner.travel.area = suggest.area
+            planner.travel:ClearAllPoints()
+            planner.travel:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -cy)
+            planner.travel:Show()
+            planner.zones:ClearAllPoints()
+            planner.zones:SetPoint("LEFT", planner.travel, "RIGHT", 6, 0)
+            planner.zones:Show()
+            cy = cy + 30
+        else
+            cy = cy + 6
+        end
+    end
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", PAD, -top)
+    card:SetSize(inner, cy)
+    top = top + cy + 10
+
+    -- then: the next tasks, the same stop first; click one to mark it on the map
+    local limit = ns.DB().plannerExpanded and 4 or 2
+    local shown = 0
+    for n = 2, #pending do
+        if shown >= limit then break end
+        local entry = pending[n]
+        shown = shown + 1
+        local row = ThenRow(shown)
+        row.task = entry.task
+        local yards = entry.stop > route.index and entry.task.destination and ns.ArrowGeometry(entry.task.destination).yards
+        local label = entry.stop == route.index and L["Same stop"] or L["Then"]
+        row.dist:SetText(yards and (label .. " · " .. string.format(L["%d yd"], math.floor(yards + 0.5))) or label)
+        row.text:SetText(RouteTaskText(entry.task))
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", PAD + 10, -top)
+        local h = LineHeight(row.dist) + 1 + LineHeight(row.text)
+        row:SetHeight(h)
+        row:Show()
+        top = top + h + 6
+    end
+    for i = shown + 1, #planner.rows do
         planner.rows[i].task = nil
         planner.rows[i]:Hide()
     end
+    planner.thenRule:SetShown(shown > 0)
+    if shown > 0 then
+        planner.thenRule:ClearAllPoints()
+        planner.thenRule:SetPoint("TOPLEFT", planner.rows[1], "TOPLEFT", -10, 0)
+        planner.thenRule:SetPoint("BOTTOMLEFT", planner.rows[shown], "BOTTOMLEFT", -10, 0)
+        top = top + 4
+    end
+
+    -- footer: More or Less, Undo snooze, Host LFG
+    local more = #pending - 1 > 2
     planner.expand:SetText(ns.DB().plannerExpanded and L["Less"] or L["More"])
-    planner.expand:SetShown(total > 1 or stop ~= nil)
-    planner.expand:SetPoint("TOPLEFT", 12, -top)
-    planner.snooze:SetShown(stop ~= nil and not route.travel and ns.DB().plannerExpanded == true)
+    planner.expand:SetShown(more)
+    planner.expand:ClearAllPoints()
+    planner.expand:SetPoint("TOPLEFT", PAD, -top)
     planner.undo:SetShown(QuestynatorRouteSnoozes ~= nil)
-    planner.snooze:SetPoint("TOPLEFT", 72, -top)
-    planner.undo:SetPoint("TOPLEFT", stop and (ns.DB().plannerExpanded and 175 or 72) or 12, -top)
+    planner.undo:ClearAllPoints()
+    planner.undo:SetPoint("TOPLEFT", PAD + (more and 60 or 0), -top)
     local hosted, hostContext = ns.PaintHostButton(planner.host)
-    planner.host:SetPoint("TOPRIGHT", -12, -top)
-    top = top + 23
+    planner.host:ClearAllPoints()
+    planner.host:SetPoint("TOPRIGHT", -PAD, -top)
+    -- the starter guides, while they still fit your level (or one is running)
+    local guides = ns.ShowGuideChooser and ((UnitLevel("player") or 1) <= 10 or kind == "guide")
+    planner.guides:SetShown(guides)
+    planner.guides:ClearAllPoints()
+    planner.guides:SetPoint("RIGHT", planner.host, "LEFT", -6, 0)
+    top = top + 26
     planner.hosting:SetShown(hosted ~= nil)
     if hosted then
-        planner.hosting:SetPoint("TOPLEFT", 12, -top)
+        planner.hosting:SetPoint("TOPLEFT", PAD, -top)
         planner.hosting:SetText(string.format(L["Hosting: %s"], hostContext))
-        top = top + math.ceil(planner.hosting:GetStringHeight()) + 2
+        top = top + LineHeight(planner.hosting) + 2
     end
-    planner:SetHeight(top + 6)
+    planner:SetHeight(top + 8)
 end
 
 function ns.ShowPlanner(shown)
@@ -981,8 +1151,15 @@ function ns.ShowPlanner(shown)
         return
     end
     if not planner then
-        planner = ns.UI.Window("QuestynatorPlanner", 360, 34)
-        planner.TitleText:SetText("Questynator : Route Planner")
+        local UI = ns.UI
+        planner = UI.Window("QuestynatorPlanner", PLANNER_W, 34)
+        planner.logo = planner:CreateTexture(nil, "ARTWORK")
+        planner.logo:SetTexture("Interface\\AddOns\\Questynator\\Media\\Icon")
+        planner.logo:SetSize(16, 16)
+        planner.logo:SetPoint("TOPLEFT", PAD, -9)
+        planner.TitleText:ClearAllPoints()
+        planner.TitleText:SetPoint("LEFT", planner.logo, "RIGHT", 6, 0)
+        planner.TitleText:SetText(L["Route Planner"])
         planner:SetClampedToScreen(true)
         planner:SetMovable(true)
         planner:EnableMouse(true)
@@ -997,8 +1174,8 @@ function ns.ShowPlanner(shown)
         if pos then planner:SetPoint(pos[1], UIParent, pos[2], pos[3], pos[4])
         else planner:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 24, -180) end
         planner.CloseButton:SetScript("OnClick", function() ns.SetOption("planner", false) end)
-        planner.plan = ns.UI.Button(planner, 110, 20, "outline")
-        planner.plan:SetPoint("RIGHT", planner.CloseButton, "LEFT", -6, 0)
+        planner.plan = UI.Button(planner, 64, 20, "ghost")
+        planner.plan:SetPoint("RIGHT", planner.CloseButton, "LEFT", -4, 0)
         planner.plan:SetScript("OnClick", function()
             if planner.resume then
                 local _, selectedIndex = TrackedQuest()
@@ -1013,51 +1190,83 @@ function ns.ShowPlanner(shown)
             ns.ArrowRefresh()
             RefreshPanel()
         end)
-        planner.context = ns.UI.Text(planner, 10, "accent", nil, "medium")
-        planner.context:SetPoint("TOPLEFT", 12, -31)
-        planner.context:SetWidth(planner:GetWidth() - 24)
-        planner.context:SetJustifyH("LEFT")
-        planner.heading = ns.UI.Text(planner, 13, "text", nil, "bold")
-        planner.heading:SetPoint("TOPLEFT", 12, -30)
-        planner.heading:SetWidth(planner:GetWidth() - 24)
-        planner.heading:SetJustifyH("LEFT")
-        planner.stopMode = ns.UI.Button(planner, 56, 18, "outline")
+        planner.mode = UI.Text(planner, 11, "accent", nil, "medium")
+        planner.mode:SetJustifyH("LEFT")
+        planner.stopMode = UI.Button(planner, 52, 18, "outline")
         planner.stopMode:SetText(L["Stop"])
         planner.stopMode:SetScript("OnClick", function() ns.StopRouteMode() end)
-        planner.suggest = ns.UI.Text(planner, 11, "text")
-        planner.suggest:SetWidth(planner:GetWidth() - 24)
-        planner.suggest:SetJustifyH("LEFT")
-        planner.travel = ns.UI.Button(planner, 104, 20, "primary")
+        planner.segs = {}
+        for i = 1, MAX_SEGS do
+            planner.segs[i] = planner:CreateTexture(nil, "ARTWORK")
+            planner.segs[i]:Hide()
+        end
+        planner.context = UI.Text(planner, 10, "accent", nil, "medium")
+        planner.context:SetWidth(PLANNER_W - 2 * PAD)
+        planner.context:SetJustifyH("LEFT")
+
+        local card = CreateFrame("Frame", nil, planner)
+        planner.card = card
+        UI.Flat(card, { 0.086, 0.137, 0.165, 1 }, { 0.17, 0.29, 0.3, 1 })
+        card.badge = ns.QuestBadge(card, 30)
+        card.badge:SetPoint("TOPLEFT", 10, -10)
+        card.kind = UI.Text(card, 10, "accent", nil, "medium")
+        card.title = UI.Text(card, 13, "text", nil, "bold")
+        card.sub = UI.Text(card, 11, "muted")
+        card.detail = UI.Text(card, 10, "muted")
+        card.suggest = UI.Text(card, 11, "text")
+        for _, fs in ipairs({ card.kind, card.title, card.sub, card.detail, card.suggest }) do fs:SetJustifyH("LEFT") end
+        card.pin = UI.Button(card, 96, 20, "primary")
+        card.pin:SetScript("OnClick", function()
+            local stop = route and route.stops[route.index]
+            if not stop then return end
+            for _, task in ipairs(stop.tasks) do
+                if not RouteTaskDone(task) then MarkPlace(task.destination, task.title, task.questID); return end
+            end
+            MarkPlace(stop.target, stop.target.title)
+        end)
+        card.snooze = UI.Button(card, 64, 20, "ghost")
+        card.snooze:SetText(L["Snooze"])
+        card.snooze.tip = L["Hide this stop until you leave the zone."]
+        card.snooze:SetScript("OnEnter", UI.ShowTip)
+        card.snooze:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        card.snooze:SetScript("OnClick", function() ns.SnoozeRouteStop(false) end)
+        planner.heading, planner.suggest = card.title, card.suggest
+        planner.travel = UI.Button(card, 100, 20, "primary")
         planner.travel:SetText(L["Route there"])
         planner.travel:SetScript("OnClick", function(self) ns.TravelToZone(self.area) end)
-        planner.zones = ns.UI.Button(planner, 98, 20, "outline")
+        planner.zones = UI.Button(card, 90, 20, "outline")
         planner.zones:SetText(L["Show zones"])
         planner.zones:SetScript("OnClick", function()
             ns.ShowPanel()
             ns.SelectTab(5)
         end)
-        planner.expand = ns.UI.Button(planner, 54, 20, "ghost")
+
+        planner.thenRule = planner:CreateTexture(nil, "ARTWORK")
+        planner.thenRule:SetWidth(1)
+        planner.thenRule:SetColorTexture(UI.C.line[1] + 0.08, UI.C.line[2] + 0.08, UI.C.line[3] + 0.08, 1)
+        planner.rows = {}
+
+        planner.expand = UI.Button(planner, 54, 20, "ghost")
         planner.expand:SetScript("OnClick", function()
             ns.DB().plannerExpanded = not ns.DB().plannerExpanded
             ns.RefreshPlanner()
         end)
-        planner.snooze = ns.UI.Button(planner, 98, 20, "outline")
-        planner.snooze:SetText(L["Snooze stop"])
-        planner.snooze.tip = L["Hide this stop until you leave the zone."]
-        planner.snooze:SetScript("OnEnter", ns.UI.ShowTip)
-        planner.snooze:SetScript("OnLeave", function() GameTooltip:Hide() end)
-        planner.snooze:SetScript("OnClick", function() ns.SnoozeRouteStop(false) end)
-        planner.undo = ns.UI.Button(planner, 64, 20, "outline")
+        planner.undo = UI.Button(planner, 64, 20, "outline")
         planner.undo:SetText(L["Undo"])
         planner.undo.tip = L["Undo snooze"]
-        planner.undo:SetScript("OnEnter", ns.UI.ShowTip)
+        planner.undo:SetScript("OnEnter", UI.ShowTip)
         planner.undo:SetScript("OnLeave", function() GameTooltip:Hide() end)
         planner.undo:SetScript("OnClick", function() ns.SnoozeRouteStop(true) end)
         planner.host = ns.MakeHostButton(planner)
-        planner.hosting = ns.UI.Text(planner, 11, "accent")
-        planner.hosting:SetWidth(planner:GetWidth() - 24)
+        planner.guides = UI.Button(planner, 64, 22, "ghost")
+        planner.guides:SetText(L["Guides"])
+        planner.guides.tip = L["Starter guides for the starting areas, levels 1 to 6."]
+        planner.guides:SetScript("OnEnter", UI.ShowTip)
+        planner.guides:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        planner.guides:SetScript("OnClick", function() ns.ShowGuideChooser() end)
+        planner.hosting = UI.Text(planner, 11, "accent")
+        planner.hosting:SetWidth(PLANNER_W - 2 * PAD)
         planner.hosting:SetJustifyH("LEFT")
-        planner.rows = {}
     end
     planner:Show()
     ns.RefreshPlanner()
@@ -1178,7 +1387,7 @@ function ns.RefreshRouteView(p)
         card.extra:SetText(table.concat(others, "\n"))
         if #others > 0 then Place(card.extra, 4) else card.extra:Hide() end
         cy = cy + 4
-        local snoozable = not route.reward and not route.travel
+        local snoozable = not route.reward and not route.travel and not route.guide
         card.pin:ClearAllPoints()
         card.pin:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -cy)
         card.snooze:SetShown(snoozable)
