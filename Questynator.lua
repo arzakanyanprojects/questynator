@@ -2107,7 +2107,7 @@ local online, lastHello, replyPending = {}, 0, false
 function ns.Version()
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local v = getMeta and getMeta(ADDON_NAME, "Version")
-    if type(v) ~= "string" or v == "" then v = "1.7.0" end
+    if type(v) ~= "string" or v == "" then v = "1.7.1" end
     return v
 end
 
@@ -7536,6 +7536,15 @@ end -- turn-in arrow
 ---------------------------------------------------------------------------
 -- id = AreaTable id (name comes from the game, in your language); entrance = zone, x, y
 local DUNGEONS = {
+    { id = 16919, min = 13, max = 20, zone = 1537, x = 43.5, y = 52.0, name = "Hall of Thanes" },
+    { id = 16611, min = 15, max = 22, zone = 85, x = 63.4, y = 67.4, name = "Ruins of Lordaeron" },
+    { id = 16732, min = 26, max = 33, zone = 11, x = 47.7, y = 56.2, name = "Excavation Site: Wetlands" },
+    { id = 16544, min = 28, max = 35, zone = 36, x = 8.5, y = 59.3, name = "City of Dalaran" },
+    { id = 16550, min = 35, max = 42, zone = 33, x = 21.4, y = 27.9, name = "The Drowned City" },
+    { id = 16842, min = 40, max = 47, zone = 16591, x = 37.5, y = 37.3, name = "Krol'dok Stronghold" },
+    { id = 16620, min = 48, max = 55, zone = 15, x = 75.3, y = 14.1, name = "Alcaz Prison" },
+    { id = 16554, min = 55, max = 60, zone = 16, x = 38.6, y = 33.2, name = "Blackmaw Hold" },
+    { id = 16667, min = 58, max = 60, zone = 490, x = 48.1, y = 6.1, name = "Shaper's Terrace" },
     { id = 2437, min = 13, max = 18, zone = 1637, x = 52.6, y = 49.0, name = "Ragefire Chasm", faction = "H" },   -- inside Orgrimmar
     { id = 718,  min = 15, max = 25, zone = 17,   x = 46.0, y = 36.5, name = "Wailing Caverns" },
     { id = 1581, min = 18, max = 23, zone = 40,   x = 42.5, y = 71.7, name = "The Deadmines" },
@@ -8262,6 +8271,11 @@ end
 -- the first entry is the version you are running (v = nil means "this version")
 ns.CHANGELOG = {
     { v = nil, lines = {
+        "Dungeon Prep now covers all 28 dungeons on the board, including nine WoW Forever additions. Open /qn dungeons and click Prep beside a dungeon.",
+        "Across the checklists, 256 distinct quests have pickups outside the instance. Prep follows your faction's prerequisite when only one branch applies.",
+        "Pickup routes, nearby reminders and party quest-share requests now work across the expanded dungeon list.",
+    } },
+    { v = "1.7.0", lines = {
         "Starter guides: quest guides for all seven starting areas (Northshire, Coldridge Valley, Shadowglen, Valley of Trials, Camp Narache, Deathknell and Zephras Isle), levels 1 to 6.",
         "A new character is offered the guide for its starting area. You can also pick another starting area, or open the guides any time with /qn guide.",
         "The guide leads the Route Planner through every quest in order: pickups, objectives and turn-ins, including your class quests. It's named in the planner with a Stop button, and the normal route takes over when the guide ends.",

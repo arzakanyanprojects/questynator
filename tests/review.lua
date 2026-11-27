@@ -3,6 +3,16 @@
 local passed, failed = 0, 0
 local function noop() end
 
+-- Use the shipped loading order. The simulated client supplies Blizzard APIs
+-- and skips embedded UI libraries, which tools/qa.py checks separately.
+local addonFiles = {}
+for line in io.lines("Questynator.toc") do
+    local path = line:match("^%s*(.-)%s*$"):gsub("\\", "/")
+    if path:sub(1, 1) ~= "#" and path:match("%.lua$") and not path:match("^Libs/") then
+        addonFiles[#addonFiles + 1] = path
+    end
+end
+
 local function client(savedSnoozes)
     local ns, env = {}, setmetatable({}, { __index = _G })
     env._G, env.SlashCmdList = env, {}
@@ -43,8 +53,7 @@ local function client(savedSnoozes)
         IsComplete = function() return false end,
         ReadyForTurnIn = function() return false end,
     }
-    for _, path in ipairs({ "Data/QuestData.lua", "Data/JournalPickups.lua", "Data/QuestTips.lua", "Data/RewardCatalog.lua",
-                            "Data/StarterGuides.lua", "Questynator.lua", "Routes.lua", "StarterGuides.lua", "WorldMarker.lua", "RewardHunting.lua", "DungeonPrep.lua", "SmartReminders.lua" }) do
+    for _, path in ipairs(addonFiles) do
         setfenv(assert(loadfile(path)), env)("Questynator", ns)
     end
     env.eventFrame:OnEvent("ADDON_LOADED", "Questynator")
@@ -301,6 +310,15 @@ case("an empty zone suggests the best next zone and Route there lasts until you 
     assert(not ns.RouteMode() and ns.RouteSuggestion(), "the finished trip came back")
 end)
 
+case("Route there takes over from an active reward pursuit", function(ns, env)
+    emptyZoneFixture(ns, env)
+    ns.SetRewardPursuit(2041)
+    assert(ns.RouteMode() == "reward")
+    ns.TravelToZone(44)
+    assert(ns.RouteMode() == "travel", "Route there left the planner in " .. tostring(ns.RouteMode()) .. " mode")
+    assert(ns.RouteTarget().area == 44)
+end)
+
 case("the planner's Stop ends dungeon prep, then the saved reward pursuit", function(ns, env)
     env.QuestynatorDB.arrow = false
     env.level = 34
@@ -388,7 +406,10 @@ local function fakeUI(env)
             if k:match("^Get") and (k:match("Width$") or k:match("Height$")) then return function() return 100 end end
             if k == "GetFrameLevel" then return function() return 1 end end
             if k == "GetPoint" then return function() return "CENTER", nil, "CENTER", 0, 0 end end
-            if k == "IsEnabled" then return function() return true end end
+            if k == "Enable" then return function(self) self.enabled = true end end
+            if k == "Disable" then return function(self) self.enabled = false end end
+            if k == "SetEnabled" then return function(self, on) self.enabled = not not on end end
+            if k == "IsEnabled" then return function(self) return self.enabled ~= false end end
             if k:match("^[A-Z]") then return noop end
         end })
     end
@@ -449,6 +470,63 @@ case("the Quests tab shows the route column, ready quests first, and filter chip
     list = ns.BuildEntries()
     assert(#list == 1 and list[1].questID == 166)
     ns.questChip = nil
+end)
+
+local function openDungeonBoard(ns, env, mode)
+    fakeUI(env)
+    ns.BuildDungeonsView({}, env.UIParent)
+    ns.StartDungeon(721, mode)
+end
+
+local function inviteSeeker(env, name)
+    for _, row in ipairs(env.widgets) do
+        if rawget(row, "who") == name and row.action == "invite" then
+            if row:IsShown() and row.btn:IsShown() and row.btn:IsEnabled() then row.btn:OnClick() end
+            return
+        end
+    end
+    error("Missing Invite row for " .. name)
+end
+
+case("dungeon board reserves the last seat for only one seeker", function(ns, env)
+    env.party = { party1 = "One", party2 = "Two", party3 = "Three" }
+    local calls = 0
+    env.C_PartyInfo = { InviteUnit = function() calls = calls + 1 end }
+    openDungeonBoard(ns, env, "host")
+    for _, name in ipairs({ "FirstMage", "SecondMage" }) do
+        ns.OnDungeonBeacon(name, 721, 31, "S", "D", "fixture", "MAGE", 1, 0)
+    end
+    ns.RefreshDungeons()
+    inviteSeeker(env, "FirstMage")
+    inviteSeeker(env, "SecondMage")
+    assert(calls == 1 and ns.PendingHostInvites() == 1, calls .. " invites for one seat")
+end)
+
+case("dungeon board invite preserves the seeker's advertised role on joining", function(ns, env)
+    env.QuestynatorDB.roles = { D = true }
+    local invited
+    env.C_PartyInfo = { InviteUnit = function(name) invited = name end }
+    openDungeonBoard(ns, env, "host")
+    ns.OnDungeonBeacon("TestHealer", 721, 31, "S", "H", "fixture", "PRIEST", 1, 0)
+    ns.RefreshDungeons()
+    inviteSeeker(env, "TestHealer")
+    assert(invited == "TestHealer")
+    env.party.party1 = invited
+    ns.UpdateDungeonComposition()
+    assert(ns.NeedText() == "Tank, 2 DPS", "advertising " .. ns.NeedText())
+end)
+
+case("dungeon Looking sidebar shows the seeker's selected roles", function(ns, env)
+    env.QuestynatorDB.roles = { T = true, H = true }
+    openDungeonBoard(ns, env, "seek")
+    ns.RefreshDungeons()
+    for _, card in ipairs(env.widgets) do
+        if rawget(card, "mode") and rawget(card, "need") and card.mode.text == "Looking" then
+            assert(card.need.text == "Tank, Healer", "role summary was '" .. tostring(card.need.text) .. "'")
+            return
+        end
+    end
+    error("Missing Looking sidebar")
 end)
 
 case("every tab opens in the two-column layout with its left column filled", function(ns, env)
@@ -779,15 +857,14 @@ case("quest tips show in how-to-complete text", function(ns, env)
     assert(ns.QuestTips[781] and ns.QuestDetails(781):find("respawns slower", 1, true))
 end)
 
-local function prepRow(ns, final)
-    for _, row in ipairs(ns.DungeonPrepRows(796)) do
+local function prepRow(ns, final, dungeon)
+    for _, row in ipairs(ns.DungeonPrepRows(dungeon or 796)) do
         if row.final == final then return row end
     end
 end
 
 case("Scarlet Monastery shows this warrior's pickups and the first unfinished prerequisite", function(ns, env)
-    assert(ns.HasDungeonPrep(796) and not ns.HasDungeonPrep(721))
-    assert(#ns.DungeonPrepRows(796) == 2)
+    assert(ns.HasDungeonPrep(796) and not ns.HasDungeonPrep(-1))
     assert(prepRow(ns, 1050).place.name == "Librarian Mae Paledust")
     local chain = prepRow(ns, 1053)
     assert(chain.id == 261 and chain.state == "locked" and chain.depth == 2 and not chain.place)
@@ -800,6 +877,72 @@ case("Scarlet Monastery shows this warrior's pickups and the first unfinished pr
     assert(prepRow(ns, 1053).place.name == "Raleigh the Devout")
     ns.RecordQuestTurnIn(1053)
     assert(not prepRow(ns, 1053))
+end)
+
+case("every dungeon checklist contains distinct quests with mapped outdoor pickups", function(ns)
+    -- Inspect every catalog entry, including class or faction quests this character cannot take.
+    ns.QuestState = function() return "available" end
+    local dungeons = {}
+    for _, dungeon in ipairs(ns.DUNGEONS) do
+        assert(not dungeons[dungeon.id] and ns.HasDungeonPrep(dungeon.id), dungeon.name)
+        dungeons[dungeon.id] = true
+        assert(ns.UiMapForArea(dungeon.zone), dungeon.name .. " has no entrance map")
+        local rows, seen = ns.DungeonPrepRows(dungeon.id), {}
+        assert(#rows > 0, dungeon.name)
+        for _, row in ipairs(rows) do
+            local label = dungeon.name .. " quest " .. row.final
+            assert(not seen[row.final] and ns.ZoneQuest(row.final) and ns.BundledQuest(row.final), label)
+            seen[row.final] = true
+            local p = row.place
+            assert(p and not ns.HasDungeonPrep(p.area) and p.x >= 0 and p.x <= 100 and p.y >= 0 and p.y <= 100, label)
+        end
+    end
+    for _, id in ipairs({1581, 718, 16919, 16611, 16732, 16544, 16550, 16842, 16620, 16554, 16667}) do
+        assert(dungeons[id], "missing dungeon " .. id)
+    end
+end)
+
+case("Deadmines and Wailing Caverns prep respect faction and completion", function(ns, env)
+    env.level = 22
+    assert(prepRow(ns, 167, 1581).place.name == "Wilder Thistlenettle")
+    assert(not prepRow(ns, 962, 718))
+    env.UnitRace = function() return "Orc", "Orc", 2 end
+    assert(not prepRow(ns, 167, 1581))
+    assert(prepRow(ns, 962, 718).place)
+    ns.RecordQuestTurnIn(962)
+    assert(not prepRow(ns, 962, 718))
+end)
+
+case("a Forever dungeon can be prepared from the board and prompted when hosting", function(ns, env)
+    env.level = 58
+    env.QuestynatorDB.arrow = false
+    fakeUI(env)
+    ns.BuildDungeonsView({}, env.UIParent)
+    ns.StartDungeon(16667, "host")
+    ns.RefreshDungeons()
+    local reminder = ns.NextSmartReminder()
+    assert(reminder and reminder.kind == "route" and reminder.id == 16667)
+    local header
+    for _, w in ipairs(env.widgets) do
+        if w.id == 16667 and rawget(w, "prep") then header = w; break end
+    end
+    assert(header and header.prep:IsShown())
+    header.prep:OnClick()
+    local button = assert(env.find("Route to missing pickups"))
+    button:OnClick()
+    assert(env.QuestynatorPrepDungeon == 16667 and ns.RouteMode() == "prep")
+    assert(ns.RouteTarget() and ns.RouteTarget().area == 1537)
+end)
+
+case("Blackmaw prep follows the faction's prerequisite and advances after turn-in", function(ns, env)
+    env.level = 55
+    assert(prepRow(ns, 92344, 16554).id == 92345)
+    assert(not prepRow(ns, 92343, 16554))
+    env.UnitRace = function() return "Orc", "Orc", 2 end
+    local row = prepRow(ns, 92343, 16554)
+    assert(row.id == 92346 and row.depth == 1 and row.place.name == "Jediga")
+    ns.RecordQuestTurnIn(92346)
+    assert(prepRow(ns, 92343, 16554).id == 92343 and not prepRow(ns, 92344, 16554))
 end)
 
 case("prep respects Horde race and mage restrictions", function(ns, env)
@@ -855,6 +998,9 @@ case("prep advances across zones, waits for log space and restores the saved rew
     ns.PlanRoute()
     assert(ns.RouteTarget().questID == 1050)
     env.C_QuestLog.GetLogIndexForQuestID = function(id) return (id == 261 or id == 1050) and 1 or 0 end
+    ns.PlanRoute()
+    assert(ns.RouteTarget().questID == 96800, "Past Due should be the remaining Scarlet pickup")
+    env.C_QuestLog.GetLogIndexForQuestID = function(id) return (id == 261 or id == 1050 or id == 96800) and 1 or 0 end
     ns.PlanRoute()
     assert(not env.QuestynatorPrepDungeon and ns.RouteTarget().rewardItem == 2041)
 end)
@@ -956,7 +1102,8 @@ case("a reminder click rechecks eligibility and the snooze survives reload", fun
     local fresh, login = client()
     login.QuestynatorReminderSnoozes = env.QuestynatorReminderSnoozes
     fresh.CurrentZoneMaps, fresh.ArrowGeometry = ns.CurrentZoneMaps, ns.ArrowGeometry
-    assert(not fresh.NextSmartReminder())
+    local nextPickup = fresh.NextSmartReminder()
+    assert(nextPickup and nextPickup.key ~= "pickup:1050", "only the dismissed pickup should be snoozed")
     login.now = login.now + 1801
     assert(fresh.NextSmartReminder().id == 1050)
 end)
@@ -1285,6 +1432,27 @@ case("a guide waits for the level a step needs, then ends and hands over to the 
     env.done[18] = true
     ns.PlanRoute()
     assert(not ns.ActiveGuide() and env.QuestynatorGuide.finished == "test" and ns.RouteMode() ~= "guide")
+end)
+
+case("a starter guide with a full log waits without repeatedly scheduling replans", function(ns, env)
+    guideFixture(ns, env)
+    env.C_QuestLog.IsQuestLogFull = function() return true end
+    local nextFrame = {}
+    env.C_Timer.After = function(delay, fn)
+        if delay == 0 then nextFrame[#nextFrame + 1] = fn end
+    end
+    ns.SetGuide("northshire")
+    for _ = 1, 8 do
+        if #nextFrame == 0 then break end
+        local pending = nextFrame
+        nextFrame = {}
+        for _, fn in ipairs(pending) do fn() end
+    end
+    assert(#nextFrame == 0, "still scheduling next-frame work with no quest or player state change")
+    assert(ns.ActiveGuide() and not ns.RouteTarget(), "guide offered a pickup with a full log")
+    env.C_QuestLog.IsQuestLogFull = function() return false end
+    ns.PlanRoute()
+    assert(ns.RouteTarget() and ns.RouteTarget().questID == 783, "pickup did not resume")
 end)
 
 case("an item-started guide quest sends you to the mobs that drop it", function(ns, env)

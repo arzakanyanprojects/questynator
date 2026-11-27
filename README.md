@@ -85,7 +85,7 @@ The **Dungeons** tab lists the dungeons around your level. Pick your roles (Tank
 - **Host**: list your group and mark which roles you still need. Players click **Join** (or whisper you +) and get invited automatically. **Post to General** announces it in chat too.
 The pin button sets a waypoint to the dungeon entrance.
 
-Click **Prep** beside **Scarlet Monastery** for its pre-run checklist. It covers seven quests with pickups outside the instance, filtered for your character. Each row shows the first unfinished prerequisite or the objectives in your log. Hover over a listed reward to compare it with your gear.
+Click **Prep** beside any dungeon in **Dungeons** for its pre-run checklist. The 28 checklists cover the classic dungeons and the nine Forever additions. Scarlet Monastery, Blackrock Spire, Dire Maul and Stratholme each share one checklist across their wings. The checklist uses quests picked up outside the instance, filters them for your character, and shows the next known prerequisite or your current objectives. Hover over a listed equipment reward to compare it with your gear.
 
 **Pin pickup** marks one quest giver. **Route to missing pickups** visits the available givers, including prerequisite starters in other zones. Picking up a quest advances the route. The route is saved per character and your previous reward pursuit resumes when the pickups are finished or you click **Stop prep route**. Selecting a quest in the tracker keeps compass priority.
 
@@ -93,7 +93,7 @@ Click **Prep** beside **Scarlet Monastery** for its pre-run checklist. It covers
 
 ### Smart reminders
 
-Questynator checks for opportunities while you play, even with the panel and Route Planner closed. Within 200 yards of an eligible Scarlet Monastery or treasure quest giver, **Pin pickup** marks the NPC. When a party member can share a missing Scarlet Monastery quest, **Request share** whispers them. Hosting, looking for a group, requesting to join, or approaching the instance entrance can also bring up **Route to pickups**.
+Questynator checks for opportunities while you play, even with the panel and Route Planner closed. Within 200 yards of an eligible dungeon or treasure quest giver, **Pin pickup** marks the giver. **Request share** whispers a party member who can share a missing dungeon quest. Hosting, looking for a group, requesting to join, or approaching the instance entrance can also bring up **Route to pickups**.
 
 One reminder appears at a time. **Later (30 min)** dismisses that suggestion for your character across reloads. Unanswered reminders also snooze after about 25 seconds. Turn the feature off under **Options → AddOns → Questynator → Smart reminders**.
 
@@ -191,6 +191,12 @@ addon channel (`QuestynatorLFG`), so it's same-faction only, like any chat chann
 ## If something breaks
 Install BugSack + BugGrabber, reproduce, and send the error. If the button doesn't show, run `/qn debug`
 and send the output. The `## Interface:` number in the .toc is 16001; verify with `/dump select(4, GetBuildInfo())`.
+
+### Running QA
+
+From the addon repository, ask **“Run the Questynator QA agent.”** The agent checks the working copy, runs the tests and reports which behaviors still need an in-game check.
+
+To run the same offline checks yourself, use `python tools/qa.py` with Python 3 and Lupa installed (`python -m pip install lupa`). It checks the TOC and XML references, compiles the shipped Lua files, and runs the simulated-client tests. A failing case prints its name and returns a nonzero exit code. With standalone Lua 5.1, `lua tests/review.lua` runs the simulated-client tests directly.
 
 ## Contact
 Made by **Bethrayer Forever** (Horde, PvE). BattleTag: **Valacas#21304**.

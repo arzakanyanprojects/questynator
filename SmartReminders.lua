@@ -99,9 +99,11 @@ function ns.NextSmartReminder()
     local intended = QuestynatorPrepDungeon or (mine and mine.id)
         or (requestedAt and GetTime() - requestedAt < 120 and requestedDungeon)
     local level = UnitLevel("player") or 0
+    local faction = ns.PlayerFaction()
     for _, d in ipairs(ns.DUNGEONS) do
         if ns.HasDungeonPrep(d.id) and
-            (intended == d.id or (not intended and level >= d.min - 3 and level <= d.max)) then
+            (intended == d.id or (not intended and level >= d.min - 3 and level <= d.max
+                and (not d.faction or d.faction == faction))) then
             local entrance = { uiMap = ns.UiMapForArea(d.zone), area = d.zone, x = d.x, y = d.y }
             local preparing = intended == d.id or Nearby(entrance, maps, ENTRANCE_YARDS)
             local pickups = {}

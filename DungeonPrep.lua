@@ -1,26 +1,76 @@
 local _, ns = ...
 local L = ns.L
 
--- Dungeon objectives with pickups outside the instance. Keep the IDs here and
--- read eligibility, prerequisite links, givers and rewards from the shared DB.
+-- Dungeon quest IDs with pre-run pickups, checked against the Forever dungeon
+-- journal and the bundled QuestieDB records. Store the dungeon objective here;
+-- NextStep finds its prerequisite. Shared quests can belong to multiple runs.
+-- Wings use the same dungeon IDs as the group board and saved prep routes.
 local dungeons = {
-    [796] = { 1050, 1053, 1048, 1049, 1113, 1160, 1951 },
+    [16919] = { 96393, 96394, 96403 }, -- Hall of Thanes
+    [2437] = { 5722, 5723, 5725, 5728, 5761 }, -- Ragefire Chasm
+    [16611] = { 92401, 92421, 92422, 95216 }, -- Ruins of Lordaeron
+    [718] = { 914, 959, 962, 1486, 1487, 1491 }, -- Wailing Caverns
+    [1581] = { 166, 167, 168, 214, 1654, 2040, 92753, 95036 }, -- The Deadmines
+    [209] = { 1013, 1014, 1098, 1654, 1740, 78307, 95036 }, -- Shadowfang Keep
+    [717] = { 377, 378, 386, 387, 388, 391 }, -- The Stockade
+    [719] = { 971, 1198, 1199, 1275, 1654, 1740, 6563, 6565, 6921, 95036 }, -- Blackfathom Deeps
+    [16732] = { 95646, 95647, 95682, 95697, 95772, 98815 }, -- Excavation Site: Wetlands
+    [16544] = { 92456, 92457, 92458, 92489, 96984, 96986, 96988 }, -- City of Dalaran
+    [721] = { 2841, 2922, 2924, 2926, 2928, 2929, 2930, 2962 }, -- Gnomeregan
+    [491] = { 1101, 1102, 1109, 1221 }, -- Razorfen Kraul
+    [796] = { 1048, 1049, 1050, 1053, 1113, 1160, 1951, 78699, 79946, 96800 },
+    [16550] = { 95775, 95776, 95787, 95788, 95789, 95791, 96774, 97130 }, -- The Drowned City
+    [722] = { 3341, 3636, 6521, 6626, 93604, 96773, 97196 }, -- Razorfen Downs
+    [16842] = { 94968, 94972, 94975, 94982, 94983, 94984, 96771 }, -- Krol'dok Stronghold
+    [1337] = { 17, 704, 709, 722, 1139, 1360, 1956, 2200, 2202, 2283, 2284, 2339, 2342, 2398, 2418 }, -- Uldaman
+    [1176] = { 2768, 2770, 2846, 2865, 2936, 2991, 3042, 3527, 80411, 82084, 96770, 96775 }, -- Zul'Farrak
+    [2100] = { 7028, 7029, 7041, 7044, 7064, 7065, 7067, 7068, 7070, 93404, 96776 }, -- Maraudon
+    [16620] = { 95262, 95309, 96332, 96334, 96381, 96772 }, -- Alcaz Prison
+    [1477] = { 1445, 1446, 1475, 3446, 3447, 3528, 4143, 4146, 8232, 8236, 8253, 8257, 8413, 8418, 8422, 8425, 9053 }, -- Sunken Temple
+    [1584] = { 3802, 3907, 3981, 4003, 4024, 4063, 4081, 4082, 4123, 4126, 4132, 4134, 4136, 4241, 4263, 4286, 4341, 4362, 7201, 7848, 97197 }, -- Blackrock Depths
+    [1583] = { 4701, 4724, 4729, 4734, 4735, 4764, 4768, 4788, 4862, 4866, 4903, 4974, 4981, 5081, 5102, 6502, 6569, 6602, 8966, 8989, 8995 }, -- Blackrock Spire
+    [2557] = { 5247, 5526, 7441, 7481, 7482, 7488, 7489, 7631, 7643, 8967, 8990 }, -- Dire Maul
+    [16554] = { 92065, 92066, 92069, 92343, 92344, 97173, 97198, 97327, 99187 }, -- Blackmaw Hold
+    [2057] = { 4771, 5341, 5343, 5382, 5384, 5466, 5515, 5529, 7629, 7647, 8258, 8969, 8992, 97169 }, -- Scholomance
+    [2017] = { 5212, 5213, 5214, 5243, 5251, 5263, 5282, 5463, 5848, 6163, 8945, 8968, 8991 }, -- Stratholme
+    [16667] = { 95924, 95925, 95926, 95928, 97049 }, -- Shaper's Terrace
 }
 
 function ns.HasDungeonPrep(id) return dungeons[id] ~= nil end
 
 local function Title(id)
-    return ns.AnyQuestTitle(id, ns.ZoneQuest(id).name)
+    local quest = ns.ZoneQuest(id)
+    return ns.AnyQuestTitle(id, quest and quest.name)
 end
 
--- The curated paths are linear. Never choose a branch on the player's behalf.
+-- Follow required steps and faction-specific alternatives. If several
+-- alternatives remain possible, leave the choice to the player.
+local function Prerequisite(quest)
+    local candidate
+    for _, pre in ipairs(quest.pre) do
+        if ns.QuestState(pre) ~= "done" then
+            if candidate then return nil end
+            candidate = pre
+        end
+    end
+    if #quest.preAny == 0 then return candidate end
+    local alternative, count = nil, 0
+    for _, pre in ipairs(quest.preAny) do
+        local state = ns.QuestState(pre)
+        if state == "done" then return candidate end
+        if state ~= "hidden" then
+            alternative, count = pre, count + 1
+        end
+    end
+    if not candidate and count == 1 then return alternative end
+end
+
 local function NextStep(id, state)
     local depth, seen = 0, { [id] = true }
     while state == "locked" do
         local quest = ns.ZoneQuest(id)
-        if #quest.pre + #quest.preAny ~= 1 then break end
-        local pre = quest.pre[1] or quest.preAny[1]
-        if seen[pre] then break end
+        local pre = quest and Prerequisite(quest)
+        if not pre or seen[pre] then break end
         local prior = ns.QuestState(pre)
         if prior == "done" or prior == "hidden" or prior == "unknown" then break end
         id, state, depth, seen[pre] = pre, prior, depth + 1, true
@@ -37,7 +87,7 @@ function ns.DungeonPrepRows(dungeon)
             local row = { final = final, id = id, state = current, depth = depth }
             if current == "available" then
                 local giver = ns.QuestGiver(id)
-                if giver then
+                if giver and not dungeons[giver.area] then
                     giver.uiMap = ns.UiMapForArea(giver.area)
                     if giver.uiMap then row.place = giver end
                 end

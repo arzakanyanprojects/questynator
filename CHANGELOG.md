@@ -1,3 +1,13 @@
+# Questynator 1.7.1
+
+## Dungeon Prep for every dungeon
+
+- Open `/qn dungeons` and click **Prep** beside any of the 28 dungeons on the board. The checklists cover 256 distinct quests with pickups outside the instance. Each character sees the quests that fit their faction, class and progress.
+- Nine WoW Forever dungeons join the board with entrance pins and prep checklists. They are Hall of Thanes, Ruins of Lordaeron, Excavation Site: Wetlands, City of Dalaran, The Drowned City, Krol'dok Stronghold, Alcaz Prison, Blackmaw Hold and Shaper's Terrace.
+- **Route to missing pickups** visits the available givers. When a chain has different Alliance and Horde starters, Prep follows the branch your character can take.
+- Smart reminders now cover the expanded dungeon list. They can flag a nearby pickup, offer a route when you host or approach the entrance, or let you request a share from an eligible party member.
+- Scarlet Monastery, Blackrock Spire, Dire Maul and Stratholme each use one checklist across their wings.
+
 # Questynator 1.7.0
 
 ## Starter guides
